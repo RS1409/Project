@@ -37,6 +37,7 @@ public class User implements Serializable {
     private Integer age;
 
     @Lob
+    @Column(name = "profile_image")
     private byte[] img;
 
     public User(){}

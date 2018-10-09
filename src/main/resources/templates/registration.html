@@ -10,7 +10,7 @@
         <h1 th:text="${message}"></h1>
     </div>
 
-    <form action="#" th:action="@{/addUser}" th:object="${user}" method="post">
+    <form action="#" th:action="@{/addUser}" th:object="${user}" method="post" enctype="multipart/form-data">
         <table>
 
             <tr>
@@ -47,6 +47,10 @@
                 <td>Age:</td>
                 <td><input type="text" th:field="*{age}" /></td>
                 <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+            </tr>
+
+            <tr>
+                Profile img: <input type="file" name="file"/>
             </tr>
 
         </table>
