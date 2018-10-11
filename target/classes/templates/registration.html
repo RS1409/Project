@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>Person Validator</title>
+    <link href="css/errorStyle.css" rel="stylesheet">
 </head>
 <body>
     <h1>Please fill the form!</h1>
     <div th:if="${message}">
-        <h1 th:text="${message}"></h1>
+        <h1 class="errors" th:text="${message}"></h1>
     </div>
 
     <form action="#" th:action="@{/addUser}" th:object="${user}" method="post" enctype="multipart/form-data">
@@ -15,38 +16,38 @@
 
             <tr>
                 <td>Username:</td>
-                <td><input type="text" th:field="*{userName}" /></td>
-                <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Username Error</td>
+                <td><input type="text" th:field="*{username}" /></td>
+                <td class="errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
             </tr>
 
             <tr>
                 <td>Password:</td>
                 <td><input type="text" th:field="*{password}" /></td>
-                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                <td class="errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
             </tr>
 
             <tr>
                 <td>First name:</td>
                 <td><input type="text" th:field="*{firstName}" /></td>
-                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
+                <td class="errors" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
             </tr>
 
             <tr>
                 <td>Last name:</td>
                 <td><input type="text" th:field="*{lastName}" /></td>
-                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
+                <td class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
             </tr>
 
             <tr>
                 <td>Email:</td>
                 <td><input type="email" th:field="*{email}" /></td>
-                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+                <td class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
             </tr>
 
             <tr>
                 <td>Age:</td>
                 <td><input type="text" th:field="*{age}" /></td>
-                <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+                <td class="errors" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
             </tr>
 
             <tr>
@@ -54,8 +55,8 @@
             </tr>
 
         </table>
-
         <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
     </form>
 </body>
 </html>

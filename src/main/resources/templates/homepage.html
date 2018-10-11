@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Hello World!</title>
+</head>
+
+<body>
+    <!--<div th:if="${user.isAdmin()}">-->
+        <!--<span><a href="/user">User list</a></span>-->
+    <!--</div>-->
+
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+    <div th:if="*{user.img != null}">
+        <img width="100" height="100"  th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+    </div>
+
+    <!--<td>-->
+        <!--<a th:href="@{|useredit/${user.id}|}">edit</a>-->
+    <!--</td>-->
+
+    <table border="1">
+        <tr>
+            <td>Username: </td>
+            <td>Password: </td>
+        </tr>
+        <tr>
+            <td><div th:text="${user.username}"></div></td>
+            <td><div th:text="${user.password}"></div></td>
+        </tr>
+    </table>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</body>
+
+</html>

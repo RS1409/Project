@@ -2,6 +2,8 @@ package com.app.controller;
 
 
 import java.io.ByteArrayOutputStream;
+
+import com.app.model.Roles;
 import com.app.model.User;
 import com.app.repository.UserRepository;
 
@@ -10,15 +12,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.validation.Valid;
 import java.io.*;
+import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -42,18 +42,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/addUser")
-    public String checkUserInfo(@Valid User user,
-                                //@RequestParam(required = false) MultipartFile file,
+    public String checkUserInfo(@Valid @ModelAttribute User user,
                                 BindingResult bindingResult,
-                                Model model) {
-
+                                Model model,
+                                @RequestParam("file") MultipartFile file)
+    {
         if (bindingResult.hasErrors()) {
             System.out.println("Persistance failed");
             return "registration";
         }
 
         else{
-
             if(findByName(user) != null)
             {
                 model.addAttribute("message", "User with this name already exists");
@@ -66,16 +65,19 @@ public class RegistrationController {
                 return "registration";
             }
 
-//            try {
-//                if(file != null) user.setImg(file.getBytes());
-//                else {
-//                    File defaultImg = new ClassPathResource("imageHP.jpg").getFile();
-//                    user.setImg(getBytes(defaultImg));
-//                }
-//            }catch (IOException e) {
-//                e.printStackTrace();
-//            }
 
+            try {
+                if(file != null) user.setImg(file.getBytes());
+                else {
+                    File defaultImg = new ClassPathResource("imageHP.jpg").getFile();
+                    user.setImg(getBytes(defaultImg));
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(user);
+            user.setActive(true);
+            user.setRoles(Collections.singleton(Roles.USER));
             repo.save(user);
             System.out.println("User added");
             return "redirect:/";
@@ -84,7 +86,7 @@ public class RegistrationController {
 
     public User findByName(User user)
     {
-        return repo.findByUserName(user.getUserName());
+        return repo.findByUsername(user.getUsername());
     }
 
     public User findByEmail(User user)
