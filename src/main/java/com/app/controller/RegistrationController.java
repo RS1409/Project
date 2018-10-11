@@ -73,7 +73,7 @@ public class RegistrationController {
             try {
                 if(file.getSize() != 0) user.setImg(file.getBytes());
                 else {
-                    File defaultImg = new ClassPathResource("/images/defaultProfileImg.jpg").getFile();
+                    File defaultImg = new ClassPathResource("/public/images/defaultProfileImg.jpg").getFile();
                     System.out.println(defaultImg.length());
                     user.setImg(getBytes(defaultImg));
                 }
