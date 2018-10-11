@@ -3,28 +3,55 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example </title>
+    <link href="static/css/loginStyle.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=3, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <div class="content">
-        <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
 
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
+<div class="d-flex justify-content-center align-items-center container ">
+    <div class="row mt-5">
+        <div class="jumbotron">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">User name</label>
+                    <input type="test" name="username" class="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" placeholder="User name">
+                </div>
 
-        <div>
-            <form class="loginForm" th:action="@{/login}" method="post">
-                <div><label> User Name : <input type="text" name="username"/> </label></div>
-                <div><label> Password: <input type="password" name="password"/> </label></div>
-                <div><input type="submit" value="Sign In"/></div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                           placeholder="Password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Log in</button>
+
+                <a th:href="@{/reg}">Register!</a>
             </form>
-        </div>
-
-        <div>
-            <a th:href="@{/reg}">Register!</a>
+            <div th:if="${param.error}">
+                Invalid username or password.
+            </div>
         </div>
     </div>
+</div>
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 </html>
