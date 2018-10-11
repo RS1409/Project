@@ -9,6 +9,7 @@ import com.app.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,9 @@ public class RegistrationController {
 
     @Autowired
     private UserRepository repo;
+
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
 
 
@@ -67,17 +71,20 @@ public class RegistrationController {
 
 
             try {
-                if(file != null) user.setImg(file.getBytes());
+                if(file.getSize() != 0) user.setImg(file.getBytes());
                 else {
-                    File defaultImg = new ClassPathResource("imageHP.jpg").getFile();
+                    File defaultImg = new ClassPathResource("/images/defaultProfileImg.jpg").getFile();
+                    System.out.println(defaultImg.length());
                     user.setImg(getBytes(defaultImg));
                 }
             }catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(user);
+
             user.setActive(true);
             user.setRoles(Collections.singleton(Roles.USER));
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            System.out.println(user);
             repo.save(user);
             System.out.println("User added");
             return "redirect:/";

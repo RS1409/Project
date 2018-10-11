@@ -22,7 +22,7 @@ public class User implements Serializable, UserDetails {
     private String username;
 
     @NotNull(message = "{user.password.empty}")
-    @Size(min=5, max=15, message = "{user.password.size}")
+    @Size(min=5, message = "{user.password.size}")
     private String password;
 
     @NotNull(message = "{user.firstname.empty}")
