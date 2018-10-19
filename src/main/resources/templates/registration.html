@@ -1,62 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8" />
-    <title>Person Validator</title>
-    <link href="static/css/errorStyle.css" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <title>AssBook</title>
+
+    <link href="css/errorStyle.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
+
 <body>
-    <h1>Please fill the form!</h1>
+
     <div th:if="${message}">
         <h1 class="errors" th:text="${message}"></h1>
     </div>
 
-    <form action="#" th:action="@{/addUser}" th:object="${user}" method="post" enctype="multipart/form-data">
-        <table>
 
-            <tr>
-                <td>Username:</td>
-                <td><input type="text" th:field="*{username}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
-            </tr>
+    <div class="align-items-center container">
+        <div class="jumbotron ">
+            <div th:insert="fragments :: form (user=${user})"></div>
+        </div>
+    </div>
+</div>
 
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" th:field="*{password}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-            </tr>
 
-            <tr>
-                <td>First name:</td>
-                <td><input type="text" th:field="*{firstName}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</td>
-            </tr>
-
-            <tr>
-                <td>Last name:</td>
-                <td><input type="text" th:field="*{lastName}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</td>
-            </tr>
-
-            <tr>
-                <td>Email:</td>
-                <td><input type="email" th:field="*{email}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
-            </tr>
-
-            <tr>
-                <td>Age:</td>
-                <td><input type="text" th:field="*{age}" /></td>
-                <td class="errors" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
-            </tr>
-
-            <tr>
-                Profile img: <input type="file" name="file"/>
-            </tr>
-
-        </table>
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-    </form>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 </body>
 </html>

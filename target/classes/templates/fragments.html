@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/errorStyle.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<form class="form-horizontal" th:fragment="registrationForm (user)" action="#" th:action="@{/addUser}"
+      th:object="${user}" method="post" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <div class="col-md-6 ">
+            <p class="font-roboto">Fill the form to register!</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="username">Username:</label>
+        <div class="col-lg-12">
+            <input type="text" class="form-control" id="username" placeholder="Enter username"
+                   th:field="*{username}"/>
+            <td class="errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+                Error
+            </td>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="password">Password:</label>
+        <div class="col-lg-12">
+            <input type="text" class="form-control" id="password" placeholder="Enter password"
+                   th:field="*{password}"/>
+            <td class="errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+                Error
+            </td>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="firstName">Name:</label>
+        <div class="col-lg-12">
+            <input type="text" class="form-control" id="firstName" placeholder="Enter your name"
+                   th:field="*{firstName}"/>
+            <td class="errors" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name
+                Error
+            </td>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="lastName">Last name:</label>
+        <div class="col-lg-12">
+            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"
+                   th:field="*{lastName}"/>
+            <td class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">First Name
+                Error
+            </td>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Email:</label>
+        <div class="col-lg-12">
+            <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                   th:field="*{email}"/>
+            <td class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">First Name Error
+            </td>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="age">Age:</label>
+        <div class="col-lg-12">
+            <input type="text" class="form-control" id="age" placeholder="Enter your age"
+                   th:field="*{age}"/>
+            <td class="errors" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">First Name Error</td>
+        </div>
+    </div>
+
+    <div class="file-field">
+        <a class="btn-floating peach-gradient mt-0 float-left">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            <input type="file" name="file">
+        </a>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload your file">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+        </div>
+    </div>
+
+</form>
+</body>
+
+</html>
