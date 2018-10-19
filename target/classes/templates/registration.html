@@ -22,8 +22,12 @@
 
 
     <div class="align-items-center container">
-        <div class="jumbotron ">
-            <div th:insert="fragments :: form (user=${user})"></div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="jumbotron">
+                    <div th:insert="fragments :: form (user=${user})"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
