@@ -4,7 +4,8 @@
     <meta charset="UTF-8"/>
     <title>AssBook</title>
 
-    <link href="css/errorStyle.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,7 +18,7 @@
 <body>
 
     <div th:if="${message}">
-        <h1 class="errors" th:text="${message}"></h1>
+        <h1 class="alert alert-danger" th:text="${message}"></h1>
     </div>
 
 

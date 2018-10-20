@@ -3,6 +3,7 @@ package com.app.controller;
 
 import java.io.ByteArrayOutputStream;
 
+import com.app.Service.ByteConverter;
 import com.app.model.Roles;
 import com.app.model.User;
 import com.app.repository.UserRepository;
@@ -75,7 +76,7 @@ public class RegistrationController {
                 else {
                     File defaultImg = new ClassPathResource("/public/images/defaultProfileImg.jpg").getFile();
                     System.out.println(defaultImg.length());
-                    user.setImg(getBytes(defaultImg));
+                    user.setImg(ByteConverter.getBytes(defaultImg));
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -101,15 +102,5 @@ public class RegistrationController {
         return repo.findByEmail(user.getEmail());
     }
 
-    public byte[] getBytes(File file) throws FileNotFoundException, IOException
-    {
-        byte[] buffer = new byte[10_000];
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        FileInputStream fis = new FileInputStream(file);
-        int read;
-        while((read = fis.read(buffer)) != -1) bos.write(buffer, 0, read);
-        fis.close();
-        bos.close();
-        return bos.toByteArray();
-    }
+
 }

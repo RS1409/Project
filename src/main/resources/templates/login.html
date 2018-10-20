@@ -33,7 +33,7 @@
                 <a th:href="@{/reg}">Register!</a>
             </form>
             <div th:if="${param.error}">
-                Invalid username or password.
+                <div class="alert alert-danger">Incorrect login or password</div>
             </div>
         </div>
     </div>

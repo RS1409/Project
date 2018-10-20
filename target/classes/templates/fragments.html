@@ -4,27 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="css/errorStyle.css" rel="stylesheet">
-
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
 
 </head>
 
 <body>
 <form class="form-horizontal" th:fragment="registrationForm (user)" action="#" th:action="@{/addUser}"
       th:object="${user}" method="post" enctype="multipart/form-data">
-    <div class="col-md-12">
-        <div class="col-md-6 ">
-            <p class="font-roboto">Fill the form to register!</p>
+
+    <div>
+        <div class="col-md-12 col-md-offset-4">
+            <h1 style="font-family: 'Acme', sans-serif; font-size: 48px;">Fill the registration form.</h1>
         </div>
     </div>
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="username">Username:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="username" placeholder="Enter username"
                    th:field="*{username}"/>
-            <td class="errors" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
                 Error
-            </td>
+            </div>
         </div>
     </div>
 
@@ -34,9 +35,9 @@
         <div class="col-lg-12">
             <input type="text" class="form-control" id="password" placeholder="Enter password"
                    th:field="*{password}"/>
-            <td class="errors" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
                 Error
-            </td>
+            </div>
         </div>
     </div>
 
@@ -45,9 +46,10 @@
         <div class="col-lg-12">
             <input type="text" class="form-control" id="firstName" placeholder="Enter your name"
                    th:field="*{firstName}"/>
-            <td class="errors" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First
+                Name
                 Error
-            </td>
+            </div>
         </div>
     </div>
 
@@ -56,9 +58,9 @@
         <div class="col-lg-12">
             <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"
                    th:field="*{lastName}"/>
-            <td class="errors" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">First Name
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">First Name
                 Error
-            </td>
+            </div>
         </div>
     </div>
 
@@ -67,8 +69,8 @@
         <div class="col-lg-12">
             <input type="email" class="form-control" id="email" placeholder="Enter your email"
                    th:field="*{email}"/>
-            <td class="errors" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">First Name Error
-            </td>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">First Name Error
+            </div>
         </div>
     </div>
 
@@ -77,7 +79,8 @@
         <div class="col-lg-12">
             <input type="text" class="form-control" id="age" placeholder="Enter your age"
                    th:field="*{age}"/>
-            <td class="errors" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">First Name Error</td>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">First Name Error
+            </div>
         </div>
     </div>
 
@@ -87,7 +90,6 @@
             <input type="file" id="image" name="file">
         </div>
     </div>
-
 
 
     <div class="form-group">
