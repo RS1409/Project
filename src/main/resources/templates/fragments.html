@@ -47,8 +47,7 @@
             <input type="text" class="form-control" id="firstName" placeholder="Enter your name"
                    th:field="*{firstName}"/>
             <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First
-                Name
-                Error
+                Name Error
             </div>
         </div>
     </div>
