@@ -14,12 +14,12 @@
 
     <div>
         <div class="col-md-12 col-md-offset-4">
-            <h1 style="font-family: 'Acme', sans-serif; font-size: 48px;">Fill the registration form.</h1>
+            <h1 style="font-family: 'Acme', sans-serif; font-size: 40px;">Fill the registration form.</h1>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="username">Username:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="username">Username:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="username" placeholder="Enter username"
                    th:field="*{username}"/>
@@ -31,7 +31,7 @@
 
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="password">Password:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="password">Password:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="password" placeholder="Enter password"
                    th:field="*{password}"/>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="firstName">Name:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="firstName">Name:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="firstName" placeholder="Enter your name"
                    th:field="*{firstName}"/>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="lastName">Last name:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="lastName">Last name:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"
                    th:field="*{lastName}"/>
@@ -64,9 +64,9 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="email">Email:</label>
+        <label class="control-label col-sm-2"  style="font-family: 'Acme', sans-serif; font-size: 18px;" for="email">Email:</label>
         <div class="col-lg-12">
-            <input type="email" class="form-control" id="email" placeholder="Enter your email"
+            <input type="text" class="form-control" id="email" placeholder="Enter your email"
                    th:field="*{email}"/>
             <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">First Name Error
             </div>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="age">Age:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="age">Age:</label>
         <div class="col-lg-12">
             <input type="text" class="form-control" id="age" placeholder="Enter your age"
                    th:field="*{age}"/>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="image">Profile image:</label>
+        <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="image">Profile image:</label>
         <div class="col-lg-12">
             <input type="file" id="image" name="file">
         </div>
@@ -94,8 +94,8 @@
     <div class="form-group">
         <div class="row" align="center">
             <div class="col-sm-offset-2 col-sm-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-primary">Reset</button>
+                <button type="submit"  style="font-family: 'Acme', sans-serif; font-size: 18px;" class="btn btn-primary">Submit</button>
+                <button type="reset" style="font-family: 'Acme', sans-serif; font-size: 18px;" class="btn btn-primary">Reset</button>
             </div>
         </div>
     </div>

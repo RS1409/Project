@@ -34,7 +34,7 @@ public class User implements Serializable, UserDetails {
     private String lastName;
 
     @Email(message = "{user.email}")
-    @NotNull(message = "{user.email}")
+    @NotEmpty(message = "{user.email}")
     private String email;
 
     @NotNull(message = "{user.age.empty}")
