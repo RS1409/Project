@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" style="height: 100%;">
 <head>
     <meta charset="UTF-8"/>
     <title>AssBook</title>
@@ -15,22 +15,23 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
-<body>
-
-    <div th:if="${message}">
-        <h1 class="alert alert-danger" th:text="${message}"></h1>
-    </div>
+<body style="height: 100%;">
+<div class="view"
+     style="background-image: url('https://i.ytimg.com/vi/aSMH1yivaZo/maxresdefault.jpg');
+            background-repeat: no-repeat; background-size: cover;
+            height: 100%; background-position: center center;">
 
 
     <div class="align-items-center container">
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-12">
-                <div class="jumbotron">
-                    <div th:insert="fragments :: form (user=${user})"></div>
+                <div class="jumbotron mt-5">
+                    <div th:insert="fragments/registrationFragment :: form (user=${user})"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
