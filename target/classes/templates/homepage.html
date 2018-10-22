@@ -2,38 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Hello World!</title>
+    <title>AssBook</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 
 <body>
-    <!--<div th:if="${user.isAdmin()}">-->
-        <!--<span><a href="/user">User list</a></span>-->
-    <!--</div>-->
+    <div th:insert="fragments/navbarFragment :: navBar" ></div>
 
-    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
-    <div th:if="*{user.img != null}">
-        <img width="100" height="100"  th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
-    </div>
 
-    <!--<td>-->
-        <!--<a th:href="@{|useredit/${user.id}|}">edit</a>-->
-    <!--</td>-->
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
+<div th:if="*{user.img != null}">
+    <img width="100" height="100"
+         th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+</div>
+<div>
     <table border="1">
         <tr>
-            <td>Username: </td>
-            <td>Password: </td>
+            <td>Username:</td>
+            <td>Password:</td>
         </tr>
         <tr>
-            <td><div th:text="${user.username}"></div></td>
-            <td><div th:text="${user.password}"></div></td>
+            <td>
+                <div th:text="${user.username}"></div>
+            </td>
+            <td>
+                <div th:text="${user.password}"></div>
+            </td>
         </tr>
     </table>
+</div>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
