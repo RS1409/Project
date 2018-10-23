@@ -18,14 +18,16 @@
 <body style="height: 100%;">
 <div class="view"
      style="background-image: url('https://i.ytimg.com/vi/aSMH1yivaZo/maxresdefault.jpg');
-            background-repeat: no-repeat; background-size: cover;
-            height: 100%; background-position: center center;">
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+            background-position: center center;">
 
 
     <div class="align-items-center container">
         <div class="row">
             <div class="col-12">
-                <div class="jumbotron mt-5">
+                <div class="jumbotron mt-2 py-0">
                     <div th:insert="fragments/registrationFragment :: form (user=${user})"></div>
                 </div>
             </div>
