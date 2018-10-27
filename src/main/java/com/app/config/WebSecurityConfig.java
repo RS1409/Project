@@ -28,17 +28,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/register", "/reg", "/addUser").permitAll()
-                    .antMatchers("/**").permitAll()
+                    .antMatchers("/resources/**").permitAll()
                     .anyRequest()
                     .authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/mypage")
                     .permitAll()
                 .and()
                     .logout()
                     .permitAll();
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -15,7 +15,14 @@ public class HomeController {
     UserRepository userRepo;
 
     @GetMapping("/")
+    public String redirectHome()
+    {
+        return "redirect:/mypage";
+    }
+
+    @GetMapping("/mypage")
     public String getHome(@AuthenticationPrincipal User loggedUser, Model model)
+
     {
         User user = userRepo.findByUsername(loggedUser.getUsername());
         System.out.println(user.toString());
