@@ -59,7 +59,7 @@
                 <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="password">Name:</label>
             </div>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="firstName" placeholder="Enter firstName"
+                <input type="text" class="form-control" id="firstName" placeholder="Enter first name"
                        th:field="*{firstName}"/>
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name
                     Error
@@ -71,10 +71,10 @@
     <div class="form-group">
         <div class="row">
             <div class="col-lg-2">
-                <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="lastName">LastName:</label>
+                <label class="control-label col-lg-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="lastName">Surname:</label>
             </div>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="lastName" placeholder="Enter firstName"
+                <input type="text" class="form-control" id="lastName" placeholder="Enter last name"
                        th:field="*{lastName}"/>
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name
                     Error
@@ -89,7 +89,7 @@
                 <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="email">Email:</label>
             </div>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="email" placeholder="Enter firstName"
+                <input type="text" class="form-control" id="email" placeholder="Enter email"
                        th:field="*{email}"/>
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email
                     Error
@@ -104,7 +104,7 @@
                 <label class="control-label col-sm-2" style="font-family: 'Acme', sans-serif; font-size: 18px;" for="age">Age:</label>
             </div>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="age" placeholder="Enter firstName"
+                <input type="number" class="form-control" id="age" placeholder="Enter age"
                        th:field="*{age}"/>
                 <div class="alert alert-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age
                     Error

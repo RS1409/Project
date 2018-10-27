@@ -14,24 +14,24 @@
         <div class="row w-100 p-0">
             <div class="col col-md-1 pt-1" align="center">
                 <div class="navbar-header">
-                    <label class="navbar-brand" style="font-family: 'Acme', sans-serif; color: red; font-size: 22px;">ASSBOOK</label>
+                    <label class="navbar-brand" id="brand">ASSBOOK</label>
                 </div>
             </div>
             <div class="col col-md-8" align="center">
                 <div class="d-flex justify-content-between">
-                    <div class="col pt-2" align="center"><a th:href="@{/}"><label style="font-family: 'Acme', sans-serif; font-size: 22px;">Homepage</label></a></div>
-                    <div class="col pt-2" align="center"><a href="#"><label style="font-family: 'Acme', sans-serif; font-size: 22px;">Link_1</label></a></div>
-                    <div class="col pt-2" align="center"><a href="#"><label style="font-family: 'Acme', sans-serif; font-size: 22px;">Link_2</label></a></div>
+                    <div class="col pt-2" align="center"><a th:href="@{/}"><label class="navButton">Homepage</label></a></div>
+                    <div class="col pt-2" align="center"><a href="#"><label class="navButton">Link_1</label></a></div>
+                    <div class="col pt-2" align="center"><a href="#"><label class="navButton">Link_2</label></a></div>
                 </div>
             </div>
             <div class="col col-md-3">
                 <form class="navbar-form navbar-left" action="/action_page.php">
                     <div class="row pt-2" align="center">
                         <div class="col">
-                            <input type="text" width="10px" class="form-control" placeholder="Search song">
+                            <input type="text" width="10px" class="form-control" placeholder="Search...">
                         </div>
                         <div class="col">
-                            <input type="submit" value="Search" style="font-family: 'Acme', sans-serif; font-size: 18px;" class="btn btn-default"/>
+                            <input id="navSearch" type="submit" value="Search" class="btn btn-default"/>
                         </div>
                     </div>
                 </form>

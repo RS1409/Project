@@ -3,8 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>AssBook</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/profileImg.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -12,15 +13,27 @@
 
 <body>
     <div th:insert="fragments/navbarFragment :: navBar" ></div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="container ml-3">
+                <br class="d-flex justify-content-center h-100">
+                    <div class="row">
+                        <p><h1 th:inline="text">Welcome back [[${#httpServletRequest.remoteUser}]]!</h1> </p>
+                    </div>
+                    <div class="row">
+                        <div class="image_outer_container">
+                            <div class="green_icon"></div>
+                            <div class="image_inner_container">
+                                <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
-<div th:if="*{user.img != null}">
-    <img width="100" height="100"
-         th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
-</div>
 <div>
     <table border="1">
         <tr>

@@ -1,0 +1,17 @@
+.navButton{
+    font-family: 'Acme', sans-serif;
+    font-size: 22px;
+    color: blue;
+}
+
+#brand{
+    font-family: 'Acme', sans-serif;
+    color: red;
+    font-size: 22px;
+}
+
+#navSearch{
+    font-family: 'Acme', sans-serif;
+    font-size: 18px;
+    color: blue;
+}
