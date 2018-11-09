@@ -10,6 +10,8 @@ import java.util.List;
 @Table(name = "posts")
 public class Post implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_post")
@@ -18,19 +20,30 @@ public class Post implements Serializable {
     private String content;
     private LocalDate date;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name="post_id", referencedColumnName = "id_post")
-    private List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "`user_post`")
+    private User user;
 
-    public Post() {
-        this.date = LocalDate.now();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "`user_post`")
+    private List<Comment> comments;
+    {
         this.comments = new ArrayList<>();
     }
+
+    public Post() {}
 
     public Post(String content, LocalDate date) {
         this.content = content;
         this.date = date;
-        this.comments = new ArrayList<>();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+</head>
+<body>
+<div th:fragment="post (user)">
+    <div th:each="post: ${user.posts}">
+        <div class="container bootstrap snippet">
+            <div class="col-md-12">
+                <div class="panel panel-white post panel-shadow">
+                    <div class="post-heading">
+                        <div class="pull-left image">
+                            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"
+                                 class="img-circle avatar"
+                                 alt="user profile image">
+                        </div>
+                        <div class="pull-left meta">
+                            <div class="title h5">
+                                <b th:text="${user.username}"></b> made a post.
+                                <b th:text="${post.date}"></b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-description">
+                        <p th:text="${post.content}"></p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Add a comment" type="text">
+                            <span class="input-group-addon">
+                                <a href="#"><Button class="btn btn-primary">Add Comment</Button></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+</body>
+</html>

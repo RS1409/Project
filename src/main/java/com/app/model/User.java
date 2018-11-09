@@ -7,11 +7,15 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,8 +57,19 @@ public class User implements Serializable, UserDetails {
 
     private boolean active;
 
-    public User(){}
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderBy("id DESC")
+    private List<Post> posts;
 
+    public User(){
+        this.posts = new LinkedList<>();
+    }
+
+    public void addPostToUser(Post post)
+    {
+        post.setUser(this);
+        this.getPosts().add(post);
+    }
 
     public String getUsername() {
         return username;
@@ -159,6 +174,14 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(LinkedList<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
