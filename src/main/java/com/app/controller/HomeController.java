@@ -4,6 +4,7 @@ import com.app.model.Post;
 import com.app.model.User;
 import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
+import com.app.service.DateTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 @Controller
 public class HomeController {
@@ -44,7 +48,7 @@ public class HomeController {
     @PostMapping("/addPost")
     private String addPost(@AuthenticationPrincipal User user, @RequestParam String postContent)
     {
-        Post post = new Post(postContent, LocalDate.now());
+        Post post = new Post(postContent, DateTimeService.getCurrentTime());
         user.addPostToUser(post);
         System.out.println(post);
         System.out.println(user.getPosts().size());

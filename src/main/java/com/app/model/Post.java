@@ -3,6 +3,7 @@ package com.app.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Post implements Serializable {
     private Long id;
 
     private String content;
-    private LocalDate date;
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "`user_post`")
@@ -33,7 +34,7 @@ public class Post implements Serializable {
 
     public Post() {}
 
-    public Post(String content, LocalDate date) {
+    public Post(String content, String date) {
         this.content = content;
         this.date = date;
     }
@@ -62,11 +63,11 @@ public class Post implements Serializable {
         this.content = content;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
