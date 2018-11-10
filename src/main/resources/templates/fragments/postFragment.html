@@ -29,10 +29,42 @@
                     </div>
                     <div class="post-footer">
                         <div class="input-group">
-                            <input class="form-control" placeholder="Add a comment" type="text">
-                            <span class="input-group-addon">
-                                <a href="#"><Button class="btn btn-primary">Add Comment</Button></a>
-                            </span>
+                            <div class="row w-100">
+                                <div class="col-md-12">
+                                    <form method="post" action="#" th:action="@{/commentPost}">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <input class="form-control" placeholder="Add a comment" type="text"
+                                                       name="commentContent">
+                                                <input type="hidden" th:value="${post.id}" th:name="postId">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="submit" class="btn btn-primary" value="Comment">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'" class="btn btn-primary w-100 m-3">Show comments
+                            </button>
+                        </div>
+                        <div th:id="${post.id}" style="display: none;">
+                            <div th:each="comment : ${post.comments}" >
+                                <ul class="comments-list">
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <div class="comment-heading">
+                                                <h4 class="user"><b th:text="${comment.authorName}"></b></h4>
+                                                <h5 class="time"><b th:text="${comment.date}"></b></h5>
+                                            </div>
+                                            <p>
+                                            <p th:text="${comment.content}"></p></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,5 +74,9 @@
         <br>
     </div>
 </div>
+
+
+
 </body>
+
 </html>

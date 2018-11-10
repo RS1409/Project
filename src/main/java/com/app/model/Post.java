@@ -25,18 +25,22 @@ public class Post implements Serializable {
     @JoinColumn(name = "`user_post`")
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "`user_post`")
+
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderBy("id ASC")
     private List<Comment> comments;
-    {
-        this.comments = new ArrayList<>();
-    }
 
     public Post() {}
 
     public Post(String content, String date) {
         this.content = content;
         this.date = date;
+    }
+
+    public void addCommentToPost(Comment comment)
+    {
+        comment.setPost(this);
+        this.getComments().add(comment);
     }
 
     public User getUser() {

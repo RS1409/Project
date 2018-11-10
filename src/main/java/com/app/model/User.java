@@ -1,5 +1,7 @@
 package com.app.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -57,8 +59,9 @@ public class User implements Serializable, UserDetails {
 
     private boolean active;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @OrderBy("id DESC")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
     public User(){

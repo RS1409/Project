@@ -14,16 +14,30 @@ public class Comment implements Serializable {
     private Long id;
 
     private String content;
-    private LocalDate date;
+    private String date;
+    private String authorName;
+
+    @ManyToOne
+    @JoinColumn(name = "`post_comments`")
+    private Post post;
+
 
 
     public Comment() {
-        this.date = LocalDate.now();
     }
 
-    public Comment(String content, LocalDate date) {
+    public Comment(String content, String date, String autorName) {
         this.content = content;
         this.date = date;
+        this.authorName = autorName;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public Long getId() {
@@ -42,21 +56,30 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", autorName='" + authorName + '\'' +
+                ", post=" + post +
                 '}';
     }
 }
