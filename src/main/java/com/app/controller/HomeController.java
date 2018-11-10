@@ -49,27 +49,31 @@ public class HomeController {
     @PostMapping("/addPost")
     private String addPost(@AuthenticationPrincipal User user, @RequestParam String postContent)
     {
-        Post post = new Post(postContent, DateTimeService.getCurrentTime());
-        user.addPostToUser(post);
-        System.out.println(post);
-        System.out.println(user.getPosts().size());
+        if(postContent.length() != 0)
+        {
+            Post post = new Post(postContent, DateTimeService.getCurrentTime());
+            user.addPostToUser(post);
+            System.out.println(post);
+            System.out.println(user.getPosts().size());
 
-        postRepo.save(post);
-        userRepo.save(user);
-        return "redirect:/mypage";
+            postRepo.save(post);
+            userRepo.save(user);
+            return "redirect:/mypage";
+        } else return "redirect:/mypage";
     }
 
     @PostMapping("/commentPost")
     private String addComment(@RequestParam Long postId, @RequestParam String commentContent, @AuthenticationPrincipal User user)
     {
-        System.out.println(user.getUsername());
-        Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
-        System.out.println(comment);
-        Post post = postRepo.getOne(postId);
-        post.addCommentToPost(comment);
+        if(commentContent.length() != 0)
+        {
+            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
+            Post post = postRepo.getOne(postId);
+            post.addCommentToPost(comment);
 
-        commentRepo.save(comment);
-        postRepo.save(post);
-        return "redirect:/mypage";
+            commentRepo.save(comment);
+            postRepo.save(post);
+            return "redirect:/mypage";
+        } else return "redirect:/mypage";
     }
 }
