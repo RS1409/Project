@@ -47,7 +47,7 @@
                 <form action="#" th:action="@{/addPost}" method="post">
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea id="postTextArea" th:name="postContent" placeholder="What are you doing right now?"></textarea>
+                            <textarea id="postTextArea" required="required" th:name="postContent" placeholder="What are you doing right now?"></textarea>
                             <button type="submit" class="btn btn-primary">Add post</button>
                         </div>
                     </div>
