@@ -8,13 +8,16 @@ import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
 import com.app.service.DateTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -38,16 +41,17 @@ public class HomeController {
 
     @GetMapping("/mypage")
     public String getHome(@AuthenticationPrincipal User loggedUser, Model model)
-
     {
         User user = userRepo.findByUsername(loggedUser.getUsername());
         System.out.println(user.toString());
         model.addAttribute("user", user);
+        model.addAttribute("content", "posts");
         return "homepage";
     }
 
     @PostMapping("/addPost")
-    private String addPost(@AuthenticationPrincipal User user, @RequestParam String postContent)
+    private String addPost(@AuthenticationPrincipal User user,
+                           @RequestParam String postContent)
     {
         if(postContent.length() != 0)
         {
@@ -63,7 +67,9 @@ public class HomeController {
     }
 
     @PostMapping("/commentPost")
-    private String addComment(@RequestParam Long postId, @RequestParam String commentContent, @AuthenticationPrincipal User user)
+    private String addComment(@RequestParam Long postId,
+                              @RequestParam String commentContent,
+                              @AuthenticationPrincipal User user)
     {
         if(commentContent.length() != 0)
         {
@@ -76,4 +82,21 @@ public class HomeController {
             return "redirect:/mypage";
         } else return "redirect:/mypage";
     }
+
+    @GetMapping("/search")
+    private String searchUsers(@AuthenticationPrincipal User loggedUser,
+                               @RequestParam(required = false) String userName,  Model model,
+                               @RequestParam(defaultValue="0") int page)
+    {
+        if(loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
+        List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, 2));
+
+        model.addAttribute("totalPages",searchResults.size());
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("searchResults", searchResults);
+        model.addAttribute("content", "search");
+        return "homepage";
+    }
+
+
 }

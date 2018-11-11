@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="col col-md-3">
-                <form class="navbar-form navbar-left" action="/action_page.php">
+                <form class="navbar-form navbar-left" action="#" th:action="@{/search}" method="get">
                     <div class="row pt-2" align="center">
                         <div class="col">
-                            <input type="text" width="10px" class="form-control" placeholder="Search...">
+                            <input type="text" width="10px" class="form-control" required="required" placeholder="Search..." th:name="userName">
                         </div>
                         <div class="col">
                             <input id="navSearch" type="submit" value="Search" class="btn btn-default"/>

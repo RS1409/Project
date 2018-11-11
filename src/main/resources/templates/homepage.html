@@ -7,9 +7,7 @@
     <link href="css/profileImg.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link href="css/homepage.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <div th:insert="fragments/bootstrapFragment :: bootstrap"></div>
 </head>
 
 <body>
@@ -44,16 +42,14 @@
         </div>
         <div class="col-md-6 p-3 mt-5">
             <div>
-                <form action="#" th:action="@{/addPost}" method="post">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea id="postTextArea" required="required" th:name="postContent" placeholder="What are you doing right now?"></textarea>
-                            <button type="submit" class="btn btn-primary">Add post</button>
-                        </div>
-                    </div>
-                </form>
-                <h1>MyPosts</h1>
-                <div th:insert="fragments/postFragment :: post (user=${user})"></div>
+                <div th:if="${content} == 'search'">
+                    <div th:insert="fragments/searchResults :: results (searchResults=${searchResults})"></div>
+                </div>
+                <div th:if="${content} == 'posts'">
+                    <div th:insert="fragments/postFragment :: post (user=${user})"></div>
+                </div>
+
+
             </div>
         </div>
 
@@ -74,15 +70,6 @@ function hideComments(id) {
     }
 }
 </script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+<div th:insert="fragments/bootstrapFragment :: script"></div>
 </body>
 </html>

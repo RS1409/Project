@@ -7,6 +7,15 @@
 </head>
 <body>
 <div th:fragment="post (user)">
+    <form action="#" th:action="@{/addPost}" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <textarea id="postTextArea" autocomplete="false" required="required" th:name="postContent" placeholder="What are you doing right now?"></textarea>
+                <button type="submit" class="btn btn-primary">Add post</button>
+            </div>
+        </div>
+    </form>
+    <h1>MyPosts</h1>
     <div th:each="post: ${user.posts}">
         <div class="container bootstrap snippet">
             <div class="col-md-12">
@@ -35,7 +44,7 @@
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <input class="form-control" required="required" placeholder="Add a comment" type="text"
-                                                       name="commentContent">
+                                                       name="commentContent" autocomplete="off">
                                                 <input type="hidden" th:value="${post.id}" th:name="postId">
                                             </div>
                                             <div class="col-md-2">

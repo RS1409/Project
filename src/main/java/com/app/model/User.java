@@ -64,6 +64,9 @@ public class User implements Serializable, UserDetails {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
+    @Transient
+    private String lastSearchRequest;
+
     public User(){
         this.posts = new LinkedList<>();
     }
@@ -185,6 +188,14 @@ public class User implements Serializable, UserDetails {
 
     public void setPosts(LinkedList<Post> posts) {
         this.posts = posts;
+    }
+
+    public String getLastSearchRequest() {
+        return lastSearchRequest;
+    }
+
+    public void setLastSearchRequest(String lastSearchRequest) {
+        this.lastSearchRequest = lastSearchRequest;
     }
 
     @Override
