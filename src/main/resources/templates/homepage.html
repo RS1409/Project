@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>AssBook</title>
+    <title>Tunas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link href="css/profileImg.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link href="css/homepage.css" rel="stylesheet">
-    <div th:insert="fragments/bootstrapFragment :: bootstrap"></div>
 </head>
 
 <body>
 <div th:insert="fragments/navbarFragment :: navBar"></div>
 <div>
     <div class="row" style="width: 100%;">
-        <div class="col-md-3 p-0">
+        <div class="col-md-3 p-4" id="left">
             <div class="container ml-3">
                 <br class="d-flex justify-content-center h-100">
                 <div class="row">
-                    <p><h1 th:inline="text">Welcome back [[${#httpServletRequest.remoteUser}]]!</h1></p>
+                    <!--<p><h2 th:inline="text">Welcome back [[${#httpServletRequest.remoteUser}]]!</h2></p>-->
                 </div>
                 <div class="row">
                     <div class="col-md-12" align="center">
@@ -33,7 +33,7 @@
                 <div class="row mt-3">
                     <div class="col-md-12" align="center">
                         <form th:action="@{/logout}" method="post">
-                            <input type="submit" class="btn btn-primary" value="Sign Out"/>
+                            <input type="submit" class="btn btn-primary btn-purple" value="Sign Out"/>
                         </form>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ function hideComments(id) {
     }
 }
 </script>
-<div th:insert="fragments/bootstrapFragment :: script"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

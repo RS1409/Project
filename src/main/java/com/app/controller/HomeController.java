@@ -31,7 +31,12 @@ public class HomeController {
 
     @Autowired
     CommentRepository commentRepo;
-
+//
+//    @GetMapping("/log.css")
+//    public String redirectCss()
+//    {
+//        return "redirect:/mypage";
+//    }
 
     @GetMapping("/")
     public String redirectHome()
