@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
-
 </head>
 
 <body>
@@ -124,8 +123,9 @@
     <div class="form-group pb-2">
         <div class="row" align="center">
             <div class="col-sm-offset-2 col-sm-12">
-                <input type="submit"  style="font-family: 'Acme', sans-serif; font-size: 18px;" class="btn btn-primary"/>
-                <input type="reset" style="font-family: 'Acme', sans-serif; font-size: 18px;" class="btn btn-primary"/>
+                <a th:href="@{/login}" class="btn btn-primary btn-purple">Back</a>
+                <input type="submit"  class="btn btn-primary btn-purple"/>
+                <input type="reset" class="btn btn-primary btn-purple"/>
             </div>
         </div>
     </div>
