@@ -13,10 +13,11 @@ html, body{
 }
 
 .view {
-     background-image: url('/images/background.jpg');
+     background: #623ca3 url('/images/background.jpg');
      background-repeat: no-repeat;
      background-size: cover; height: 100%;
      background-position: center center;
+     overflow-y: scroll;
      }
 
 .btn-purple {

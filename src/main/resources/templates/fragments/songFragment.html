@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="songForms">
+    <form class="form-horizontal" action="#" th:action="@{/addSong}" th:object="${song}" method="post">
+
+        <div class="row" align="center">
+            <div class="col-md-12 col-md-offset-4">
+                <h1>Add a song</h1>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="title" placeholder="Title" required
+                           th:field="*{title}"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="artist" placeholder="Artist" required
+                           th:field="*{artist}"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="album" placeholder="Album" th:field="*{album}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="genre" placeholder="Genre" list="genres" required
+                           th:field="*{genre}"/>
+
+                    <datalist id="genres">
+                        <option value="Rock">
+                        <option value="Metal">
+                        <option value="POP">
+                        <option value="Classical">
+                        <option value="Rap">
+                        <option value="Other">
+                    </datalist>
+                </div>
+
+                <div class="col-lg-2">
+                    <input type="submit" value="Add" class="btn btn-primary btn-purple"/>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <form class="form-horizontal pt-2" action="#" th:action="@{/findSong}" method="get">
+        <div class="form-group">
+            <div class="row" align="center">
+                <div class="col-md-12 col-md-offset-4">
+                    <h1>Look for a song</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div>Search phrase:</div>
+                </div>
+                <div class="col-lg-2">
+                    <div>In:</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase"
+                           placeholder="Search..."/>
+                </div>
+                <div class="col-lg-2" id="looking_for">
+                    <select class="form-control" th:name="selectedOption">
+                        <option th:value="title">Title</option>
+                        <option th:value="artist">Artist</option>
+                        <option th:value="album">Album</option>
+                        <option th:value="genre">Genre</option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <input type="submit" class="btn btn-primary btn-purple" value="Search"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--==========================================================================================================-->
+<!--SONG SEARCH RESULTS-->
+<!--==========================================================================================================-->
+
+<div th:fragment="songList (songSearch)">
+    <div class="card-block">
+        <table class="table table-hover m-0">
+            <tr>
+                <div class="row">
+                    <th>Artist:</th>
+                    <th>Title:</th>
+                </div>
+            </tr>
+            <tr th:each="song : ${songSearch}">
+                <div class="row">
+                    <td th:text="${song.artist}"></td>
+                    <td th:text="${song.title}"></td>
+                </div>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
