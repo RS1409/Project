@@ -2,6 +2,7 @@ package com.app.controller;
 
 import com.app.model.Comment;
 import com.app.model.Post;
+import com.app.model.Song;
 import com.app.model.User;
 import com.app.repository.CommentRepository;
 import com.app.repository.PostRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,12 +33,7 @@ public class HomeController {
 
     @Autowired
     CommentRepository commentRepo;
-//
-//    @GetMapping("/log.css")
-//    public String redirectCss()
-//    {
-//        return "redirect:/mypage";
-//    }
+
 
     @GetMapping("/")
     public String redirectHome()
@@ -45,8 +42,8 @@ public class HomeController {
     }
 
     @GetMapping("/mypage")
-    public String getHome(@AuthenticationPrincipal User loggedUser, Model model)
-    {
+    public String getHome(@AuthenticationPrincipal User loggedUser, Model model) {
+
         User user = userRepo.findByUsername(loggedUser.getUsername());
         System.out.println(user.toString());
         model.addAttribute("user", user);
@@ -54,10 +51,10 @@ public class HomeController {
         return "homepage";
     }
 
+
     @PostMapping("/addPost")
     private String addPost(@AuthenticationPrincipal User user,
-                           @RequestParam String postContent)
-    {
+                           @RequestParam String postContent) {
         if(postContent.length() != 0)
         {
             Post post = new Post(postContent, DateTimeService.getCurrentTime());
@@ -88,20 +85,7 @@ public class HomeController {
         } else return "redirect:/mypage";
     }
 
-    @GetMapping("/search")
-    private String searchUsers(@AuthenticationPrincipal User loggedUser,
-                               @RequestParam(required = false) String userName,  Model model,
-                               @RequestParam(defaultValue="0") int page)
-    {
-        if(loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
-        List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, 2));
 
-        model.addAttribute("totalPages",searchResults.size());
-        model.addAttribute("user", loggedUser);
-        model.addAttribute("searchResults", searchResults);
-        model.addAttribute("content", "search");
-        return "homepage";
-    }
 
 
 }
