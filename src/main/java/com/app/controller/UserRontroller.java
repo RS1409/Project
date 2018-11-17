@@ -39,7 +39,7 @@ public class UserRontroller {
 
     @PostMapping("/profile/edit")
     public String editProfile(@AuthenticationPrincipal User user,
-                              @RequestParam String username,
+                              @RequestParam(required = false) String username,
                               @RequestParam String firstname,
                               @RequestParam String lastname,
                               @RequestParam(required = false) String email,
