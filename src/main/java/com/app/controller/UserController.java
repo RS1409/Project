@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
-public class UserRontroller {
+public class UserController {
 
     @Autowired
     UserRepository userRepository;
@@ -40,8 +40,8 @@ public class UserRontroller {
     @PostMapping("/profile/edit")
     public String editProfile(@AuthenticationPrincipal User user,
                               @RequestParam(required = false) String username,
-                              @RequestParam String firstname,
-                              @RequestParam String lastname,
+                              @RequestParam(required = false) String firstname,
+                              @RequestParam(required = false) String lastname,
                               @RequestParam(required = false) String email,
                               @RequestParam(required = false) String password,
                               @RequestParam("file") MultipartFile file,

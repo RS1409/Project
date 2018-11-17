@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <label for="firstname"><h4>First name:</h4></label>
                                 <input type="text" class="form-control" th:name="firstname" id="firstname"
-                                       th:value="${user.firstName}" title="enter your new first name.">
+                                       th:placeholder="${user.firstName}" title="enter your new first name.">
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@
                             <div class="col-md-6">
                                 <label for="lastname"><h4>Last name:</h4></label>
                                 <input type="text" class="form-control" th:name="lastname" id="lastname"
-                                       th:value="${user.lastName}" title="enter your new last name.">
+                                       th:placeholder="${user.lastName}" title="enter your new last name.">
                             </div>
                         </div>
 
@@ -69,7 +69,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6">
-                                <label for="password"><h4 id="passTitle">Password</h4></label>
+                                <label for="password"><h4 id="passTitle">Password:</h4></label>
                                 <input type="password" onchange='check_pass();' class="form-control" th:name="password" id="password"
                                        title="enter your password." minlength="5">
                             </div>
@@ -77,7 +77,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6">
-                                <label for="password2"><h4 id="verifyPassTitle">Verify</h4></label>
+                                <label for="password2"><h4 id="verifyPassTitle">Confirm password:</h4></label>
                                 <input type="password" onchange='check_pass();' class="form-control" name="password2" id="password2"
                                        title="enter your password2.">
                             </div>
