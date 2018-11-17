@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class songsController {
+public class SongsController {
 
     @Autowired
     UserRepository userRepo;

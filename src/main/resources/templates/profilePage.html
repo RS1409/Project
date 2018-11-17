@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Tunas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link href="css/profileImg.css" rel="stylesheet">
+    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/homepage.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<div th:insert="fragments/navbarFragment :: navBar"></div>
+<body>
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-sm-10"><h1><b th:text="${user.username}"></b></h1></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#profile">Home</a></li>
+                <li><a data-toggle="tab" href="#preferences">Preferences</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+
+                    <form class="form" action="##" method="post" th:action="@{/profile/edit}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="username"><h4>User name:</h4></label>
+                                <input type="text" class="form-control" th:name="username" id="username" minlength="2" maxlength="30"
+                                       th:value="${user.username}" title="enter your new user name.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="firstname"><h4>First name:</h4></label>
+                                <input type="text" class="form-control" th:name="firstname" id="firstname"
+                                       th:value="${user.firstName}" title="enter your new first name.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="lastname"><h4>Last name:</h4></label>
+                                <input type="text" class="form-control" th:name="lastname" id="lastname"
+                                       th:value="${user.lastName}" title="enter your new last name.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" th:name="email" id="email"
+                                       th:value="${user.email}" title="enter your new email.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="password"><h4 id="passTitle">Password</h4></label>
+                                <input type="password" onchange='check_pass();' class="form-control" th:name="password" id="password"
+                                       title="enter your password." minlength="5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="password2"><h4 id="verifyPassTitle">Verify</h4></label>
+                                <input type="password" onchange='check_pass();' class="form-control" name="password2" id="password2"
+                                       title="enter your password2.">
+                            </div>
+                        </div>
+
+                        <div class="row w-100 m-0">
+                            <div class="col-md-2 col-md-offset-5">
+                                <div class="text-center">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12" align="center">
+                                            <div class="image_outer_container">
+                                                <div class="green_icon"></div>
+                                                <div class="image_inner_container">
+                                                    <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h6>Upload a different photo...</h6>
+                                    <input type="file" class="text-center center-block file-upload" name="file">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <br>
+                                <button class="btn btn-lg btn-success" type="submit" id="saveButton"><i
+                                        class="glyphicon glyphicon-ok-sign"></i> Save
+                                </button>
+                                <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--<div class="tab-pane" id="preferences">-->
+                    <!--<form class="form" action="##" method="post" id="registrationForm">-->
+                        <!--<div class="form-group">-->
+
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="first_name"><h4>First name</h4></label>-->
+                                <!--<input type="text" class="form-control" name="first_name" id="first_name"-->
+                                       <!--placeholder="first name" title="enter your first name if any.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="last_name"><h4>Last name</h4></label>-->
+                                <!--<input type="text" class="form-control" name="last_name" id="last_name"-->
+                                       <!--placeholder="last name" title="enter your last name if any.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="phone"><h4>Phone</h4></label>-->
+                                <!--<input type="text" class="form-control" name="phone" id="phone"-->
+                                       <!--placeholder="enter phone" title="enter your phone number if any.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="mobile"><h4>Mobile</h4></label>-->
+                                <!--<input type="text" class="form-control" name="mobile" id="mobile"-->
+                                       <!--placeholder="enter mobile number" title="enter your mobile number if any.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="email"><h4>Email</h4></label>-->
+                                <!--<input type="email" class="form-control" name="email" id="123"-->
+                                       <!--placeholder="you@email.com" title="enter your email.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="email"><h4>Location</h4></label>-->
+                                <!--<input type="email" class="form-control" id="location" placeholder="somewhere"-->
+                                       <!--title="enter a location">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="password"><h4>Password</h4></label>-->
+                                <!--<input type="password" class="form-control" name="password" id="" placeholder="password"-->
+                                       <!--title="enter your password.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<label for="password2"><h4>Verify</h4></label>-->
+                                <!--<input type="password" class="form-control" name="password2" id="234"-->
+                                       <!--placeholder="password2" title="enter your password2.">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-md-12">-->
+                                <!--<br>-->
+                                <!--<button class="btn btn-lg btn-success" type="submit"><i-->
+                                        <!--class="glyphicon glyphicon-ok-sign"></i> Save-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>&lt;!&ndash;/tab-pane&ndash;&gt;-->
+            </div><!--/tab-pane-->
+        </div><!--/tab-content-->
+    </div><!--/col-9-->
+</div><!--/row-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+function check_pass() {
+    if (document.getElementById('password').value ==
+            document.getElementById('password2').value) {
+        document.getElementById('saveButton').disabled = false;
+        document.getElementById('passTitle').style.color = 'green';
+        document.getElementById('verifyPassTitle').style.color = 'green';
+    } else {
+        document.getElementById('saveButton').disabled = true;
+        document.getElementById('passTitle').style.color = 'red';
+        document.getElementById('verifyPassTitle').style.color = 'red';
+    }
+}
+
+</script>
+</body>
+</html>
