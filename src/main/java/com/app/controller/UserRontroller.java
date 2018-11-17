@@ -26,10 +26,14 @@ public class UserRontroller {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    private String message;
+
     @GetMapping("/profile")
     public String showProfile(@AuthenticationPrincipal User user, Model model)
     {
         model.addAttribute("user", user);
+        model.addAttribute("message", message);
+        message=null;
         return "profilePage";
     }
 
@@ -38,10 +42,26 @@ public class UserRontroller {
                               @RequestParam String username,
                               @RequestParam String firstname,
                               @RequestParam String lastname,
-                              @RequestParam String email,
+                              @RequestParam(required = false) String email,
                               @RequestParam(required = false) String password,
-                              @RequestParam("file") MultipartFile file)
+                              @RequestParam("file") MultipartFile file,
+                              Model model)
     {
+        if(userRepository.findByUsername(username) != null)
+        {
+            message = "User with this name already exists";
+            System.out.println("User Exists");
+            return "redirect:/profile";
+        }
+
+        if(userRepository.findByEmail(email) != null)
+        {
+            message = "This email is already used";
+            System.out.println("User Exists");
+            return "redirect:/profile";
+        }
+
+
         if(username.length() > 0) user.setUsername(username);
         if(firstname.length() > 0) user.setFirstName(firstname);
         if(lastname.length() > 0) user.setLastName(lastname);
