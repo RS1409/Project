@@ -24,6 +24,7 @@ public class NavBarController {
                                @RequestParam(required = false) String userName, Model model,
                                @RequestParam(defaultValue = "0") int page)
     {
+        loggedUser.setLastSearchRequest(userName);
         UserDTO userDTO = new UserDTO(loggedUser);
         if (loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
         List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, 2));
