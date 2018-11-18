@@ -1,83 +1,59 @@
 package com.app.controller;
 
+
+import com.app.model.Comment;
+import com.app.model.Post;
 import com.app.model.User;
+import com.app.repository.CommentRepository;
+import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
-import com.app.service.ByteConverter;
+import com.app.service.DateTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.Optional;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private CommentRepository commentRepository;
+
     @Autowired
-    private BCryptPasswordEncoder encoder;
+    private PostRepository postRepository;
 
-    private String message;
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping("/profile")
-    public String showProfile(@AuthenticationPrincipal User user, Model model)
+    @GetMapping("{id}")
+    private String showUserPage(@PathVariable Long id, Model model)
     {
-        model.addAttribute("user", user);
-        model.addAttribute("message", message);
-        message=null;
-        return "profilePage";
+        Optional<User> user = userRepository.findById(id);
+        model.addAttribute("user", user.get());
+        return "testUserPage";
     }
 
-    @PostMapping("/profile/edit")
-    public String editProfile(@AuthenticationPrincipal User user,
-                              @RequestParam(required = false) String username,
-                              @RequestParam(required = false) String firstname,
-                              @RequestParam(required = false) String lastname,
-                              @RequestParam(required = false) String email,
-                              @RequestParam(required = false) String password,
-                              @RequestParam("file") MultipartFile file,
-                              Model model)
+    @PostMapping("/commentPost")
+    public String commentPost(@RequestParam Long postId,
+                              @RequestParam Long userId,
+                              @RequestParam String commentContent,
+                              @AuthenticationPrincipal User user)
     {
-        if(userRepository.findByUsername(username) != null)
+        System.out.println("Adding Comment");
+        if(commentContent.length() != 0)
         {
-            message = "User with this name already exists";
-            System.out.println("User Exists");
-            return "redirect:/profile";
-        }
+            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
+            Post post = postRepository.getOne(postId);
+            post.addCommentToPost(comment);
+            post.addCommentCounter();
 
-        if(userRepository.findByEmail(email) != null)
-        {
-            message = "This email is already used";
-            System.out.println("User Exists");
-            return "redirect:/profile";
-        }
-
-
-        if(username.length() > 0) user.setUsername(username);
-        if(firstname.length() > 0) user.setFirstName(firstname);
-        if(lastname.length() > 0) user.setLastName(lastname);
-        if(email.length() > 0) user.setEmail(email);
-        if(password.length() > 0) user.setPassword(encoder.encode(password));
-
-        if(file.getSize() > 0)
-        {
-            try{
-                user.setImg(file.getBytes());
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        userRepository.save(user);
-        return "redirect:/mypage";
+            commentRepository.save(comment);
+            postRepository.save(post);
+            return "redirect:/users/"+userId;
+        } else return "redirect:/users/"+userId;
     }
 }

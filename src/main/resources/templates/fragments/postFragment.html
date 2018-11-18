@@ -55,7 +55,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'" class="btn btn-primary btn-purple w-100 m-3">Show comments
+                            <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'"
+                                    class="btn btn-primary btn-purple w-100 m-3">Show comments(<b th:text="${post.commentAmount}"></b>)
                             </button>
                         </div>
                         <div th:id="${post.id}" style="display: none;">

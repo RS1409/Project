@@ -20,6 +20,7 @@ public class Post implements Serializable {
 
     private String content;
     private String date;
+    private int commentAmount = 0;
 
     @ManyToOne
     @JoinColumn(name = "`user_post`")
@@ -41,6 +42,11 @@ public class Post implements Serializable {
     {
         comment.setPost(this);
         this.getComments().add(comment);
+    }
+
+    public void addCommentCounter()
+    {
+        this.commentAmount++;
     }
 
     public User getUser() {
@@ -81,6 +87,18 @@ public class Post implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getCommentAmount() {
+        return commentAmount;
+    }
+
+    public void setCommentAmount(int commentAmount) {
+        this.commentAmount = commentAmount;
     }
 
     @Override

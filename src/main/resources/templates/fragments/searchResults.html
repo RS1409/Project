@@ -17,7 +17,7 @@
             <div class="card-block">
                 <table class="table table-hover m-0">
                     <tr th:each="user : ${searchResults}">
-                        <td><a th:href="@{|user/${user.id}|}">
+                        <td><a th:href="@{|users/${user.id}|}">
                             <div class="row">
                                 <img width="30" height="30" th:if="*{user.img != null}"
                                      th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>

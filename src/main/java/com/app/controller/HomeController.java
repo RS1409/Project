@@ -83,10 +83,11 @@ public class HomeController {
             Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
             Post post = postRepo.getOne(postId);
             post.addCommentToPost(comment);
+            post.addCommentCounter();
 
             commentRepo.save(comment);
             postRepo.save(post);
-            return "redirect:/mypage";
+        return "redirect:/mypage";
         } else return "redirect:/mypage";
     }
 

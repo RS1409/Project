@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Tunas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link href="/css/profileImg.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/homepage.css" rel="stylesheet">
+</head>
+
+<body id="body">
+<div th:insert="fragments/navbarFragment :: navBar"></div>
+
+<div class="row" id="test1" style="width: 100%; ">
+    <div class="col-md-3 p-4 left">
+        <div class="container ml-3">
+            <br class="d-flex justify-content-center h-100">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <div class="image_outer_container">
+                        <div class="green_icon"></div>
+                        <div class="image_inner_container">
+                            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+                        </div>
+                        <div th:text="${user.username}" id="userName"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12" align="center">
+                    <form th:action="@{/friendAdd}" method="post">
+                        <input type="submit" class="btn btn-primary btn-purple" value="Add to friends"/>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12" align="center">
+                    <form th:action="@{/friendAdd}" method="post">
+                        <input type="submit" class="btn btn-primary btn-purple" value="Send message"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 p-3 mt-5">
+        <div th:each="post: ${user.posts}">
+            <div class="container bootstrap snippet">
+                <div class="col-md-12">
+                    <div class="panel panel-white post panel-shadow">
+                        <div class="post-heading">
+                            <div class="pull-left image">
+                                <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"
+                                     class="img-circle avatar"
+                                     alt="user profile image">
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5">
+                                    <b th:text="${user.username}"></b> made a post.
+                                    <b th:text="${post.date}"></b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-description">
+                            <p th:text="${post.content}"></p>
+                        </div>
+                        <div class="post-footer">
+                            <div class="input-group">
+                                <div class="row w-100">
+                                    <div class="col-md-12">
+                                        <form method="post" action="#" th:action="@{/users/commentPost}">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <input class="form-control" required="required" placeholder="Add a comment" type="text"
+                                                           name="commentContent" autocomplete="off">
+                                                    <input type="hidden" th:value="${post.id}" th:name="postId">
+                                                    <input type="hidden" th:value="${user.id}" th:name="userId">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="submit" class="btn btn-primary btn-purple" value="Comment">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'"
+                                        class="btn btn-primary btn-purple w-100 m-3">Show comments(<b th:text="${post.commentAmount}"></b>)
+                                </button>
+                            </div>
+                            <div th:id="${post.id}" style="display: none;">
+                                <div th:each="comment : ${post.comments}" >
+                                    <ul class="comments-list">
+                                        <li class="comment">
+                                            <div class="comment-body">
+                                                <div class="comment-heading">
+                                                    <h4 class="user"><b th:text="${comment.authorName}"></b></h4>
+                                                    <h5 class="time"><b th:text="${comment.date}"></b></h5>
+                                                </div>
+                                                <p>
+                                                <p th:text="${comment.content}"></p></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="col-md-3 p-0">
+
+    </div>
+</div>
+
+<script>
+function hideComments(id) {
+    var x = document.getElementById(id);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
