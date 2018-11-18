@@ -7,7 +7,6 @@
 <body>
 <div th:fragment="songForms">
     <form class="form-horizontal" action="#" th:action="@{/addSong}" th:object="${song}" method="post">
-
         <div class="row" align="center">
             <div class="col-md-12 col-md-offset-4">
                 <h1>Add a song</h1>
@@ -36,7 +35,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group">
             <div class="row">
                 <div class="col-lg-6">
@@ -52,7 +50,13 @@
                         <option value="Other">
                     </datalist>
                 </div>
-
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="url" class="form-control" id="link" placeholder="YT link" th:field="*{link}"/>
+                </div>
                 <div class="col-lg-2">
                     <input type="submit" value="Add" class="btn btn-primary btn-purple"/>
                 </div>

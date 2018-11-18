@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +39,7 @@ public class SongsController {
     }
 
     @PostMapping("/addSong")
-    public String addSong(@ModelAttribute Song song) {
-
+    public String addSong(@ModelAttribute Song song, BindingResult bindingResult) {
         if (song.getAlbum().isEmpty())
             song.setAlbum("single");
 
@@ -63,16 +63,16 @@ public class SongsController {
         UserDTO userDTO = new UserDTO(loggedUser);
         switch (selectedOption) {
             case "title":
-                searchResults = songRepo.findByTitleContaining(searchPhrase);
+                searchResults = songRepo.findByStatusAndTitleContaining(Song.Status.ACCEPTED, searchPhrase);
                 break;
             case "artist":
-                searchResults = songRepo.findByArtistContaining(searchPhrase);
+                searchResults = songRepo.findByStatusAndArtistContaining(Song.Status.ACCEPTED, searchPhrase);
                 break;
             case "album":
-                searchResults = songRepo.findByAlbumContaining(searchPhrase);
+                searchResults = songRepo.findByStatusAndAlbumContaining(Song.Status.ACCEPTED, searchPhrase);
                 break;
             case "genre":
-                searchResults = songRepo.findAllByGenre(searchPhrase);
+                searchResults = songRepo.findAllByStatusAndGenre(Song.Status.ACCEPTED, searchPhrase);
                 break;
         }
 
