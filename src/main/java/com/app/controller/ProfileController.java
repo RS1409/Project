@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.dto.UserDTO;
 import com.app.model.User;
 import com.app.repository.UserRepository;
 import com.app.service.ByteConverter;
@@ -31,7 +32,8 @@ public class ProfileController {
     @GetMapping("/profile")
     public String showProfile(@AuthenticationPrincipal User user, Model model)
     {
-        model.addAttribute("user", user);
+        UserDTO userDTO = new UserDTO(user);
+        model.addAttribute("user", userDTO);
         model.addAttribute("message", message);
         message=null;
         return "profilePage";

@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.dto.UserDTO;
 import com.app.model.Song;
 import com.app.model.User;
 import com.app.repository.SongRepository;
@@ -29,8 +30,9 @@ public class SongsController {
     public String getSongs(@AuthenticationPrincipal User loggedUser, Model model,
                            @ModelAttribute String content) {
 
+        UserDTO userDTO = new UserDTO(loggedUser);
         model.addAttribute("song", new Song());
-        model.addAttribute("user", loggedUser);
+        model.addAttribute("user", userDTO);
         model.addAttribute("content", "songForms");
         return "homepage";
     }
@@ -58,7 +60,7 @@ public class SongsController {
                            @RequestParam String searchPhrase) {
 
         List<Song> searchResults = new ArrayList<Song>();
-
+        UserDTO userDTO = new UserDTO(loggedUser);
         switch (selectedOption) {
             case "title":
                 searchResults = songRepo.findByTitleContaining(searchPhrase);
@@ -76,7 +78,7 @@ public class SongsController {
 
 
         model.addAttribute("song", new Song());
-        model.addAttribute("user", loggedUser);
+        model.addAttribute("user", userDTO);
 
         model.addAttribute("songSearch", searchResults);
         model.addAttribute("content", "songList");

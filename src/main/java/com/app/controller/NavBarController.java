@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.dto.UserDTO;
 import com.app.model.User;
 import com.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ public class NavBarController {
     @GetMapping("/search")
     private String searchUsers(@AuthenticationPrincipal User loggedUser,
                                @RequestParam(required = false) String userName, Model model,
-                               @RequestParam(defaultValue = "0") int page) {
+                               @RequestParam(defaultValue = "0") int page)
+    {
+        UserDTO userDTO = new UserDTO(loggedUser);
         if (loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
         List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, 2));
 
         model.addAttribute("totalPages", searchResults.size());
-        model.addAttribute("user", loggedUser);
+        model.addAttribute("user", userDTO);
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("content", "search");
         return "homepage";
