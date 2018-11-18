@@ -27,16 +27,42 @@ public class SongsController {
     @Autowired
     SongRepository songRepo;
 
+    List<Song> searchResults = new ArrayList<>();
+
     @GetMapping("/songs")
     public String getSongs(@AuthenticationPrincipal User loggedUser, Model model,
                            @ModelAttribute String content) {
 
         UserDTO userDTO = new UserDTO(loggedUser);
-        model.addAttribute("song", new Song());
         model.addAttribute("user", userDTO);
-        model.addAttribute("content", "songForms");
+        model.addAttribute("content", "songList");
         return "homepage";
     }
+
+    @GetMapping("/songPlay")
+    public String songPlay(@AuthenticationPrincipal User loggedUser, Model model,
+                           @RequestParam String link,
+                           @ModelAttribute String content) {
+
+        UserDTO userDTO = new UserDTO(loggedUser);
+        model.addAttribute("user", userDTO);
+        model.addAttribute("link", link);
+        model.addAttribute("songSearch", searchResults);
+        model.addAttribute("content", "songPlay");
+        return "homepage";
+    }
+
+    @GetMapping("/addForm")
+    public String addForm(@AuthenticationPrincipal User loggedUser, Model model,
+                          @ModelAttribute String content) {
+
+        UserDTO userDTO = new UserDTO(loggedUser);
+        model.addAttribute("song", new Song());
+        model.addAttribute("user", userDTO);
+        model.addAttribute("content", "songAdd");
+        return "homepage";
+    }
+
 
     @PostMapping("/addSong")
     public String addSong(@ModelAttribute Song song, BindingResult bindingResult) {
@@ -58,8 +84,6 @@ public class SongsController {
                            @ModelAttribute String content,
                            @RequestParam String selectedOption,
                            @RequestParam String searchPhrase) {
-
-        List<Song> searchResults = new ArrayList<Song>();
         UserDTO userDTO = new UserDTO(loggedUser);
         switch (selectedOption) {
             case "title":
@@ -77,9 +101,7 @@ public class SongsController {
         }
 
 
-        model.addAttribute("song", new Song());
         model.addAttribute("user", userDTO);
-
         model.addAttribute("songSearch", searchResults);
         model.addAttribute("content", "songList");
 

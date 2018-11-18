@@ -49,14 +49,22 @@
                     <div th:insert="fragments/postFragment :: post (user=${user})"></div>
                 </div>
 
-                <div th:if="${content} == 'songForms'">
-                    <div th:insert="fragments/songFragment :: songForms"></div>
+                <div th:if="${content} == 'songAdd'">
+                    <div th:insert="fragments/songFragment :: songAdd"></div>
                 </div>
 
                 <div th:if="${content} == 'songList'">
-                    <div th:insert="fragments/songFragment :: songForms"></div>
+                    <div th:insert="fragments/songFragment :: songSearch"></div>
                     <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
                 </div>
+
+                <div th:if="${content} == 'songPlay'">
+                    <div th:insert="fragments/ytApiFragment :: ytApi (link=${link})"></div>
+                    <div th:insert="fragments/songFragment :: songSearch"></div>
+                    <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+                </div>
+
+
 
             </div>
         </div>

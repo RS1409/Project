@@ -1,5 +1,7 @@
 package com.app.model;
 
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +18,9 @@ public class Song implements Serializable {
     private String artist;
     private String album;
     private String title;
+    @URL(message = "{song.url.incorrect}")
+    private String link;
+    private Status status = Status.ACCEPTED;
 
     public Song() {}
 
@@ -60,6 +65,22 @@ public class Song implements Serializable {
         this.genre = genre;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -68,6 +89,12 @@ public class Song implements Serializable {
                 ", artist='" + artist + '\'' +
                 ", album='" + album + '\'' +
                 ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", status=" + status +
                 '}';
+    }
+
+    public enum Status {
+        ACCEPTED, REQUESTED;
     }
 }

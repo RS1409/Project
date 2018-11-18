@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="songForms">
+<div th:fragment="songAdd">
     <form class="form-horizontal" action="#" th:action="@{/addSong}" th:object="${song}" method="post">
         <div class="row" align="center">
             <div class="col-md-12 col-md-offset-4">
@@ -62,10 +62,10 @@
                 </div>
             </div>
         </div>
-
     </form>
+</div>
 
-
+<div th:fragment="songSearch">
     <form class="form-horizontal pt-2" action="#" th:action="@{/findSong}" method="get">
         <div class="form-group">
             <div class="row" align="center">
@@ -99,6 +99,9 @@
                     <input type="submit" class="btn btn-primary btn-purple" value="Search"/>
                 </div>
             </div>
+            <div>
+                <a class="col-lg-2" href="#" th:href="@{/addForm}">Missing something? Add it now.</a>
+            </div>
         </div>
     </form>
 </div>
@@ -113,14 +116,21 @@
         <table class="table table-hover m-0">
             <tr>
                 <div class="row">
-                    <th>Artist:</th>
                     <th>Title:</th>
+                    <th>Artist:</th>
                 </div>
             </tr>
             <tr th:each="song : ${songSearch}">
                 <div class="row">
-                    <td th:text="${song.artist}"></td>
                     <td th:text="${song.title}"></td>
+                    <td th:text="${song.artist}"></td>
+
+                    <form class="form-horizontal" action="#" th:action="@{/songPlay}" method="get">
+                        <input type="hidden" th:value="${song.link}" th:name="link"/>
+
+                        <td><input type="submit" class="btn btn-primary btn-purple" value="Play"/></td>
+
+                    </form>
                 </div>
             </tr>
         </table>
