@@ -12,69 +12,69 @@
 
 <body>
 <div th:insert="fragments/navbarFragment :: navBar"></div>
-<div>
-    <div class="row" style="width: 100%;">
-        <div class="col-md-3 p-4 left">
-            <div class="container ml-3">
-                <br class="d-flex justify-content-center h-100">
-                <div class="row">
-                    <!--<p><h2 th:inline="text">Welcome back [[${#httpServletRequest.remoteUser}]]!</h2></p>-->
-                </div>
-                <div class="row">
-                    <div class="col-md-12" align="center">
-                        <div class="image_outer_container">
-                            <div class="green_icon"></div>
-                            <div class="image_inner_container">
-                                <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
-                            </div>
+
+<div class="row" style="width: 100%, height: 100%">
+    <div class="col-md-3 p-4 left">
+        <div class="container ml-3">
+            <br class="d-flex justify-content-center h-100">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <div class="image_outer_container">
+                        <div class="green_icon"></div>
+                        <div class="image_inner_container">
+                            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
                         </div>
+                        <div th:text="${user.username}" id="userName"></div>
                     </div>
                 </div>
-                <div class="row mt-3">
+            </div>
+            <div class="row mt-3">
                 <div class="col-md-12" align="center">
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="btn btn-primary btn-purple" value="Sign Out"/>
+                    <form th:action="@{/profile}" method="get">
+                        <input type="submit" class="btn btn-primary btn-purple col-sm-6" value="Edit profile"/>
                     </form>
                 </div>
             </div>
-            </div>
-
-        </div>
-        <div class="col-md-6 p-3 mt-5">
-            <div>
-                <div th:if="${content} == 'search'">
-                    <div th:insert="fragments/searchResults :: results (searchResults=${searchResults})"></div>
+            <div class="row mt-3">
+                <div class="col-md-12" align="center">
+                    <form action="#" method="post">
+                        <input type="submit" class="btn btn-primary btn-purple col-sm-6" value="My preferences"/>
+                    </form>
                 </div>
-                <div th:if="${content} == 'posts'">
-                    <div th:insert="fragments/postFragment :: post (user=${user})"></div>
-                </div>
-
-                <div th:if="${content} == 'songAdd'">
-                    <div th:insert="fragments/songFragment :: songAdd"></div>
-                </div>
-
-                <div th:if="${content} == 'songList'">
-                    <div th:insert="fragments/songFragment :: songSearch"></div>
-                    <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
-                </div>
-
-                <div th:if="${content} == 'songPlay'">
-                    <div th:insert="fragments/ytApiFragment :: ytApi (link=${link})"></div>
-                    <div th:insert="fragments/songFragment :: songSearch"></div>
-                    <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
-                </div>
-
-
-
             </div>
         </div>
 
-        <div class="col-md-3 p-0">
+    </div>
+    <div class="col-md-6 p-3 mt-5">
+        <div>
+            <div th:if="${content} == 'search'">
+                <div th:insert="fragments/searchResults :: results (searchResults=${searchResults})"></div>
+            </div>
+            <div th:if="${content} == 'posts'">
+                <div th:insert="fragments/postFragment :: post (user=${user})"></div>
+            </div>
+
+            <div th:if="${content} == 'songAdd'">
+                <div th:insert="fragments/songFragment :: songAdd"></div>
+            </div>
+
+            <div th:if="${content} == 'songList'">
+                <div th:insert="fragments/songFragment :: songSearch"></div>
+                <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+            </div>
+
+            <div th:if="${content} == 'songPlay'">
+                <div th:insert="fragments/ytApiFragment :: ytApi (link=${link})"></div>
+                <div th:insert="fragments/songFragment :: songSearch"></div>
+                <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+            </div>
+
 
         </div>
     </div>
-</div>
 
+    <div class="col p-0 right"></div>
+</div>
 
 <script>
 function hideComments(id) {

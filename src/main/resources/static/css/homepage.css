@@ -120,6 +120,10 @@ html, body{
 	background-color: #442960;
 	border-color: #442960;
 }
+.btn-dark {
+	background-color: #160b2a;
+	border-color: #160b2a;
+}
 
 #postTextArea{
     width:100%;
@@ -128,6 +132,11 @@ html, body{
 .left {
 background-color: #160b2a;
 }
+
+.right {
+background-color: #160b2a;
+}
+
 
 @font-face {
   font-family: 'Acme';
