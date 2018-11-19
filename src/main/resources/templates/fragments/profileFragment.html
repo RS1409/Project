@@ -1,22 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Tunas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-
-    <link href="css/profileImg.css" rel="stylesheet">
-    <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/homepage.css" rel="stylesheet">
-    
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
-<div th:insert="fragments/navbarFragment :: navBar"></div>
 <body>
-<div class="container bootstrap snippet">
+<div th:fragment="profileForm (user)" class="container bootstrap snippet">
 
     <div class="row" align="center">
         <div class="col" th:if="${message}">
@@ -24,66 +13,115 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-md-12">
+
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#profile">Home</a></li>
+                <li class="active"><a data-toggle="tab" href="#profile">Home&emsp;</a></li>
                 <li><a data-toggle="tab" href="#preferences">Preferences</a></li>
             </ul>
-            <div class="tab-content">
+
+            <div class="tab-content mt-3">
                 <div class="tab-pane active" id="profile">
 
-                    <form class="form" action="##" method="post" th:action="@{/profile/edit}" enctype="multipart/form-data">
-                        <div class="form-group">
+                    <form class="form" action="##" method="post" th:action="@{/profile/edit}"
+                          enctype="multipart/form-data">
+
+                        <div class="row">
                             <div class="col-md-6">
-                                <label for="username"><h4>User name:</h4></label>
-                                <input type="text" class="form-control" th:name="username" id="username" minlength="2" maxlength="30"
-                                       th:placeholder="${user.username}" title="enter your new user name.">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="username"><h4>User name:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" th:name="username" id="username"
+                                                   minlength="2" maxlength="30"
+                                                   th:placeholder="${user.username}" title="enter your new user name.">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="email"><h4>Email:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="email" class="form-control" th:name="email" id="email"
+                                                   th:placeholder="${user.email}" title="enter your new email.">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-6">
-                                <label for="firstname"><h4>First name:</h4></label>
-                                <input type="text" class="form-control" th:name="firstname" id="firstname"
-                                       th:placeholder="${user.firstName}" title="enter your new first name.">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="firstname"><h4>First name:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" th:name="firstname" id="firstname"
+                                                   th:placeholder="${user.firstName}"
+                                                   title="enter your new first name.">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="lastname"><h4>Last name:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" th:name="lastname" id="lastname"
+                                                   th:placeholder="${user.lastName}" title="enter your new last name.">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-6">
-                                <label for="lastname"><h4>Last name:</h4></label>
-                                <input type="text" class="form-control" th:name="lastname" id="lastname"
-                                       th:placeholder="${user.lastName}" title="enter your new last name.">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="password"><h4 id="passTitle">Password:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="password" onchange='check_pass();' class="form-control"
+                                                   th:name="password"
+                                                   id="password"
+                                                   title="enter your password." minlength="5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="password2"><h4 id="verifyPassTitle">Confirm:</h4></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="password" onchange='check_pass();' class="form-control"
+                                                   name="password2"
+                                                   id="password2"
+                                                   title="enter your password2.">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label for="email"><h4>Email</h4></label>
-                                <input type="email" class="form-control" th:name="email" id="email"
-                                       th:placeholder="${user.email}" title="enter your new email.">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label for="password"><h4 id="passTitle">Password:</h4></label>
-                                <input type="password" onchange='check_pass();' class="form-control" th:name="password" id="password"
-                                       title="enter your password." minlength="5">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label for="password2"><h4 id="verifyPassTitle">Confirm password:</h4></label>
-                                <input type="password" onchange='check_pass();' class="form-control" name="password2" id="password2"
-                                       title="enter your password2.">
-                            </div>
-                        </div>
-
                         <div class="row w-100 m-0">
-                            <div class="col-md-2 col-md-offset-5">
+                            <div class="col-md-12" align="center">
                                 <div class="text-center">
                                     <br>
                                     <div class="row">
@@ -91,13 +129,15 @@
                                             <div class="image_outer_container">
                                                 <div class="green_icon"></div>
                                                 <div class="image_inner_container">
-                                                    <img id="img" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+                                                    <img id="img"
+                                                         th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <h6>Upload a different photo...</h6>
-                                    <input type="file" class="text-center center-block file-upload" onchange="readURL(this);" name="file">
+                                    <input type="file" class="text-center center-block file-upload"
+                                           onchange="readURL(this);" name="file">
                                 </div>
                             </div>
                         </div>
@@ -115,7 +155,7 @@
                         </div>
                     </form>
                 </div>
-
+                <!--==============================PREFERENCES===================================================================-->
                 <div class="tab-pane" id="preferences">
                     <form class="form" action="##" method="post" id="registrationForm">
                         <div class="form-group">
@@ -195,46 +235,10 @@
                         </div>
                     </form>
                 </div><!--/tab-pane-->
+                <!--==============================PREFERENCES===================================================================-->
             </div><!--/tab-pane-->
         </div><!--/tab-content-->
     </div><!--/col-9-->
 </div><!--/row-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-
-<script>
-function check_pass() {
-    if (document.getElementById('password').value ==
-            document.getElementById('password2').value) {
-        document.getElementById('saveButton').disabled = false;
-        document.getElementById('passTitle').style.color = 'green';
-        document.getElementById('verifyPassTitle').style.color = 'green';
-    } else {
-        document.getElementById('saveButton').disabled = true;
-        document.getElementById('passTitle').style.color = 'red';
-        document.getElementById('verifyPassTitle').style.color = 'red';
-    }
-}
-
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#img')
-                    .attr('src', e.target.result)
-                    .width(300)
-                    .height(300);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-</script>
 </body>
 </html>

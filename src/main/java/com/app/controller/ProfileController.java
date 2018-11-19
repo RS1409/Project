@@ -35,8 +35,9 @@ public class ProfileController {
         UserDTO userDTO = new UserDTO(user);
         model.addAttribute("user", userDTO);
         model.addAttribute("message", message);
+        model.addAttribute("content", "profile");
         message=null;
-        return "profilePage";
+        return "homepage";
     }
 
     @PostMapping("/profile/edit")

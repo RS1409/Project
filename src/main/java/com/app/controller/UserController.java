@@ -34,7 +34,7 @@ public class UserController {
     {
         Optional<User> user = userRepository.findById(id);
         model.addAttribute("user", user.get());
-        return "testUserPage";
+        return "userPage";
     }
 
     @PostMapping("/commentPost")
