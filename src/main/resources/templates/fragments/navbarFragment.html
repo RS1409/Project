@@ -13,21 +13,24 @@
             <div class="col col-md-1 pt-1" align="center">
                 <div class="navbar-header">
                     <label class="navbar-brand" id="brand">
-                        <img src="https://i.imgur.com/YC3M8I0.png" width="22" height="20" class="d-inline-block align-top" alt="">TUNAS</label>
+                        <img src="https://i.imgur.com/YC3M8I0.png" width="22" height="20"
+                             class="d-inline-block align-top" alt="">TUNAS</label>
                 </div>
             </div>
             <div class="col col-md-3 py-1" align="center">
-                <div class="d-flex justify-content-between ">
-                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/}"><label class="navButton">Homepage</label></a></div>
-                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label class="navButton">Music</label></a></div>
+                <div class="row d-flex justify-content-between ">
+                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/}"><label
+                            class="navButton">Homepage</label></a></div>
+                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
+                            class="navButton">Music</label></a></div>
                 </div>
             </div>
-
             <div class="col" align="center">
                 <form class="navbar-form" action="#" th:action="@{/search}" method="get">
                     <div class="row justify-content-center">
-                        <div class="col-sm-4 mt-2" align="center">
-                            <input type="text" class="form-control" required="required" placeholder="Search User" th:name="userName">
+                        <div class="col-sm-8 mt-2" align="center">
+                            <input type="text" class="form-control" required="required" placeholder="Search User"
+                                   th:name="userName">
                         </div>
                         <div class="col-sm-1 mt-2">
                             <input id="navSearch" type="submit" value="Search" class="btn btn-default"/>
@@ -35,11 +38,12 @@
                     </div>
                 </form>
             </div>
+            <div class="col col-md-3"></div>
 
             <div class="col col-md-1" align="center">
                 <form method="post" th:action="@{/logout}">
                     <div class="col pt-2">
-                    <input type="submit" class="btn btn-primary btn-purple navButton" value="Log out"/>
+                        <input type="submit" class="btn btn-primary btn-purple navButton" value="Log out"/>
                     </div>
                 </form>
             </div>
