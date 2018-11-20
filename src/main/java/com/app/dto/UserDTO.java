@@ -121,4 +121,6 @@ public class UserDTO {
     public void setLastSearchRequest(String lastSearchRequest) {
         this.lastSearchRequest = lastSearchRequest;
     }
+
+    public boolean isAdmin() {return roles.contains(Roles.ADMIN);}
 }

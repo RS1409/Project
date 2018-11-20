@@ -16,7 +16,7 @@
 <div class="container-fluid p-0 h-100" id="mainContent">
     <div class="row w-100 m-0">
         <div class="col-md-12 p-0">
-            <div th:insert="fragments/navbarFragment :: navBar"></div>
+            <div th:insert="fragments/navbarFragment :: navBar (loggedUser=${user})"></div>
         </div>
     </div>
     <div class="row w-100 m-0 h-100">

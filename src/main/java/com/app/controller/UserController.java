@@ -1,6 +1,7 @@
 package com.app.controller;
 
 
+import com.app.dto.UserDTO;
 import com.app.model.Comment;
 import com.app.model.Post;
 import com.app.model.User;
@@ -30,10 +31,17 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("{id}")
-    private String showUserPage(@PathVariable Long id, Model model)
+    private String showUserPage(@PathVariable Long id, @AuthenticationPrincipal User loggedUser, Model model)
     {
         Optional<User> user = userRepository.findById(id);
-        model.addAttribute("user", user.get());
+        UserDTO loggedUserDTO = new UserDTO(loggedUser);
+        UserDTO pageOwnerDTO = new UserDTO(user.get());
+
+        if(pageOwnerDTO.getId().equals(loggedUserDTO.getId()))
+            return "redirect:/mypage";
+
+        model.addAttribute("user", pageOwnerDTO);
+        model.addAttribute("loggedUser", loggedUserDTO);
         return "userPage";
     }
 

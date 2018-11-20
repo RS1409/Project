@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<nav th:fragment="navBar" class="navbar navbar-light bg-light sticky-top p-0" id="top">
+<nav th:fragment="navBar (loggedUser)" class="navbar navbar-light bg-light sticky-top p-0" id="top">
     <div class="container-fluid" id="navCont">
         <div class="row w-100 p-0">
             <div class="col col-md-1 pt-1" align="center">
@@ -23,7 +23,7 @@
                             class="navButton">Homepage</label></a></div>
                     <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
                             class="navButton">Music</label></a></div>
-                    <div th:if="#lists.contains(${user.roles}, Roles.'ADMIN')"class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
+                    <div th:if="${loggedUser.isAdmin()}" class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
                             class="navButton">Requests</label></a></div>
                 </div>
             </div>

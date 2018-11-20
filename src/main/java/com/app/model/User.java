@@ -198,6 +198,8 @@ public class User implements Serializable, UserDetails {
         this.lastSearchRequest = lastSearchRequest;
     }
 
+    public boolean isAdmin() {return roles.contains(Roles.ADMIN);}
+
     @Override
     public String toString() {
         return "User{" +
