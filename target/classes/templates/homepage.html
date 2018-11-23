@@ -79,7 +79,7 @@
                         </div>
 
                         <div th:if="${content} == 'songPlay'">
-                            <div th:insert="fragments/ytApiFragment :: ytApi (link=${link})"></div>
+                            <div th:insert="fragments/ytPlayerFragment :: ytPlayer (link=${link})"></div>
                             <div th:insert="fragments/songFragment :: songSearch"></div>
                             <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
                         </div>
