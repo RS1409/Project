@@ -44,9 +44,11 @@ public class SongsController {
                            @RequestParam String link,
                            @ModelAttribute String content) {
 
+        String correctLink = "https://www.youtube.com/embed/" + link.substring(32, 43);
+        System.out.println(correctLink);
         UserDTO userDTO = new UserDTO(loggedUser);
         model.addAttribute("user", userDTO);
-        model.addAttribute("link", link);
+        model.addAttribute("link", correctLink);
         model.addAttribute("songSearch", searchResults);
         model.addAttribute("content", "songPlay");
         return "homepage";

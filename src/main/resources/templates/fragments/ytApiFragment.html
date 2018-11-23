@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="ytApi (link)">
-    <h1 align="center"> YT placeholder</h1>
-    <a th:href="${link}"> yt link </a>
+<div th:fragment="ytApi (link)" class="row justify-content-center ">
+    <iframe id="player" type="text/html" width="640" height="390"
+            th:src=${link}
+            frameborder="0" allowfullscreen="1"></iframe>
 </div>
+</body>
+</html>
 
 </body>
 </html>
