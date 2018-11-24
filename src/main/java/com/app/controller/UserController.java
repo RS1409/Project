@@ -11,13 +11,16 @@ import com.app.repository.FriendRequestRepository;
 import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
 import com.app.service.DateTimeService;
+import com.app.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/users")
@@ -35,6 +38,9 @@ public class UserController {
     @Autowired
     private FriendRequestRepository friendRequestRepository;
 
+    @Autowired
+    private FriendRequestService friendRequestService;
+
     @GetMapping("{id}")
     private String showUserPage(@PathVariable Long id, @AuthenticationPrincipal User loggedUser, Model model)
     {
@@ -42,13 +48,20 @@ public class UserController {
         UserDTO loggedUserDTO = new UserDTO(loggedUser);
         UserDTO pageOwnerDTO = new UserDTO(user.get());
 
-        String areFriends = (pageOwnerDTO.getFriends().contains(loggedUser)) ? "friends" : "no";
+        Set<FriendRequest> usersRequestsTo = friendRequestRepository.findAllByTo(user.get());
+        Set<FriendRequest> usersRequestsFrom = friendRequestRepository.findAllByTo(loggedUser);
+
+        boolean requestFromExists = (usersRequestsTo.stream().anyMatch(x->x.getFrom().getId().equals(loggedUser.getId())));
+        boolean requestToExists = (usersRequestsFrom.stream().anyMatch(x->x.getTo().getId().equals(loggedUser.getId())));
+        String requestExists = (requestFromExists || requestToExists) ? "yes" : "no";
+
+
         if(pageOwnerDTO.getId().equals(loggedUserDTO.getId()))
             return "redirect:/mypage";
 
         model.addAttribute("user", pageOwnerDTO);
         model.addAttribute("loggedUser", loggedUserDTO);
-        model.addAttribute("friends", areFriends);
+        model.addAttribute("friends", requestExists);
         return "userPage";
     }
 

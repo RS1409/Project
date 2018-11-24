@@ -19,7 +19,6 @@ public class UserDTO {
     private boolean active;
     private Set<Roles> roles = new HashSet<>();
     private List<Post> posts = new LinkedList<>();
-    private Set<User> friends = new HashSet<>();
     private Set<FriendRequest> friendRequests = new HashSet<>();
     private String lastSearchRequest;
 
@@ -34,8 +33,6 @@ public class UserDTO {
         this.img=user.getImg();
         this.roles.addAll(user.getRoles());
         this.posts.addAll(user.getPosts());
-        this.friends.addAll(user.getFriends());
-        this.friendRequests.addAll(user.getFriendRequests());
         this.active=user.isActive();
     }
 
@@ -128,22 +125,5 @@ public class UserDTO {
     }
 
     public boolean isAdmin() {return roles.contains(Roles.ADMIN);}
-
-    public Set<FriendRequest> getFriendRequests() {
-        return friendRequests;
-    }
-
-    public void setFriendRequests(Set<FriendRequest> friendRequests) {
-        this.friendRequests = friendRequests;
-    }
-
-    public Set<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Set<User> friends) {
-        this.friends = friends;
-    }
-
 
 }

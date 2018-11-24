@@ -10,11 +10,15 @@ import com.app.repository.FriendRequestRepository;
 import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
 import com.app.service.DateTimeService;
+import com.app.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -29,6 +33,11 @@ public class HomeController {
     @Autowired
     private CommentRepository commentRepo;
 
+    @Autowired
+    private FriendRequestRepository friendRequestRepository;
+
+    @Autowired
+    private FriendRequestService friendRequestService;
 
     @GetMapping("/")
     public String redirectHome()
@@ -84,10 +93,21 @@ public class HomeController {
     @GetMapping("/myFriends")
     private String showFriends(@AuthenticationPrincipal User user, Model model)
     {
+
         UserDTO userDTO = new UserDTO(userRepository.findByUsername(user.getUsername()));
-        System.out.println("Friend Requests: " + user.getFriendRequests().size());
-        model.addAttribute("content", "friends");
+        Set<FriendRequest> friendRequests = friendRequestRepository.findAllByTo(user);
+        System.out.println("Total size of requests" + friendRequests.size());
+
+        Set<FriendRequest> received = friendRequestService.filterSended(friendRequests);
+        System.out.println("Size of received requests" + received.size());
+        received.stream().forEach(System.out::println);
+        Set<FriendRequest> accepted = friendRequestService.filterAccepted(friendRequests);
+        System.out.println("Size of accepted requests" + accepted.size());
+
         model.addAttribute("user", userDTO);
+        model.addAttribute("content","friends");
+        model.addAttribute("received", received);
+        model.addAttribute("accepted", accepted);
         return "homepage";
     }
 }

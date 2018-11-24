@@ -33,9 +33,9 @@
                                         <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
                                     </div>
                                     <div th:text="${user.username}" id="userName"></div>
-                                    <div th:if="${!user.friendRequests.isEmpty()}">
-                                        <p>You have new friend Requests</p>
-                                    </div>
+                                    <!--<div th:if="${!user.friendRequests.isEmpty()}">-->
+                                        <!--<p>You have new friend Requests</p>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                         </div>
 
                         <div th:if="${content} == 'friends'">
-                            <div th:insert="fragments/friendsFragment :: userFriends (user=${user})"></div>
+                            <div th:insert="fragments/friendsFragment :: userFriends (received=${received}, accepted=${accepted})"></div>
                         </div>
 
                         <div th:if="${content} == 'songList'">
