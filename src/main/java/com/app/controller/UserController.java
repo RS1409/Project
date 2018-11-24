@@ -3,9 +3,11 @@ package com.app.controller;
 
 import com.app.dto.UserDTO;
 import com.app.model.Comment;
+import com.app.model.FriendRequest;
 import com.app.model.Post;
 import com.app.model.User;
 import com.app.repository.CommentRepository;
+import com.app.repository.FriendRequestRepository;
 import com.app.repository.PostRepository;
 import com.app.repository.UserRepository;
 import com.app.service.DateTimeService;
@@ -30,6 +32,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FriendRequestRepository friendRequestRepository;
+
     @GetMapping("{id}")
     private String showUserPage(@PathVariable Long id, @AuthenticationPrincipal User loggedUser, Model model)
     {
@@ -37,11 +42,13 @@ public class UserController {
         UserDTO loggedUserDTO = new UserDTO(loggedUser);
         UserDTO pageOwnerDTO = new UserDTO(user.get());
 
+        String areFriends = (pageOwnerDTO.getFriends().contains(loggedUser)) ? "friends" : "no";
         if(pageOwnerDTO.getId().equals(loggedUserDTO.getId()))
             return "redirect:/mypage";
 
         model.addAttribute("user", pageOwnerDTO);
         model.addAttribute("loggedUser", loggedUserDTO);
+        model.addAttribute("friends", areFriends);
         return "userPage";
     }
 

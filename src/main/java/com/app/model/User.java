@@ -1,5 +1,6 @@
 package com.app.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -64,17 +62,51 @@ public class User implements Serializable, UserDetails {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<FriendRequest> friendRequests;
+
+    //=================================FRIENDS===============================================================
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private Set<User> friends;
+
+    @ManyToMany(mappedBy = "friends", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<User> befriended;
+
+
+
     @Transient
     private String lastSearchRequest;
 
     public User(){
         this.posts = new LinkedList<>();
+        this.friends = new HashSet<>();
+        this.befriended = new HashSet<>();
     }
 
     public void addPostToUser(Post post)
     {
         post.setUser(this);
         this.getPosts().add(post);
+    }
+
+    public void addRequestToUser(FriendRequest friendRequest)
+    {
+        friendRequest.setUser(this);
+        this.getFriendRequests().add(friendRequest);
+    }
+
+    public void addFriendToUser(User user)
+    {
+        user.getFriends().add(this);
+        this.getFriends().add(user);
     }
 
     public String getUsername() {
@@ -190,6 +222,26 @@ public class User implements Serializable, UserDetails {
         this.posts = posts;
     }
 
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
+    public Set<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(Set<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
+    }
+
     public String getLastSearchRequest() {
         return lastSearchRequest;
     }
@@ -200,6 +252,14 @@ public class User implements Serializable, UserDetails {
 
     public boolean isAdmin() {return roles.contains(Roles.ADMIN);}
 
+    public Set<User> getBefriended() {
+        return befriended;
+    }
+
+    public void setBefriended(Set<User> befriended) {
+        this.befriended = befriended;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -208,5 +268,25 @@ public class User implements Serializable, UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(age, user.age);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, username, password, firstName, lastName, email, age);
     }
 }
