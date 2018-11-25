@@ -32,7 +32,7 @@
     <div th:if="${!searchResults.isEmpty()}">
     <ul class="nav nav-pills">
         <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
-            <a th:href="@{/search(page=${i})}" th:text="${i}" class="nav-link"
+            <a th:href="@{/search(page=${i},userName=${userName})}" th:text="${i}" class="nav-link"
                th:classappend="${currentPage}==${i}?'active':''"></a>
         </li>
     </ul>

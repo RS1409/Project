@@ -22,17 +22,29 @@ public class NavBarController {
     @GetMapping("/search")
     private String searchUsers(@AuthenticationPrincipal User loggedUser,
                                @RequestParam(required = false) String userName, Model model,
-                               @RequestParam(defaultValue = "0") int page)
-    {
+                               @RequestParam(defaultValue = "0") int page) {
         loggedUser.setLastSearchRequest(userName);
         UserDTO userDTO = new UserDTO(loggedUser);
         if (loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
-        List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, 2));
 
-        model.addAttribute("totalPages", searchResults.size());
-        model.addAttribute("user", userDTO);
-        model.addAttribute("searchResults", searchResults);
-        model.addAttribute("content", "search");
-        return "homepage";
-    }
+        int size = 4;
+        int resultsNumber = userRepo.findByUsernameContaining(loggedUser.getLastSearchRequest()).size();
+        int totalPages = resultsNumber % size;
+        if (totalPages != 0) {
+            if (resultsNumber / size >= 1)
+                totalPages = resultsNumber / size + 1;
+            else
+                totalPages = 1;
+        } else
+            totalPages = resultsNumber / size;
+
+    List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, size));
+    
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("user",userDTO);
+        model.addAttribute("searchResults",searchResults);
+        model.addAttribute("userName",userName);
+        model.addAttribute("content","search");
+        return"homepage";
+}
 }
