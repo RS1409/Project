@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -23,7 +23,7 @@
                             class="navButton">Homepage</label></a></div>
                     <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
                             class="navButton">Music</label></a></div>
-                    <div th:if="${loggedUser.isAdmin()}" class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col btn btn-primary btn-purple" align="center"><a th:href="@{/requests}"><label
                             class="navButton">Requests</label></a></div>
                 </div>
             </div>

@@ -81,7 +81,12 @@ public class RegistrationController {
             }
 
             user.setActive(true);
-            user.setRoles(Collections.singleton(Roles.USER));
+
+            if(user.getUsername().equals("admin"))
+                user.setRoles(Collections.singleton(Roles.ROLE_ADMIN));
+            else
+                user.setRoles(Collections.singleton(Roles.ROLE_USER));
+
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             System.out.println(user);
             repo.save(user);

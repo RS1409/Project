@@ -124,6 +124,4 @@ public class UserDTO {
         this.lastSearchRequest = lastSearchRequest;
     }
 
-    public boolean isAdmin() {return roles.contains(Roles.ADMIN);}
-
 }
