@@ -69,10 +69,10 @@
     <form class="form-horizontal pt-2" action="#" th:action="@{/findSong}" method="get">
         <div class="form-group">
             <div class="row" align="center">
-            <div class="col-md-12 col-md-offset-4">
-                <h1>Look for a song</h1>
+                <div class="col-md-12 col-md-offset-4">
+                    <h1>Look for a song</h1>
+                </div>
             </div>
-        </div>
 
             <div class="row">
                 <div class="col-lg-4">
@@ -84,11 +84,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase"
+                    <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase" th:value="${searchPhrase}"
                            placeholder="Search..."/>
                 </div>
                 <div class="col-lg-2" id="looking_for">
-                    <select class="form-control" th:name="selectedOption">
+                    <select class="form-control" th:name="selectedOption" th:value="${selectedOption}">
                         <option th:value="title">Title</option>
                         <option th:value="artist">Artist</option>
                         <option th:value="album">Album</option>
@@ -111,7 +111,7 @@
 <!--SONG SEARCH RESULTS-->
 <!--==========================================================================================================-->
 
-<div th:fragment="songList (songSearch)">
+<div th:fragment="songList (songSearch, totalPages)">
     <div class="card-block">
         <table class="table table-hover m-0">
             <tr>
@@ -135,7 +135,15 @@
             </tr>
         </table>
     </div>
+    <div th:if="${!songSearch.isEmpty()}">
+        <ul class="nav nav-pills">
+            <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
+                <a th:href="@{/findSong(page=${i},selectedOption=${selectedOption},searchPhrase=${searchPhrase})}"
+                   th:text="${i}" class="nav-link"
+                   th:classappend="${currentPage}==${i}?'active':''"></a>
+            </li>
+        </ul>
+    </div>
 </div>
-
 </body>
 </html>

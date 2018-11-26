@@ -88,9 +88,13 @@
                             <div th:insert="fragments/requestFragment :: songRequests (received=${requestList})"></div>
                         </div>
 
+                        <div th:if="${content} == 'songs'">
+                            <div th:insert="fragments/songFragment :: songSearch"></div>
+                        </div>
+
                         <div th:if="${content} == 'songList'">
                             <div th:insert="fragments/songFragment :: songSearch"></div>
-                            <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+                            <div th:insert="fragments/songFragment :: songList (songSearch=${searchResults}, totalPages=${totalPages})"></div>
                         </div>
 
                         <div th:if="${content} == 'songAdd'">
@@ -100,7 +104,7 @@
                         <div th:if="${content} == 'songPlay'">
                             <div th:insert="fragments/ytPlayerFragment :: ytPlayer (link=${link})"></div>
                             <div th:insert="fragments/songFragment :: songSearch"></div>
-                            <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+                            <div th:insert="fragments/songFragment :: songList (songSearch=${searchResults}, totalPages=${totalPages})"></div>
                         </div>
                     </div>
                 </div>

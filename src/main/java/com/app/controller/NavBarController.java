@@ -20,8 +20,8 @@ public class NavBarController {
     UserRepository userRepo;
 
     @GetMapping("/search")
-    private String searchUsers(@AuthenticationPrincipal User loggedUser,
-                               @RequestParam(required = false) String userName, Model model,
+    private String searchUsers(@AuthenticationPrincipal User loggedUser,  Model model,
+                               @RequestParam(required = false) String userName,
                                @RequestParam(defaultValue = "0") int page) {
         loggedUser.setLastSearchRequest(userName);
         UserDTO userDTO = new UserDTO(loggedUser);
@@ -41,9 +41,10 @@ public class NavBarController {
     List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, size));
     
         model.addAttribute("totalPages",totalPages);
-        model.addAttribute("user",userDTO);
-        model.addAttribute("searchResults",searchResults);
         model.addAttribute("userName",userName);
+        model.addAttribute("searchResults",searchResults);
+
+        model.addAttribute("user",userDTO);
         model.addAttribute("content","search");
         return"homepage";
 }
