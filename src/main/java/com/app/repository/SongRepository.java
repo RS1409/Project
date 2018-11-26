@@ -12,5 +12,6 @@ List<Song> findByStatusAndArtistContaining(Song.Status status, String artist);
 List<Song> findByStatusAndAlbumContaining(Song.Status status, String album);
 List<Song> findByStatusAndTitleContaining(Song.Status status, String title);
 List<Song> findAllByStatusAndGenre(Song.Status status, String genre);
+
 List<Song> findAllByStatus(Song.Status status);
 }

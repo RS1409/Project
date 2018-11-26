@@ -34,7 +34,7 @@
                                     </div>
                                     <div th:text="${user.username}" id="userName"></div>
                                     <!--<div th:if="${!user.friendRequests.isEmpty()}">-->
-                                        <!--<p>You have new friend Requests</p>-->
+                                    <!--<p>You have new friend Requests</p>-->
                                     <!--</div>-->
                                 </div>
                             </div>
@@ -76,10 +76,6 @@
                             <div th:insert="fragments/postFragment :: post (user=${user})"></div>
                         </div>
 
-                        <div th:if="${content} == 'songAdd'">
-                            <div th:insert="fragments/songFragment :: songAdd"></div>
-                        </div>
-
                         <div th:if="${content} == 'profile'">
                             <div th:insert="fragments/profileFragment :: profileForm (user=${user})"></div>
                         </div>
@@ -88,9 +84,17 @@
                             <div th:insert="fragments/friendsFragment :: userFriends (received=${received}, accepted=${accepted})"></div>
                         </div>
 
+                        <div th:if="${content} == 'songRequests'">
+                            <div th:insert="fragments/requestFragment :: songRequests (received=${requestList})"></div>
+                        </div>
+
                         <div th:if="${content} == 'songList'">
                             <div th:insert="fragments/songFragment :: songSearch"></div>
                             <div th:insert="fragments/songFragment :: songList (songSearch=${songSearch})"></div>
+                        </div>
+
+                        <div th:if="${content} == 'songAdd'">
+                            <div th:insert="fragments/songFragment :: songAdd"></div>
                         </div>
 
                         <div th:if="${content} == 'songPlay'">
@@ -145,6 +149,7 @@ function readURL(input) {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 
 
 

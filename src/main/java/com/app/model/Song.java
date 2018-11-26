@@ -20,7 +20,7 @@ public class Song implements Serializable {
     private String title;
     @URL(message = "{song.url.incorrect}")
     private String link;
-    private Status status = Status.ACCEPTED;
+    private Status status = Status.REQUESTED;
 
     public Song() {}
 
