@@ -1,6 +1,8 @@
 package com.app.controller;
 
 
+import com.app.model.Preference;
+import com.app.repository.PreferenceRepository;
 import com.app.service.ByteConverter;
 import com.app.model.Roles;
 import com.app.model.User;
@@ -24,7 +26,10 @@ import java.util.Collections;
 public class RegistrationController {
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
+
+    @Autowired
+    private PreferenceRepository preferenceRepository;
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
@@ -88,8 +93,13 @@ public class RegistrationController {
                 user.setRoles(Collections.singleton(Roles.ROLE_USER));
 
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+            Preference preference = new Preference();
+            preferenceRepository.save(preference);
+            user.addPreference(preference);
+
             System.out.println(user);
-            repo.save(user);
+            userRepository.save(user);
             System.out.println("User added");
             return "redirect:/";
         }
@@ -97,12 +107,12 @@ public class RegistrationController {
 
     public User findByName(User user)
     {
-        return repo.findByUsername(user.getUsername());
+        return userRepository.findByUsername(user.getUsername());
     }
 
     public User findByEmail(User user)
     {
-        return repo.findByEmail(user.getEmail());
+        return userRepository.findByEmail(user.getEmail());
     }
 
 

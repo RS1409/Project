@@ -131,6 +131,11 @@
                         <td><input type="submit" class="btn btn-primary btn-purple" value="Play"/></td>
 
                     </form>
+                    <form class="form-horizontal" action="#" th:action="@{/songFavourite}" method="post">
+                        <input type="hidden" th:value="${song.id}" th:name="songId"/>
+                        <td><input type="submit" class="btn btn-primary btn-purple" value="Favourite"/></td>
+
+                    </form>
                 </div>
             </tr>
         </table>

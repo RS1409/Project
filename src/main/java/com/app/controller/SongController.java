@@ -1,8 +1,10 @@
 package com.app.controller;
 
 import com.app.dto.UserDTO;
+import com.app.model.Preference;
 import com.app.model.Song;
 import com.app.model.User;
+import com.app.repository.PreferenceRepository;
 import com.app.repository.SongRepository;
 import com.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,11 @@ import java.util.List;
 @Controller
 public class SongController {
     @Autowired
-    SongRepository songRepo;
+    SongRepository songRepository;
+    @Autowired
+    PreferenceRepository preferenceRepository;
+    @Autowired
+    UserRepository userRepository;
 
     private List<Song> searchResults = new ArrayList<>();
     private int totalPages = 0;
@@ -49,15 +54,15 @@ public class SongController {
     }
 
     @PostMapping("/addSong")
-    public String addSong(@ModelAttribute Song song, BindingResult bindingResult) {
+    public String addSong(@ModelAttribute Song song) {
         if (song.getAlbum().isEmpty())
             song.setAlbum("single");
 
-        if (songRepo.findAll().contains(song)) {
+        if (songRepository.findAll().contains(song)) {
             System.out.println("Song was already added before.");
             return "redirect:/songs";
         }
-        songRepo.save(song);
+        songRepository.save(song);
         System.out.println("Song added successfully.");
         return "redirect:/songs";
     }
@@ -72,16 +77,16 @@ public class SongController {
         int resultsNumber = 0;
         switch (selectedOption) {
             case "title":
-                resultsNumber = songRepo.findAllByStatusAndTitleContaining(Song.Status.ACCEPTED, searchPhrase).size();
+                resultsNumber = songRepository.findAllByStatusAndTitleContaining(Song.Status.ACCEPTED, searchPhrase).size();
                 break;
             case "artist":
-                resultsNumber = songRepo.findAllByStatusAndArtistContaining(Song.Status.ACCEPTED, searchPhrase).size();
+                resultsNumber = songRepository.findAllByStatusAndArtistContaining(Song.Status.ACCEPTED, searchPhrase).size();
                 break;
             case "album":
-                resultsNumber = songRepo.findAllByStatusAndAlbumContaining(Song.Status.ACCEPTED, searchPhrase).size();
+                resultsNumber = songRepository.findAllByStatusAndAlbumContaining(Song.Status.ACCEPTED, searchPhrase).size();
                 break;
             case "genre":
-                resultsNumber = songRepo.findAllByStatusAndGenre(Song.Status.ACCEPTED, searchPhrase).size();
+                resultsNumber = songRepository.findAllByStatusAndGenre(Song.Status.ACCEPTED, searchPhrase).size();
                 break;
         }
 
@@ -97,16 +102,16 @@ public class SongController {
 
         switch (selectedOption) {
             case "title":
-                searchResults = songRepo.findByStatusAndTitleContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
+                searchResults = songRepository.findByStatusAndTitleContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
                 break;
             case "artist":
-                searchResults = songRepo.findByStatusAndArtistContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
+                searchResults = songRepository.findByStatusAndArtistContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
                 break;
             case "album":
-                searchResults = songRepo.findByStatusAndAlbumContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
+                searchResults = songRepository.findByStatusAndAlbumContaining(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
                 break;
             case "genre":
-                searchResults = songRepo.findByStatusAndGenre(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
+                searchResults = songRepository.findByStatusAndGenre(Song.Status.ACCEPTED, searchPhrase, PageRequest.of(page, size));
                 break;
         }
 
@@ -133,6 +138,25 @@ public class SongController {
         model.addAttribute("user", userDTO);
         model.addAttribute("content", "songPlay");
         model.addAttribute("link", correctLink);
+        model.addAttribute("selectedOption", selectedOptionGlobal);
+        model.addAttribute("searchPhrase", searchPhraseGlobal);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("searchResults", searchResults);
+        return "homepage";
+    }
+
+    @PostMapping("/songFavourite")
+    public String setFavouriteSong(@AuthenticationPrincipal User loggedUser, Model model, @RequestParam Long songId) {
+        Preference preference = loggedUser.getPreference();
+        preference.setFavSong(songRepository.getOne(songId));
+        preferenceRepository.save(preference);
+        loggedUser.addPreference(preference);
+        userRepository.save(loggedUser);
+
+
+        UserDTO userDTO = new UserDTO(loggedUser);
+        model.addAttribute("user", userDTO);
+        model.addAttribute("content", "songList");
         model.addAttribute("selectedOption", selectedOptionGlobal);
         model.addAttribute("searchPhrase", searchPhraseGlobal);
         model.addAttribute("totalPages", totalPages);

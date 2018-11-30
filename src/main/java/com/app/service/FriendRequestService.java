@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 @Service
 public class FriendRequestService {
 
-    public Set<FriendRequest> filterSended(Set<FriendRequest> list)
+    public Set<FriendRequest> filterRequested(Set<FriendRequest> list)
     {
-        return list.stream().filter(x->x.getStatus().equals("Sended")).collect(Collectors.toSet());
+        return list.stream().filter(x->x.getStatus().equals(FriendRequest.Status.REQUESTED)).collect(Collectors.toSet());
     }
 
     public Set<FriendRequest> filterAccepted(Set<FriendRequest> list)
     {
-        return list.stream().filter(x->x.getStatus().equals("Accepted")).collect(Collectors.toSet());
+        return list.stream().filter(x->x.getStatus().equals(FriendRequest.Status.ACCEPTED)).collect(Collectors.toSet());
     }
 }

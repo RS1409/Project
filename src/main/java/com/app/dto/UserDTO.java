@@ -1,9 +1,6 @@
 package com.app.dto;
 
-import com.app.model.FriendRequest;
-import com.app.model.Post;
-import com.app.model.Roles;
-import com.app.model.User;
+import com.app.model.*;
 
 import java.util.*;
 
@@ -21,19 +18,20 @@ public class UserDTO {
     private List<Post> posts = new LinkedList<>();
     private Set<FriendRequest> friendRequests = new HashSet<>();
     private String lastSearchRequest;
+    private Preference preference;
 
-    public UserDTO(User user)
-    {
-        this.id=user.getId();
-        this.username=user.getUsername();
-        this.firstName=user.getFirstName();
-        this.lastName=user.getLastName();
-        this.email=user.getEmail();
-        this.age=user.getAge();
-        this.img=user.getImg();
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.age = user.getAge();
+        this.img = user.getImg();
         this.roles.addAll(user.getRoles());
         this.posts.addAll(user.getPosts());
-        this.active=user.isActive();
+        this.active = user.isActive();
+        this.preference = user.getPreference();
     }
 
     public Long getId() {
@@ -124,4 +122,7 @@ public class UserDTO {
         this.lastSearchRequest = lastSearchRequest;
     }
 
+    public Preference getPreference() { return preference; }
+
+    public void setPreference(Preference preference) { this.preference = preference; }
 }

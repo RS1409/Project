@@ -56,6 +56,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 p-3 mt-5" id="content">
+
+                    <div th:insert="fragments/preferenceFragment :: preferences (user=${user})"></div>
+
                     <div th:each="post: ${user.posts}">
                         <div class="container bootstrap snippet">
                             <div class="col-md-12">

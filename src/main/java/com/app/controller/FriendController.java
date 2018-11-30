@@ -35,7 +35,7 @@ public class FriendController {
 
         friendRequest.setFrom(loggedUser);
         friendRequest.setTo(user);
-        friendRequest.setStatus("Sended");
+        friendRequest.setStatus(FriendRequest.Status.REQUESTED);
 
         friendRequestRepository.save(friendRequest);
 
@@ -45,7 +45,7 @@ public class FriendController {
     @PostMapping(value="/requestConfirmation", params = "Accept")
     public String acceptFriend(@RequestParam Long friendRequestId, @AuthenticationPrincipal User loggedUser) {
         FriendRequest friendRequest = friendRequestRepository.findById(friendRequestId).get();
-        friendRequest.setStatus("Accepted");
+        friendRequest.setStatus(FriendRequest.Status.ACCEPTED);
         friendRequestRepository.save(friendRequest);
 
         return "redirect:/myFriends";

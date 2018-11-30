@@ -6,6 +6,7 @@ import com.app.model.User;
 import com.app.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,9 @@ public class RequestController {
     @Autowired
     SongRepository songRepo;
 
+
     @GetMapping("/requests")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getRequests(@AuthenticationPrincipal User loggedUser, Model model,
                               @ModelAttribute String content,
                               @RequestParam(defaultValue = "0") int page) {

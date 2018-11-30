@@ -98,7 +98,7 @@ public class HomeController {
         Set<FriendRequest> friendRequests = friendRequestRepository.findAllByTo(user);
         System.out.println("Total size of requests" + friendRequests.size());
 
-        Set<FriendRequest> received = friendRequestService.filterSended(friendRequests);
+        Set<FriendRequest> received = friendRequestService.filterRequested(friendRequests);
         System.out.println("Size of received requests" + received.size());
         received.stream().forEach(System.out::println);
         Set<FriendRequest> accepted = friendRequestService.filterAccepted(friendRequests);
@@ -108,6 +108,15 @@ public class HomeController {
         model.addAttribute("content","friends");
         model.addAttribute("received", received);
         model.addAttribute("accepted", accepted);
+        return "homepage";
+    }
+
+    @GetMapping("/myPreferences")
+    public String getMyPreferences(@AuthenticationPrincipal User loggedUser, Model model,
+                                   @ModelAttribute String content) {
+        UserDTO userDTO = new UserDTO(loggedUser);
+        model.addAttribute("user", userDTO);
+        model.addAttribute("content", "myPreferences");
         return "homepage";
     }
 }

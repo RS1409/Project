@@ -24,19 +24,19 @@ public class User implements Serializable, UserDetails {
     private Long id;
 
     @NotNull(message = "{user.username.empty}")
-    @Size(min=2, max=30,message = "{user.username.size}")
+    @Size(min = 2, max = 30, message = "{user.username.size}")
     private String username;
 
     @NotNull(message = "{user.password.empty}")
-    @Size(min=5, message = "{user.password.size}")
+    @Size(min = 5, message = "{user.password.size}")
     private String password;
 
     @NotNull(message = "{user.firstname.empty}")
-    @Size(min=2, max=30,message = "{user.firstname.size}")
+    @Size(min = 2, max = 30, message = "{user.firstname.size}")
     private String firstName;
 
     @NotNull(message = "{user.lastname.empty}")
-    @Size(min=2, max=30,message = "{user.lastname.size}")
+    @Size(min = 2, max = 30, message = "{user.lastname.size}")
     private String lastName;
 
     @Email(message = "{user.email}")
@@ -51,8 +51,11 @@ public class User implements Serializable, UserDetails {
     @Column(name = "profile_image")
     private byte[] img;
 
-    @ElementCollection(targetClass = Roles.class, fetch=FetchType.EAGER)
-    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
+    @OneToOne(mappedBy = "user")
+    private Preference preference;
+
+    @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Roles> roles;
 
@@ -66,17 +69,19 @@ public class User implements Serializable, UserDetails {
     @Transient
     private String lastSearchRequest;
 
-    public User(){
+    public User() {
         this.posts = new LinkedList<>();
 
     }
 
-    public void addPostToUser(Post post)
-    {
+    public void addPostToUser(Post post) {
         post.setUser(this);
         this.getPosts().add(post);
     }
-
+    public void addPreference(Preference preference) {
+        preference.setUser(this);
+        this.setPreference(preference);
+    }
 
 
     public String getUsername() {
@@ -157,6 +162,14 @@ public class User implements Serializable, UserDetails {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Preference getPreference() {
+        return preference;
+    }
+
+    public void setPreference(Preference preference) {
+        this.preference = preference;
     }
 
     @Override

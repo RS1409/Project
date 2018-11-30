@@ -16,7 +16,7 @@ public class FriendRequest implements Serializable{
     @Column(name="`id_friend_request`")
     private Long id;
     private String message;
-    private String status;
+    private Status status;
 
 
     @ManyToOne
@@ -50,11 +50,11 @@ public class FriendRequest implements Serializable{
         this.message = message;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -97,5 +97,9 @@ public class FriendRequest implements Serializable{
                 ", status='" + status + '\'' +
                 ", from='" + from.getId() + '\'' +
                 '}';
+    }
+
+    public enum Status {
+        ACCEPTED, REQUESTED;
     }
 }
