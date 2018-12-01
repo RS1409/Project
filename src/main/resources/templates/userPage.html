@@ -47,9 +47,9 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12" align="center">
-                                <form th:action="@{/sendMessage}" method="post">
-                                    <input type="submit" class="btn btn-primary btn-purple col-sm-6"
-                                           value="Send message"/>
+                                <form th:action="@{/startConversation}" method="get">
+                                    <input type="hidden" th:value="${user.id}" th:name="userId">
+                                    <input type="submit" class="btn btn-primary btn-purple col-sm-6" value="Send message"/>
                                 </form>
                             </div>
                         </div>

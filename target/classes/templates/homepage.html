@@ -5,9 +5,11 @@
     <title>Tunas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
     <link href="css/profileImg.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link href="css/homepage.css" rel="stylesheet">
+    <link href="css/chat.css" rel="stylesheet">
     <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css"
           rel="stylesheet" type="text/css"/>
 </head>
@@ -96,6 +98,10 @@
                             <div th:insert="fragments/songFragment :: songSearch"></div>
                         </div>
 
+                        <div th:if="${content} == 'chat'">
+                            <div th:insert="fragments/conversationFragment :: chat (conversation=${conversation}, user=${user})"></div>
+                        </div>
+
                         <div th:if="${content} == 'songList'">
                             <div th:insert="fragments/songFragment :: songSearch"></div>
                             <div th:insert="fragments/songFragment :: songList (songSearch=${searchResults}, totalPages=${totalPages})"></div>
@@ -159,7 +165,10 @@ function readURL(input) {
     }
 
 
-
+function scrollDown(){
+    var element = document.getElementById('chatScroll');
+    element.scrollTop = element.scrollHeight;
+}
 
 
 </script>
@@ -169,5 +178,7 @@ function readURL(input) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </body>
 </html>

@@ -96,11 +96,13 @@ public class HomeController {
 
         UserDTO userDTO = new UserDTO(userRepository.findByUsername(user.getUsername()));
         Set<FriendRequest> friendRequests = friendRequestRepository.findAllByTo(user);
+        friendRequests.addAll(friendRequestRepository.findAllByFrom(user));
         System.out.println("Total size of requests" + friendRequests.size());
 
         Set<FriendRequest> received = friendRequestService.filterRequested(friendRequests);
         System.out.println("Size of received requests" + received.size());
         received.stream().forEach(System.out::println);
+
         Set<FriendRequest> accepted = friendRequestService.filterAccepted(friendRequests);
         System.out.println("Size of accepted requests" + accepted.size());
 

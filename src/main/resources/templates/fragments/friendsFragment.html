@@ -8,8 +8,14 @@
 <div th:fragment="userFriends (received, accepted)" class="container bootstrap snippet">
 
     <div class="container">
-        <div class="top">
-            <h2>Friend Requests:</h2>
+        <div th:if="${not #lists.isEmpty(received)}">
+            <div class="top">
+                <div class="row" align="center">
+                    <div class="col-md-12">
+                        <h2>You have new friend requests:</h2>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="shadow w-100">
@@ -61,13 +67,44 @@
     <div class="row">
         <div class="shadow w-100 m-3">
             <div th:each="friend: ${accepted}">
-                <td><a th:href="@{|users/${friend.from.id}|}">
-                    <div class="row">
-                        <img width="30" height="30" th:if="*{friend.from.img != null}"
-                             th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.from.img)}}"/>
-                        <div th:text="${friend.from.username}"></div>
-                    </div>
-                </a></td>
+                <div th:if="${user.id} == ${friend.to.id}">
+                    <td><a th:href="@{|users/${friend.from.id}|}">
+                        <div class="row my-1">
+                           <div class="col-md-1 p-0">
+                               <img width="30" height="30" th:if="*{friend.from.img != null}"
+                                    th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.from.img)}}"/>
+                           </div>
+                           <div class="col-md-7 p-0">
+                               <div th:text="${friend.from.username}"></div>
+                           </div>
+                           <div class="col-md-4 p-0">
+                               <form th:action="@{/startConversation}" method="get">
+                                   <input type="hidden" th:value="${friend.from.id}" th:name="userId">
+                                   <input type="submit" class="btn btn-primary btn-purple" value="Send Message">
+                               </form>
+                           </div>
+                        </div>
+                    </a></td>
+                </div>
+                <div th:if="${user.id} == ${friend.from.id}">
+                    <td><a th:href="@{|users/${friend.to.id}|}">
+                        <div class="row my-1">
+                            <div class="col-md-1 p-0">
+                                <img width="30" height="30" th:if="*{friend.to.img != null}"
+                                     th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.to.img)}}"/>
+                            </div>
+                            <div class="col-md-7 p-0">
+                                <div th:text="${friend.to.username}"></div>
+                            </div>
+                            <div class="col-md-4 p-0">
+                                <form th:action="@{/startConversation}" method="get">
+                                    <input type="hidden" th:value="${friend.to.id}" th:name="userId">
+                                    <input type="submit" class="btn btn-primary btn-purple" value="Send Message">
+                                </form>
+                            </div>
+                        </div>
+                    </a></td>
+                </div>
             </div>
             <div class="clearfix"></div>
             <hr/>
