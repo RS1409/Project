@@ -31,6 +31,10 @@ public class Conversation implements Serializable{
     @OrderBy("id ASC")
     private Set<Message> messages = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "conversation", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<ConversationNotification> notifications = new LinkedHashSet<>();
+
     private String status;
     private Long lastAuthorId;
 
@@ -40,6 +44,12 @@ public class Conversation implements Serializable{
     {
         message.setConversation(this);
         this.getMessages().add(message);
+    }
+
+    public void addConversationNotification(ConversationNotification conversationNotification)
+    {
+        this.notifications.add(conversationNotification);
+        conversationNotification.setConversation(this);
     }
 
     public String getStatus() {

@@ -66,12 +66,16 @@ public class User implements Serializable, UserDetails {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<ConversationNotification> notifications;
+
     @Transient
     private String lastSearchRequest;
 
     public User() {
         this.posts = new LinkedList<>();
-
+        this.notifications = new LinkedHashSet<>();
     }
 
     public void addPostToUser(Post post) {
@@ -81,6 +85,12 @@ public class User implements Serializable, UserDetails {
     public void addPreference(Preference preference) {
         preference.setUser(this);
         this.setPreference(preference);
+    }
+
+    public void addConversationNotification(ConversationNotification conversationNotification)
+    {
+        this.notifications.add(conversationNotification);
+        conversationNotification.setUser(this);
     }
 
 
@@ -215,6 +225,14 @@ public class User implements Serializable, UserDetails {
 
     public void setLastSearchRequest(String lastSearchRequest) {
         this.lastSearchRequest = lastSearchRequest;
+    }
+
+    public Set<ConversationNotification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<ConversationNotification> notifications) {
+        this.notifications = notifications;
     }
 
     @Override

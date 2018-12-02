@@ -2,10 +2,12 @@ package com.app.controller;
 
 import com.app.dto.UserDTO;
 import com.app.model.Conversation;
+import com.app.model.ConversationNotification;
 import com.app.model.Message;
 import com.app.model.User;
 import com.app.repository.ConversationRepository;
 import com.app.repository.MessageRepository;
+import com.app.repository.NotificationRepository;
 import com.app.repository.UserRepository;
 import com.app.service.DateTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.management.Notification;
 
 @Controller
 public class ConversationController {
@@ -27,6 +31,9 @@ public class ConversationController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
     @GetMapping("/startConversation")
     private String startConversation(@AuthenticationPrincipal User loggedUser, Long userId, Model model)
     {
@@ -39,6 +46,14 @@ public class ConversationController {
             conversation.setSecondUser(user);
             conversationRepository.save(conversation);
         }
+
+        ConversationNotification cn = notificationRepository.findFirstByUserAndConversation(loggedUser, conversation);
+        if(cn!=null)
+        {
+            loggedUser.getNotifications().remove(cn);
+            notificationRepository.delete(cn);
+        }
+
         model.addAttribute("conversation",conversation);
         model.addAttribute("user", new UserDTO(loggedUser));
         model.addAttribute("content", "chat");
@@ -53,8 +68,16 @@ public class ConversationController {
         Conversation conversation = conversationRepository.findById(conversationId).get();
         Message userMessage = new Message(loggedUser, message, DateTimeService.getCurrentTime());
 
+        User user = (conversation.getFirstUser().equals(loggedUser)) ? conversation.getSecondUser() : conversation.getFirstUser();
+        System.out.println(user.getUsername());
 
-
+        ConversationNotification cn = new ConversationNotification(user, conversation, loggedUser.getUsername(), loggedUser.getId());
+        if(!user.getNotifications().contains(cn)){
+            user.addConversationNotification(cn);
+            conversation.addConversationNotification(cn);
+        }
+        notificationRepository.save(cn);
+        userRepository.save(user);
         messageRepository.save(userMessage);
         conversation.addMessage(userMessage);
         conversationRepository.save(conversation);
@@ -62,7 +85,7 @@ public class ConversationController {
         model.addAttribute("conversation",conversationRepository.findById(conversationId).get());
         model.addAttribute("user", new UserDTO(loggedUser));
         model.addAttribute("content", "chat");
-        System.out.println("TO TEGO DZIALA");
+        System.out.println("DO TEGO DZIALA");
         return "homepage";
     }
 }

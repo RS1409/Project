@@ -177,3 +177,14 @@ background-color: #160b2a;
 border-radius: 1%;
 background-color: #fff;
 }
+
+#messageFrom{
+    color: red;
+    font-family: 'Acme', sans-serif;
+    font-size: 28px;
+}
+
+#notificetionMessage{
+    font-family: 'Acme', sans-serif;
+    font-size: 38px;
+}

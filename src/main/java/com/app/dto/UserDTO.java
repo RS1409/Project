@@ -17,6 +17,7 @@ public class UserDTO {
     private Set<Roles> roles = new HashSet<>();
     private List<Post> posts = new LinkedList<>();
     private Set<FriendRequest> friendRequests = new HashSet<>();
+    private Set<ConversationNotification> notifications = new HashSet<>();
     private String lastSearchRequest;
     private Preference preference;
 
@@ -32,6 +33,7 @@ public class UserDTO {
         this.posts.addAll(user.getPosts());
         this.active = user.isActive();
         this.preference = user.getPreference();
+        this.notifications.addAll(user.getNotifications());
     }
 
     public Long getId() {
@@ -125,4 +127,20 @@ public class UserDTO {
     public Preference getPreference() { return preference; }
 
     public void setPreference(Preference preference) { this.preference = preference; }
+
+    public Set<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(Set<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
+    }
+
+    public Set<ConversationNotification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<ConversationNotification> notifications) {
+        this.notifications = notifications;
+    }
 }
