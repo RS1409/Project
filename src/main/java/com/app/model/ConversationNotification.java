@@ -24,10 +24,7 @@ public class ConversationNotification implements Serializable {
     private Long userFromId;
 
 
-    public ConversationNotification()
-    {
-
-    }
+    public ConversationNotification() { }
 
     public ConversationNotification(User user, Conversation conversation, String fromUser, Long userFromId) {
         this.user = user;

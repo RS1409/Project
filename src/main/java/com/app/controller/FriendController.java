@@ -35,7 +35,6 @@ public class FriendController {
 
         friendRequest.setFrom(loggedUser);
         friendRequest.setTo(user);
-        friendRequest.setStatus(FriendRequest.Status.REQUESTED);
 
         friendRequestRepository.save(friendRequest);
 

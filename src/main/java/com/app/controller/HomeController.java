@@ -1,10 +1,7 @@
 package com.app.controller;
 
 import com.app.dto.UserDTO;
-import com.app.model.Comment;
-import com.app.model.FriendRequest;
-import com.app.model.Post;
-import com.app.model.User;
+import com.app.model.*;
 import com.app.repository.CommentRepository;
 import com.app.repository.FriendRequestRepository;
 import com.app.repository.PostRepository;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +65,11 @@ public class HomeController {
             System.out.println(user.getPosts().size());
 
             postRepository.save(post);
+
+            Set<ConversationNotification> emptyNotifications = new HashSet<>();
+            user.setNotifications(emptyNotifications);
             userRepository.save(user);
+
             return "redirect:/mypage";
         } else return "redirect:/mypage";
     }

@@ -16,7 +16,7 @@ public class FriendRequest implements Serializable{
     @Column(name="`id_friend_request`")
     private Long id;
     private String message;
-    private Status status;
+    private Status status = Status.REQUESTED;
 
 
     @ManyToOne
@@ -100,6 +100,6 @@ public class FriendRequest implements Serializable{
     }
 
     public enum Status {
-        ACCEPTED, REQUESTED;
+        ACCEPTED, REQUESTED
     }
 }

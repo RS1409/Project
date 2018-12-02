@@ -36,7 +36,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12" align="center">
-                                <div th:if="${friends} == 'no'">
+                                <div th:if="!${friends}">
                                     <form th:action="@{/addFriend}" method="get">
                                         <input type="hidden" th:value="${user.id}" th:name="userId">
                                         <input type="submit" class="btn btn-primary btn-purple col-sm-6"

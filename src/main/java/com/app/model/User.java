@@ -66,7 +66,7 @@ public class User implements Serializable, UserDetails {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<ConversationNotification> notifications;
 

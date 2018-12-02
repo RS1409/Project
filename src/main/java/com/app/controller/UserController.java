@@ -49,11 +49,11 @@ public class UserController {
         UserDTO pageOwnerDTO = new UserDTO(user.get());
 
         Set<FriendRequest> usersRequestsTo = friendRequestRepository.findAllByTo(user.get());
-        Set<FriendRequest> usersRequestsFrom = friendRequestRepository.findAllByTo(loggedUser);
+        Set<FriendRequest> usersRequestsFrom = friendRequestRepository.findAllByFrom(user.get());
 
-        boolean requestFromExists = (usersRequestsTo.stream().anyMatch(x->x.getFrom().getId().equals(loggedUser.getId())));
-        boolean requestToExists = (usersRequestsFrom.stream().anyMatch(x->x.getTo().getId().equals(loggedUser.getId())));
-        String requestExists = (requestFromExists || requestToExists) ? "yes" : "no";
+        boolean requestToExists = (usersRequestsTo.stream().anyMatch(x->x.getFrom().getId().equals(loggedUser.getId())));
+        boolean requestFromExists = (usersRequestsFrom.stream().anyMatch(x->x.getTo().getId().equals(loggedUser.getId())));
+        boolean requestExists = (requestFromExists || requestToExists);
 
 
         if(pageOwnerDTO.getId().equals(loggedUserDTO.getId()))
