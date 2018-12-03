@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="`notifications`")
+@Table(name="notifications")
 public class ConversationNotification implements Serializable {
 
     @Id
@@ -13,11 +13,11 @@ public class ConversationNotification implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="`user`")
+    @JoinColumn(name="user")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="`conversation`")
+    @JoinColumn(name="conversation")
     private Conversation conversation;
 
     private String fromUser;

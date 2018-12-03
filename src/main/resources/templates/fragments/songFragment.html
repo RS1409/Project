@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="songAdd">
+<!--==========================================================================================================-->
+<!--SONG ADD FORM-->
+<!--==========================================================================================================-->
+<div th:fragment="songAdd (genres)">
     <form class="form-horizontal" action="#" th:action="@{/addSong}" th:object="${song}" method="post">
         <div class="row" align="center">
             <div class="col-md-12 col-md-offset-4">
@@ -38,17 +41,17 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-lg-6">
-                    <input type="text" class="form-control" id="genre" placeholder="Genre" list="genres" required
-                           th:field="*{genre}"/>
-
-                    <datalist id="genres">
-                        <option value="Rock">
-                        <option value="Metal">
-                        <option value="POP">
-                        <option value="Classical">
-                        <option value="Rap">
-                        <option value="Other">
-                    </datalist>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="genre">Genre</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="genre" required th:field="*{genre}">
+                                <option value="" disabled selected>Choose Genre</option>
+                                <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,6 +67,9 @@
         </div>
     </form>
 </div>
+<!--==========================================================================================================-->
+<!--SONG SEARCH FORM-->
+<!--==========================================================================================================-->
 
 <div th:fragment="songSearch">
     <form class="form-horizontal pt-2" action="#" th:action="@{/findSong}" method="get">
@@ -84,7 +90,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase" th:value="${searchPhrase}"
+                    <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase"
+                           th:value="${searchPhrase}"
                            placeholder="Search..."/>
                 </div>
                 <div class="col-lg-2" id="looking_for">

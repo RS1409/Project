@@ -8,12 +8,12 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name="`friend_requests`")
+@Table(name="friend_requests")
 public class FriendRequest implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="`id_friend_request`")
+    @Column(name="id_friend_request")
     private Long id;
     private String message;
     private Status status = Status.REQUESTED;

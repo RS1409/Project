@@ -18,7 +18,7 @@ public class Comment implements Serializable {
     private String authorName;
 
     @ManyToOne
-    @JoinColumn(name = "`post_comments`")
+    @JoinColumn(name = "post_comments")
     private Post post;
 
 
@@ -26,10 +26,10 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
-    public Comment(String content, String date, String autorName) {
+    public Comment(String content, String date, String authorName) {
         this.content = content;
         this.date = date;
-        this.authorName = autorName;
+        this.authorName = authorName;
     }
 
     public Post getPost() {

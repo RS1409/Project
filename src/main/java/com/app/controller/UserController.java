@@ -74,7 +74,8 @@ public class UserController {
         System.out.println("Adding Comment");
         if(commentContent.length() != 0)
         {
-            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
+            String authorName = user.getFirstName() + ' ' + user.getLastName();
+            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), authorName);
             Post post = postRepository.getOne(postId);
             post.addCommentToPost(comment);
             post.addCommentCounter();

@@ -29,7 +29,7 @@ public class HomeController {
     private PostRepository postRepository;
 
     @Autowired
-    private CommentRepository commentRepo;
+    private CommentRepository commentRepository;
 
     @Autowired
     private FriendRequestRepository friendRequestRepository;
@@ -45,9 +45,12 @@ public class HomeController {
 
     @GetMapping("/mypage")
     public String getHome(@AuthenticationPrincipal User loggedUser, Model model) {
+        loggedUser.setFriendRequests(friendRequestRepository.findByToAndStatus(loggedUser, FriendRequest.Status.REQUESTED));
+        userRepository.save(loggedUser);
 
         User user = userRepository.findByUsername(loggedUser.getUsername());
         UserDTO userDTO = new UserDTO(user);
+        System.out.println(userDTO.getFriendRequests());
         model.addAttribute("user", userDTO);
         model.addAttribute("content", "posts");
         return "homepage";
@@ -81,15 +84,18 @@ public class HomeController {
     {
         if(commentContent.length() != 0)
         {
-            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), user.getUsername());
+            String authorName = user.getFirstName() + ' ' + user.getLastName();
+            Comment comment = new Comment(commentContent, DateTimeService.getCurrentTime(), authorName);
             Post post = postRepository.getOne(postId);
+
             post.addCommentToPost(comment);
             post.addCommentCounter();
-
-            commentRepo.save(comment);
+            commentRepository.save(comment);
             postRepository.save(post);
+
         return "redirect:/mypage";
         } else return "redirect:/mypage";
+
     }
 
     @GetMapping("/myFriends")

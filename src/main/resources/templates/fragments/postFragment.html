@@ -14,7 +14,6 @@
             </div>
         </div>
     </form>
-    <h1>MyPosts</h1>
     <div th:each="post: ${user.posts}">
         <div class="container bootstrap snippet">
             <div class="col-md-12">
@@ -27,7 +26,7 @@
                         </div>
                         <div class="pull-left meta">
                             <div class="title h5">
-                                <b th:text="${user.username}"></b> made a post.
+                                <b th:text="${user.firstName} + '  ' + ${user.lastName}"></b> made a post.
                                 <b th:text="${post.date}"></b>
                             </div>
                         </div>

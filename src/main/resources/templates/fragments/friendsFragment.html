@@ -25,7 +25,7 @@
                             <a th:href="@{|users/${sendedRequests.from.id}|}">
                                 <img width="40" height="40" th:if="*{sendedRequests.from.img != null}"
                                      th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(sendedRequests.from.img)}}"/>
-                                <b th:text="${sendedRequests.from.username}"></b>
+                                <b th:text="${sendedRequests.from.firstName} + ' ' + ${sendedRequests.from.lastName}"></b>
                             </a>
                         </div>
                         <div class="col-md-10">
@@ -75,7 +75,7 @@
                                     th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.from.img)}}"/>
                            </div>
                            <div class="col-md-7 p-0">
-                               <div th:text="${friend.from.username}"></div>
+                               <div th:text="${friend.from.firstName} + ' ' + ${friend.from.lastName}"></div>
                            </div>
                            <div class="col-md-4 p-0">
                                <form th:action="@{/startConversation}" method="get">

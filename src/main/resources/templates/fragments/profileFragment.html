@@ -170,7 +170,8 @@
                                         <div class="col-md-8">
                                             <input type="text" class="form-control"  id="song"
                                                    th:name="title"
-                                                   th:placeholder="${user.preference.favSong} ? ${user.preference.favSong.title} : 'Song title'">
+                                                   placeholder="Song title"
+                                                   th:value="${user.preference.favSong} ? ${user.preference.favSong.title} : ''">
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +185,8 @@
                                         <div class="col-md-8">
                                             <input type="text" class="form-control"  id="song_artist"
                                                    th:name="songArtist"
-                                                   th:placeholder="${user.preference.favSong} ? ${user.preference.favSong.artist} : 'Made by'">
+                                                   placeholder="Made by"
+                                                   th:value="${user.preference.favSong} ? ${user.preference.favSong.artist} : ''">
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ import com.app.model.User;
 import com.app.repository.PreferenceRepository;
 import com.app.repository.SongRepository;
 import com.app.repository.UserRepository;
+import com.app.service.GenresGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 public class SongController {
@@ -46,10 +48,14 @@ public class SongController {
     @GetMapping("/addForm")
     public String addForm(@AuthenticationPrincipal User loggedUser, Model model,
                           @ModelAttribute String content) {
+
+
         UserDTO userDTO = new UserDTO(loggedUser);
         model.addAttribute("user", userDTO);
         model.addAttribute("content", "songAdd");
         model.addAttribute("song", new Song());
+        model.addAttribute("genres", GenresGenerator.addGenres());
+        System.out.print(GenresGenerator.addGenres());
         return "homepage";
     }
 
@@ -73,7 +79,7 @@ public class SongController {
                            @RequestParam String selectedOption,
                            @RequestParam String searchPhrase,
                            @RequestParam(defaultValue = "0") int page) {
-        int size = 4;
+        int size = 20;
         int resultsNumber = 0;
         switch (selectedOption) {
             case "title":

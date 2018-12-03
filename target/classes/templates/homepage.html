@@ -34,10 +34,8 @@
                                     <div class="image_inner_container">
                                         <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
                                     </div>
-                                    <div th:text="${user.username}" id="userName"></div>
-                                    <!--<div th:if="${!user.friendRequests.isEmpty()}">-->
-                                    <!--<p>You have new friend Requests</p>-->
-                                    <!--</div>-->
+                                    <div th:text="${user.firstName} + '  ' + ${user.lastName}" id="userName"></div>
+
                                 </div>
                             </div>
                         </div>
@@ -99,7 +97,7 @@
                         </div>
 
                         <div th:if="${content} == 'chat'">
-                            <div th:insert="fragments/conversationFragment :: chat (conversation=${conversation}, user=${user})"></div>
+                            <div th:insert="fragments/conversationFragment :: chat (conversation=${conversation}, user=${user}, with=${user2})"></div>
                         </div>
 
                         <div th:if="${content} == 'songList'">
@@ -108,7 +106,7 @@
                         </div>
 
                         <div th:if="${content} == 'songAdd'">
-                            <div th:insert="fragments/songFragment :: songAdd"></div>
+                            <div th:insert="fragments/songFragment :: songAdd (genres=${genres})"></div>
                         </div>
 
                         <div th:if="${content} == 'songPlay'">
@@ -120,22 +118,29 @@
                 </div>
 
                 <div class="col-md-3 p-0 right">
-                   <div class="container">
-                       <div th:if="${not #lists.isEmpty(user.notifications)}">
-                           <div class="alert alert-success" role="alert">
-                               <p id="notificetionMessage">You have new messages:</p>
-                           </div>
-                           <div th:each="notification : ${user.notifications}">
-                               <form th:action="@{/startConversation}" method="get">
-                                   <input type="hidden" th:value="${notification.userFromId}" th:name="userId">
-                                   <div class="row m-2">
-                                       <div th:text="${notification.fromUser}" id="messageFrom"></div>
-                                       <input type="submit" class="btn btn-primary btn-purple col-sm-6 float-right ml-1" value="Reply"/>
-                                   </div>
-                               </form>
-                           </div>
-                       </div>
-                   </div>
+                    <div class="container">
+                        <div th:if="${!user.friendRequests.isEmpty()}">
+                            <div class="alert alert-success" role="alert">
+                                <p id="friendsMessage">You have new friend requests!</p>
+                            </div>
+                        </div>
+                        <div th:if="${not #lists.isEmpty(user.notifications)}">
+                            <div class="alert alert-success" role="alert">
+                                <p id="notificetionMessage">You have new messages:</p>
+                            </div>
+                            <div th:each="notification : ${user.notifications}">
+                                <form th:action="@{/startConversation}" method="get">
+                                    <input type="hidden" th:value="${notification.userFromId}" th:name="userId">
+                                    <div class="row m-2">
+                                        <div th:text="${notification.fromUser}" id="messageFrom"></div>
+                                        <input type="submit"
+                                               class="btn btn-primary btn-purple col-sm-6 float-right ml-1"
+                                               value="Reply"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,6 +191,7 @@ function scrollDown(){
     var element = document.getElementById('chatScroll');
     element.scrollTop = element.scrollHeight;
 }
+
 
 
 </script>

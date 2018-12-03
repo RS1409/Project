@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="`messages`")
+@Table(name="messages")
 public class Message implements Serializable{
 
     @Id
@@ -12,13 +12,13 @@ public class Message implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="`author`")
+    @JoinColumn(name="author")
     private User author;
     private String content;
 
 
     @ManyToOne
-    @JoinColumn(name="`conversation`")
+    @JoinColumn(name="conversation")
     private Conversation conversation;
 
     private String date;

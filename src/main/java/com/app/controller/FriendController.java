@@ -35,7 +35,6 @@ public class FriendController {
 
         friendRequest.setFrom(loggedUser);
         friendRequest.setTo(user);
-
         friendRequestRepository.save(friendRequest);
 
         return "redirect:/users/"+userId;

@@ -34,6 +34,7 @@ public class UserDTO {
         this.active = user.isActive();
         this.preference = user.getPreference();
         this.notifications.addAll(user.getNotifications());
+        this.friendRequests = user.getFriendRequests();
     }
 
     public Long getId() {

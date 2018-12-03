@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class NavBarController {
@@ -20,15 +22,16 @@ public class NavBarController {
     UserRepository userRepo;
 
     @GetMapping("/search")
-    private String searchUsers(@AuthenticationPrincipal User loggedUser,  Model model,
+    private String searchUsers(@AuthenticationPrincipal User loggedUser, Model model,
                                @RequestParam(required = false) String userName,
                                @RequestParam(defaultValue = "0") int page) {
         loggedUser.setLastSearchRequest(userName);
         UserDTO userDTO = new UserDTO(loggedUser);
         if (loggedUser.getLastSearchRequest() == null) loggedUser.setLastSearchRequest(userName);
 
-        int size = 4;
-        int resultsNumber = userRepo.findByUsernameContaining(loggedUser.getLastSearchRequest()).size();
+        int size = 12;
+        int resultsNumber = userRepo.findByFirstNameContaining(loggedUser.getLastSearchRequest()).size();
+        resultsNumber += userRepo.findByLastNameContaining(loggedUser.getLastSearchRequest()).size();
         int totalPages = resultsNumber % size;
         if (totalPages != 0) {
             if (resultsNumber / size >= 1)
@@ -38,14 +41,17 @@ public class NavBarController {
         } else
             totalPages = resultsNumber / size;
 
-    List<User> searchResults = userRepo.findAllByUsernameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, size));
-    
-        model.addAttribute("totalPages",totalPages);
-        model.addAttribute("userName",userName);
-        model.addAttribute("searchResults",searchResults);
+        List<User> searchResults = userRepo.findAllByFirstNameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, size));
+        searchResults.addAll(userRepo.findAllByLastNameContaining(loggedUser.getLastSearchRequest(), PageRequest.of(page, size)));
+        searchResults = searchResults.stream().distinct().collect(Collectors.toList());
+        searchResults.remove(userRepo.getOne(loggedUser.getId()));
 
-        model.addAttribute("user",userDTO);
-        model.addAttribute("content","search");
-        return"homepage";
-}
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("userName", userName);
+        model.addAttribute("searchResults", searchResults);
+
+        model.addAttribute("user", userDTO);
+        model.addAttribute("content", "search");
+        return "homepage";
+    }
 }

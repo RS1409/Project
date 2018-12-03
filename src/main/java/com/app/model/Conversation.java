@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="`conversations`")
+@Table(name="conversations")
 public class Conversation implements Serializable{
 
     @Id

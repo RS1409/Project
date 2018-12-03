@@ -44,7 +44,7 @@ public class User implements Serializable, UserDetails {
     private String email;
 
     @NotNull(message = "{user.age.empty}")
-    @Min(value = 18, message = "{user.age.toYoung}")
+    @Min(value = 13, message = "{user.age.toYoung}")
     private Integer age;
 
     @Lob
@@ -73,6 +73,11 @@ public class User implements Serializable, UserDetails {
     @Transient
     private String lastSearchRequest;
 
+    @OneToMany(mappedBy = "to", orphanRemoval = true, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<FriendRequest> friendRequests;
+
+
     public User() {
         this.posts = new LinkedList<>();
         this.notifications = new LinkedHashSet<>();
@@ -82,13 +87,13 @@ public class User implements Serializable, UserDetails {
         post.setUser(this);
         this.getPosts().add(post);
     }
+
     public void addPreference(Preference preference) {
         preference.setUser(this);
         this.setPreference(preference);
     }
 
-    public void addConversationNotification(ConversationNotification conversationNotification)
-    {
+    public void addConversationNotification(ConversationNotification conversationNotification) {
         this.notifications.add(conversationNotification);
         conversationNotification.setUser(this);
     }
@@ -234,6 +239,10 @@ public class User implements Serializable, UserDetails {
     public void setNotifications(Set<ConversationNotification> notifications) {
         this.notifications = notifications;
     }
+
+    public Set<FriendRequest> getFriendRequests() { return friendRequests; }
+
+    public void setFriendRequests(Set<FriendRequest> friendRequests) { this.friendRequests = friendRequests; }
 
     @Override
     public String toString() {

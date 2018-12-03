@@ -13,6 +13,7 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, Lo
     void deleteById(Long id);
     Set<FriendRequest> findAllByTo(User User);
     Set<FriendRequest> findAllByFrom(User User);
+    Set<FriendRequest> findByToAndStatus(User user, FriendRequest.Status status);
 
 }
 

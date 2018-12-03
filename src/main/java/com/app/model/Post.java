@@ -23,7 +23,7 @@ public class Post implements Serializable {
     private int commentAmount = 0;
 
     @ManyToOne
-    @JoinColumn(name = "`user_post`")
+    @JoinColumn(name = "user_post")
     private User user;
 
 

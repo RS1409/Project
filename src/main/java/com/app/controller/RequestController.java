@@ -32,7 +32,7 @@ public class RequestController {
 
         List<Song> requestList = new ArrayList<>();
 
-        int size = 2;
+        int size = 20;
         int  resultsNumber = songRepo.findAllByStatus(Song.Status.REQUESTED).size();
 
         int totalPages = resultsNumber % size;

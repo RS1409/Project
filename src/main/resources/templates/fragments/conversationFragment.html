@@ -5,48 +5,49 @@
     <title>Title</title>
 </head>
 <body>
-<div th:fragment="chat (conversation, user)" class="container">
+<div th:fragment="chat (conversation, user, with)" class="container">
 
     <div class="row">
         <div class="col-md-12 w-100 h-100">
             <div class="panel panel-primary">
                 <div class="panel-heading" id="accordion">
                     <div class="col-md-12" align="center">
-                        <h1><span class="glyphicon glyphicon-comment">Conversation:</span></h1>
+
+                        <h1><span class="glyphicon glyphicon-comment"
+                                  th:text="'Conversation with  ' + ${with.firstName} + '  ' + ${with.lastName}"></span>
+                        </h1>
                     </div>
                 </div>
             </div>
             <div class="panel-body" id="chatScroll" onclick='scrollDown();'>
                 <ul class="chat">
                     <div th:each="message : ${conversation.messages}">
-                        <div class = "container-fluid">
-                            <!--<div th:if="${user.id} == ${message.author.id}">-->
-                                <li class="pull-right" id="userMessageRight">
-                                    <div class="row w-100 m-0">
-                                        <div class="float-right w-100">
-                                            <div class="row m-3">
-                                                <div class="col-md-1 p-0">
-                                                    <img width="40" height="40"
-                                                         th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(message.author.img)}}"
-                                                         alt="User Avatar" class="img-circle"/>
-                                                </div>
-                                                <div class="col-md-11 p-0">
-                                                    <strong class="primary-font">
-                                                        <div th:text="${message.author.username}"></div>
-                                                    </strong>
-                                                    <small class="pull-right text-muted">
-                                                        <span class="glyphicon glyphicon-time"></span>
-                                                        <div th:text="${message.date}"></div>
-                                                    </small>
-                                                </div>
+                        <div class="container-fluid">
+                            <li class="pull-right" id="userMessageRight">
+                                <div class="row w-100 m-0">
+                                    <div class="float-right w-100">
+                                        <div class="row m-3">
+                                            <div class="col-md-1 p-0">
+                                                <img width="40" height="40"
+                                                     th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(message.author.img)}}"
+                                                     alt="User Avatar" class="img-circle"/>
                                             </div>
-                                            <div class="row m-4">
-                                                <div th:text="${message.content}"></div>
+                                            <div class="col-md-11 p-0">
+                                                <strong class="primary-font">
+                                                    <div th:text="${message.author.firstName}+ '  ' + ${message.author.lastName}"></div>
+                                                </strong>
+                                                <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                    <div th:text="${message.date}"></div>
+                                                </small>
                                             </div>
                                         </div>
+                                        <div class="row m-4">
+                                            <div th:text="${message.content}"></div>
+                                        </div>
                                     </div>
-                                </li>
-                            <!--</div>-->
+                                </div>
+                            </li>
                         </div>
                     </div>
                 </ul>

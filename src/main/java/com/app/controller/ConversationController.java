@@ -56,6 +56,7 @@ public class ConversationController {
 
         model.addAttribute("conversation",conversation);
         model.addAttribute("user", new UserDTO(loggedUser));
+        model.addAttribute("user2", new UserDTO(user));
         model.addAttribute("content", "chat");
         return "homepage";
     }
