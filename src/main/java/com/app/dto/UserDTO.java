@@ -16,10 +16,10 @@ public class UserDTO {
     private boolean active;
     private Set<Roles> roles = new HashSet<>();
     private List<Post> posts = new LinkedList<>();
-    private Set<FriendRequest> friendRequests = new HashSet<>();
     private Set<ConversationNotification> notifications = new HashSet<>();
     private String lastSearchRequest;
     private Preference preference;
+    private boolean newRequests;
 
     public UserDTO(User user) {
         this.id = user.getId();
@@ -34,7 +34,7 @@ public class UserDTO {
         this.active = user.isActive();
         this.preference = user.getPreference();
         this.notifications.addAll(user.getNotifications());
-        this.friendRequests = user.getFriendRequests();
+        this.newRequests = user.getNewRequests();
     }
 
     public Long getId() {
@@ -129,13 +129,6 @@ public class UserDTO {
 
     public void setPreference(Preference preference) { this.preference = preference; }
 
-    public Set<FriendRequest> getFriendRequests() {
-        return friendRequests;
-    }
-
-    public void setFriendRequests(Set<FriendRequest> friendRequests) {
-        this.friendRequests = friendRequests;
-    }
 
     public Set<ConversationNotification> getNotifications() {
         return notifications;
@@ -143,5 +136,13 @@ public class UserDTO {
 
     public void setNotifications(Set<ConversationNotification> notifications) {
         this.notifications = notifications;
+    }
+
+    public boolean isNewRequests() {
+        return newRequests;
+    }
+
+    public void setNewRequests(boolean newRequests) {
+        this.newRequests = newRequests;
     }
 }

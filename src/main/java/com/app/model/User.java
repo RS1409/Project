@@ -73,10 +73,7 @@ public class User implements Serializable, UserDetails {
     @Transient
     private String lastSearchRequest;
 
-    @OneToMany(mappedBy = "to", orphanRemoval = true, cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<FriendRequest> friendRequests;
-
+    private Boolean newRequests;
 
     public User() {
         this.posts = new LinkedList<>();
@@ -240,9 +237,14 @@ public class User implements Serializable, UserDetails {
         this.notifications = notifications;
     }
 
-    public Set<FriendRequest> getFriendRequests() { return friendRequests; }
 
-    public void setFriendRequests(Set<FriendRequest> friendRequests) { this.friendRequests = friendRequests; }
+    public Boolean getNewRequests() {
+        return newRequests;
+    }
+
+    public void setNewRequests(Boolean newRequests) {
+        this.newRequests = newRequests;
+    }
 
     @Override
     public String toString() {

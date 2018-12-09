@@ -51,6 +51,8 @@ public class FriendController {
     public String declineFriend(@RequestParam Long friendRequestId, @AuthenticationPrincipal User loggedUser) {
         FriendRequest friendRequest = friendRequestRepository.findById(friendRequestId).get();
         friendRequestRepository.delete(friendRequest);
+        userRepository.save(loggedUser);
+        System.out.println("Removing friend request with id " + friendRequest.getId());
         return "redirect:/myFriends";
     }
 }

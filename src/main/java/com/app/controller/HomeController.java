@@ -45,12 +45,18 @@ public class HomeController {
 
     @GetMapping("/mypage")
     public String getHome(@AuthenticationPrincipal User loggedUser, Model model) {
-        loggedUser.setFriendRequests(friendRequestRepository.findByToAndStatus(loggedUser, FriendRequest.Status.REQUESTED));
-        userRepository.save(loggedUser);
+        if(!friendRequestRepository.findByToAndStatus(loggedUser, FriendRequest.Status.REQUESTED).isEmpty())
+        {
+            loggedUser.setNewRequests(true);
+            userRepository.save(loggedUser);
+        } else {
+            loggedUser.setNewRequests(false);
+            userRepository.save(loggedUser);
+        }
 
         User user = userRepository.findByUsername(loggedUser.getUsername());
         UserDTO userDTO = new UserDTO(user);
-        System.out.println(userDTO.getFriendRequests());
+
         model.addAttribute("user", userDTO);
         model.addAttribute("content", "posts");
         return "homepage";

@@ -118,7 +118,7 @@
 
                 <div class="col-md-3 p-0 right">
 
-                    <div th:if="${!user.friendRequests.isEmpty()}">
+                    <div th:if="${user.newRequests}">
                         <div class="panel panel-white post panel-shadow p-3 my-3 mx-2">
                             <div class="alert alert-success" role="alert">
                                 <p id="friendsMessage">You have new friend requests!</p>

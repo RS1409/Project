@@ -52,6 +52,7 @@ public class ConversationController {
         {
             loggedUser.getNotifications().remove(cn);
             notificationRepository.delete(cn);
+            userRepository.save(loggedUser);
         }
 
         model.addAttribute("conversation",conversation);
