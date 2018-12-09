@@ -220,11 +220,9 @@
                                                 <label for="genre"><h6>Favourite Genre:</h6></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="form-control" id="genre"
-                                                        th:value="${user.preference.favGenre} ?: 'Genre name'">
+                                                <select class="form-control" id="genre" th:name="genre" th:value="${user.preference.favGenre} ?: 'Genre name'">
                                                     <option value="" disabled selected>Choose Genre</option>
-                                                    <option th:each="genre : ${genres}" th:value="${genre}"
-                                                            th:text="${genre}"></option>
+                                                    <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
                                                 </select>
                                             </div>
                                         </div>

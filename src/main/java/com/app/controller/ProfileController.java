@@ -7,6 +7,7 @@ import com.app.repository.PreferenceRepository;
 import com.app.repository.SongRepository;
 import com.app.repository.UserRepository;
 import com.app.service.ByteConverter;
+import com.app.service.GenresGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,14 +39,13 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String showProfile(@AuthenticationPrincipal User user, Model model) {
-
-        //Preference userPreference = preferenceRepository.findByUser(user);
         Preference userPreference = user.getPreference();
 
         UserDTO userDTO = new UserDTO(user);
         model.addAttribute("user", userDTO);
         model.addAttribute("message", message);
         model.addAttribute("content", "profile");
+        model.addAttribute("genres", GenresGenerator.addGenres());
         model.addAttribute("preference", userPreference);
         message = null;
         return "homepage";
@@ -102,11 +102,13 @@ public class ProfileController {
         if (genre.length() > 0)
             preference.setFavGenre(genre);
 
-        if (songRepository.findByArtistAndTitle(songArtist, title) == null) {
-            message = "There is no song with this artist name and title in our database. Feel free to add it!";
-            return "redirect:/profile";
-        } else
-            preference.setFavSong(songRepository.findByArtistAndTitle(songArtist, title));
+        if (title.length() > 0 && songArtist.length()>0) {
+            if (songRepository.findByArtistAndTitle(songArtist, title) == null) {
+                message = "There is no song with this artist name and title in our database. Feel free to add it!";
+                return "redirect:/profile";
+            } else
+                preference.setFavSong(songRepository.findByArtistAndTitle(songArtist, title));
+        }
 
         preferenceRepository.save(preference);
         user.addPreference(preference);

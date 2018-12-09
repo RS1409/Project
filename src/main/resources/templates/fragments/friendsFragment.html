@@ -87,7 +87,7 @@
                                         <div class="col-md-6 p-0">
                                             <div th:text="${friend.from.firstName} + ' ' + ${friend.from.lastName}"></div>
                                         </div>
-                                        <div class="col-md-2 offset-md-2 pr-3">
+                                        <div class="col-md-2 pr-3">
                                             <form th:action="@{/startConversation}" method="get">
                                                 <input type="hidden" th:value="${friend.from.id}" th:name="userId">
                                                 <input type="submit" class="btn btn-primary" value="Send Message">
