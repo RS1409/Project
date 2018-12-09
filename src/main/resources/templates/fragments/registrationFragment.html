@@ -11,9 +11,9 @@
 <form class="form-horizontal" th:fragment="registrationForm (user)" action="#" th:action="@{/addUser}"
       th:object="${user}" method="post" enctype="multipart/form-data">
 
-    <div class="row" align="center">
+    <div class="row py-3" align="center">
         <div class="col-md-12 col-md-offset-4">
-            <h1 style="font-family: 'Acme', sans-serif; font-size: 40px;">Fill the registration form.</h1>
+            <h1 class="header">Fill the registration form</h1>
         </div>
     </div>
     <div class="row" align="center">
@@ -134,9 +134,9 @@
     <div class="form-group pb-2">
         <div class="row" align="center">
             <div class="col-sm-offset-2 col-sm-12">
-                <a th:href="@{/login}" class="btn btn-primary btn-purple">Back</a>
-                <input type="submit" class="btn btn-primary btn-purple"/>
-                <input type="reset" class="btn btn-primary btn-purple"/>
+                <a th:href="@{/login}" class="btn btn-primary">Back</a>
+                <input type="submit" class="btn btn-primary"/>
+                <input type="reset" class="btn btn-primary"/>
             </div>
         </div>
     </div>

@@ -6,55 +6,48 @@
 </head>
 <body>
 <div th:fragment="preferences (user)">
-    <div class="row">
-        <div class="col-md-12" align="center">
-            <h1>Preferences:</h1>
-        </div>
-    </div>
-
-    <div class="tab-pane" id="preferences">
+    <div class="panel panel-white post panel-shadow p-3 my-3">
         <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="song"><h4>Favourite Song:</h4></label>
-                    </div>
-                    <div class="col-md-8">
-                       <span id="song" th:text="${user.preference.favSong} ? ${user.preference.favSong.title} : 'Empty'"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="song_artist"><h4>By:</h4></label>
-                    </div>
-                    <div class="col-md-8">
-                        <span id="song_artist" th:text="${user.preference.favSong} ? ${user.preference.favSong.artist} : 'Empty'"></span>
-                    </div>
-                </div>
+            <div class="col-md-12" align="center">
+                <h4>Preferences:</h4>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="artist"><h4>Favourite Artist:</h4></label>
-                    </div>
-                    <div class="col-md-8">
-                        <span id="artist" th:text="${user.preference.favArtist} ?: 'Empty'"></span>
+        <div class="pt-2" id="preferences">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="song"><h6>Favourite Song:</h6></label>
+                        </div>
+                        <div class="col-md-10">
+                            <b id="song"
+                                  th:text="${user.preference.favSong} ? ${user.preference.favSong.title} + ' - ' +${user.preference.favSong.artist} : 'Empty'"></b>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="genre"><h4>Favourite Genre:</h4></label>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="artist"><h6>Favourite Artist:</h6></label>
+                        </div>
+                        <div class="col-md-8">
+                            <b id="artist" th:text="${user.preference.favArtist} ?: 'Empty'"></b>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <span id="genre" th:text="${user.preference.favGenre} ?: 'Empty'"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="genre"><h6>Favourite Genre:</h6></label>
+                        </div>
+                        <div class="col-md-8">
+                            <b id="genre" th:text="${user.preference.favGenre} ?: 'Empty'"></b>
+                        </div>
                     </div>
                 </div>
             </div>

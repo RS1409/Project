@@ -25,24 +25,24 @@
         <div class="col-md-12">
             <div class="row h-100" id="main_row">
                 <div class="col-md-3 p-4 left">
-                    <div class="container ml-3">
-                        <br class="d-flex justify-content-center h-100">
+                    <div class="container mx-2">
                         <div class="row">
                             <div class="col-md-12" align="center">
                                 <div class="image_outer_container">
                                     <div class="green_icon"></div>
-                                    <div class="image_inner_container">
+                                    <div class="image_inner_container mt-3">
                                         <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
                                     </div>
-                                    <div th:text="${user.firstName} + '  ' + ${user.lastName}" id="userName"></div>
+                                    <div class="font-weight-bold" th:text="${user.firstName} + '  ' + ${user.lastName}"
+                                         id="userName"></div>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="row mt-5">
                             <div class="col-md-12" align="center">
                                 <form th:action="@{/profile}" method="get">
-                                    <input type="submit" class="btn btn-primary btn-purple col-sm-6"
+                                    <input type="submit" class="btn btn-primary col-sm-6"
                                            value="Edit profile"/>
                                 </form>
                             </div>
@@ -50,7 +50,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12" align="center">
                                 <form th:action="@{/myPreferences}" method="get">
-                                    <input type="submit" class="btn btn-primary btn-purple col-sm-6"
+                                    <input type="submit" class="btn btn-primary col-sm-6"
                                            value="My preferences"/>
                                 </form>
                             </div>
@@ -58,13 +58,12 @@
                         <div class="row mt-3">
                             <div class="col-md-12" align="center">
                                 <form action="#" th:action="myFriends" method="get">
-                                    <input type="submit" class="btn btn-primary btn-purple col-sm-6"
+                                    <input type="submit" class="btn btn-primary col-sm-6"
                                            value="My friends"/>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-md-6 p-3" id="content">
                     <div>
@@ -118,23 +117,34 @@
                 </div>
 
                 <div class="col-md-3 p-0 right">
-                    <div class="container">
-                        <div th:if="${!user.friendRequests.isEmpty()}">
+
+                    <div th:if="${!user.friendRequests.isEmpty()}">
+                        <div class="panel panel-white post panel-shadow p-3 my-3 mx-2">
                             <div class="alert alert-success" role="alert">
                                 <p id="friendsMessage">You have new friend requests!</p>
                             </div>
+
+                            <form th:action="@{/myFriends}" method="get">
+                                <div class="row m-1 d-flex justify-content-end">
+                                    <input type="submit"
+                                           class="btn btn-primary col-sm-4"
+                                           value="Check"/>
+                                </div>
+                            </form>
                         </div>
-                        <div th:if="${not #lists.isEmpty(user.notifications)}">
+                    </div>
+                    <div th:if="${not #lists.isEmpty(user.notifications)}">
+                        <div class="panel panel-white post panel-shadow p-3 my-3 mx-2">
                             <div class="alert alert-success" role="alert">
                                 <p id="notificetionMessage">You have new messages:</p>
                             </div>
                             <div th:each="notification : ${user.notifications}">
                                 <form th:action="@{/startConversation}" method="get">
                                     <input type="hidden" th:value="${notification.userFromId}" th:name="userId">
-                                    <div class="row m-2">
+                                    <div class="row m-2 d-flex justify-content-between">
                                         <div th:text="${notification.fromUser}" id="messageFrom"></div>
                                         <input type="submit"
-                                               class="btn btn-primary btn-purple col-sm-6 float-right ml-1"
+                                               class="btn btn-primary col-sm-4"
                                                value="Reply"/>
                                     </div>
                                 </form>
@@ -191,6 +201,11 @@ function scrollDown(){
     var element = document.getElementById('chatScroll');
     element.scrollTop = element.scrollHeight;
 }
+
+
+
+
+
 
 
 

@@ -7,112 +7,124 @@
 <body>
 <div th:fragment="userFriends (received, accepted)" class="container bootstrap snippet">
 
-    <div class="container">
-        <div th:if="${not #lists.isEmpty(received)}">
-            <div class="top">
-                <div class="row" align="center">
-                    <div class="col-md-12">
-                        <h2>You have new friend requests:</h2>
+    <div th:if="${not #lists.isEmpty(received)}">
+        <div class="panel panel-white post panel-shadow m-1 p-3">
+            <div class="container">
+                <div class="top">
+                    <div class="row" align="center">
+                        <div class="col-md-12" align="center">
+                            <h4>You have new friend requests:</h4>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="shadow w-100">
-                <div th:each="sendedRequests: ${received}">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a th:href="@{|users/${sendedRequests.from.id}|}">
-                                <img width="40" height="40" th:if="*{sendedRequests.from.img != null}"
-                                     th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(sendedRequests.from.img)}}"/>
-                                <b th:text="${sendedRequests.from.firstName} + ' ' + ${sendedRequests.from.lastName}"></b>
-                            </a>
-                        </div>
-                        <div class="col-md-10">
-                            <form action="#" th:action="@{/requestConfirmation}" method="post" class="form-horizontal w-100">
-                                <input type="hidden" th:name="friendRequestId" th:value="${sendedRequests.id}">
+            <div class="card">
+                <div class="card-block col-md-12 px-0">
+                    <table class="table table-hover m-0">
+                        <tr th:each="sendedRequests: ${received}">
+                            <td>
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <div class="col-md-4">
+                                        <a th:href="@{|users/${sendedRequests.from.id}|}">
+                                            <img width="40" height="40" th:if="*{sendedRequests.from.img != null}"
+                                                 class="avatar image"
+                                                 th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(sendedRequests.from.img)}}"/>
+                                            <span th:text="${sendedRequests.from.firstName} + ' ' + ${sendedRequests.from.lastName}"></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 offset-md-4">
+                                        <form action="#" th:action="@{/requestConfirmation}" method="post"
+                                              class="form-horizontal">
+                                            <input type="hidden" th:name="friendRequestId"
+                                                   th:value="${sendedRequests.id}">
 
-                                <div class="form-group w-100">
-                                    <div class="row" align="center">
-                                        <div class="col-sm-offset-2 col-sm-12">
-                                            <div class="row">
-                                                <div class="col-md-4 p-1">
-                                                    <input type="submit" th:name="Accept" value="Accept"
-                                                           class="btn btn-primary btn-purple m-1 w-100">
-                                                </div>
-                                                <div class="col-md-4 p-1">
-                                                    <input type="submit" th:name="Decline" value="Decline"
-                                                           class="btn btn-primary btn-purple m-1 w-100">
+                                            <div class="form-group">
+                                                <div class="row" align="center">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <input type="submit" th:name="Accept" value="Accept"
+                                                                       class="btn btn-primary mt-2">
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <input type="submit" th:name="Decline" value="Decline"
+                                                                       class="btn btn-primary mt-2">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+
+                                        </form>
                                     </div>
                                 </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
-            <hr/>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
-    <div class="top">
-        <h2>My Friends:</h2>
-    </div>
-    <div class="row">
-        <div class="shadow w-100 m-3">
-            <div th:each="friend: ${accepted}">
-                <div th:if="${user.id} == ${friend.to.id}">
-                    <td><a th:href="@{|users/${friend.from.id}|}">
-                        <div class="row my-1">
-                           <div class="col-md-1 p-0">
-                               <img width="30" height="30" th:if="*{friend.from.img != null}"
-                                    th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.from.img)}}"/>
-                           </div>
-                           <div class="col-md-7 p-0">
-                               <div th:text="${friend.from.firstName} + ' ' + ${friend.from.lastName}"></div>
-                           </div>
-                           <div class="col-md-4 p-0">
-                               <form th:action="@{/startConversation}" method="get">
-                                   <input type="hidden" th:value="${friend.from.id}" th:name="userId">
-                                   <input type="submit" class="btn btn-primary btn-purple" value="Send Message">
-                               </form>
-                           </div>
-                        </div>
-                    </a></td>
-                </div>
-                <div th:if="${user.id} == ${friend.from.id}">
-                    <td><a th:href="@{|users/${friend.to.id}|}">
-                        <div class="row my-1">
-                            <div class="col-md-1 p-0">
-                                <img width="30" height="30" th:if="*{friend.to.img != null}"
-                                     th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.to.img)}}"/>
-                            </div>
-                            <div class="col-md-7 p-0">
-                                <div th:text="${friend.to.username}"></div>
-                            </div>
-                            <div class="col-md-4 p-0">
-                                <form th:action="@{/startConversation}" method="get">
-                                    <input type="hidden" th:value="${friend.to.id}" th:name="userId">
-                                    <input type="submit" class="btn btn-primary btn-purple" value="Send Message">
-                                </form>
-                            </div>
-                        </div>
-                    </a></td>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <hr/>
         </div>
-        <div class="clearfix"></div>
     </div>
-</div>
-</div>
+    <div th:if="${not #lists.isEmpty(accepted)}">
+        <div class="panel panel-white post panel-shadow m-1 p-3">
+            <div class="top">
+                <div class="col-md-12" align="center">
+                    <h4>My Friends:</h4>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-block col-md-12 px-0">
+                    <table class="table table-hover m-0">
+                        <tr th:each="friend: ${accepted}">
+                            <td>
+                                <div th:if="${user.id} == ${friend.to.id}">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-2 pl-3"><a th:href="@{|users/${friend.from.id}|}">
+                                            <img width="40" height="40" th:if="*{friend.from.img != null}"
+                                                 class="avatar image"
+                                                 th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.from.img)}}"/>
+                                        </a></div>
+                                        <div class="col-md-6 p-0">
+                                            <div th:text="${friend.from.firstName} + ' ' + ${friend.from.lastName}"></div>
+                                        </div>
+                                        <div class="col-md-2 offset-md-2 pr-3">
+                                            <form th:action="@{/startConversation}" method="get">
+                                                <input type="hidden" th:value="${friend.from.id}" th:name="userId">
+                                                <input type="submit" class="btn btn-primary" value="Send Message">
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div th:if="${user.id} == ${friend.from.id}">
+                                    <div class="row d-flex  align-items-center">
+                                        <div class="col-md-2 pl-3"><a th:href="@{|users/${friend.to.id}|}">
+                                            <img width="40" height="40" th:if="*{friend.to.img != null}"
+                                                 class="avatar image"
+                                                 th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(friend.to.img)}}"/>
+                                        </a></div>
+                                        <div class="col-md-6 p-0">
+                                            <div th:text="${friend.to.username}"></div>
+                                        </div>
+                                        <div class="col-md-2 offset-md-2 pr-3">
+                                            <form th:action="@{/startConversation}" method="get">
+                                                <input type="hidden" th:value="${friend.to.id}" th:name="userId">
+                                                <input type="submit" class="btn btn-primary" value="Send Message">
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 

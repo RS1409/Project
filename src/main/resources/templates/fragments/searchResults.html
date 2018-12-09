@@ -6,47 +6,51 @@
 </head>
 <body>
 <div th:fragment="results (searchResults)">
-    <div class="row">
-        <div class="col-md-12" align="center">
-            <h1>Search results:</h1>
-        </div>
-    </div>
+    <div th:if="${not #lists.isEmpty(searchResults)}">
+        <div class="panel panel-white post panel-shadow m-1 p-3">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <h4>Search results:</h4>
+                </div>
+            </div>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-block col-md-12">
-                <table class="table table-hover m-0">
-                    <tr th:each="user : ${searchResults}">
-                        <td><a th:href="@{|users/${user.id}|}">
-                            <div class="row">
-                                <div class="col-sm-1">
-                                    <img width="30" height="30" th:if="*{user.img != null}"
-                                         th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <form th:action="@{/startConversation}" method="get">
-                                        <input type="hidden" th:value="${user.id}" th:name="userId">
-                                        <input type="submit" class="btn btn-primary btn-purple"
-                                               value="Send message"/>
-                                    </form>
-                                </div>
-                            </div>
-                        </a></td>
-                    </tr>
-                </table>
+            <div class="container pt-2">
+                <div class="card">
+                    <div class="card-block col-md-12 px-0">
+                        <table class="table table-hover m-0">
+                            <tr th:each="user : ${searchResults}">
+                                <td><a th:href="@{|users/${user.id}|}">
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <img width="40" height="40" th:if="*{user.img != null}" class="avatar image"
+                                                 th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"/>
+                                        </div>
+                                        <div class="col-sm-4 align-self-center">
+                                            <div th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                        </div>
+                                        <div class="col-sm-2 offset-md-4">
+                                            <form th:action="@{/startConversation}" method="get">
+                                                <input type="hidden" th:value="${user.id}" th:name="userId">
+                                                <input type="submit" class="btn btn-primary"
+                                                       value="Send message"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${!searchResults.isEmpty()}">
+                <ul class="nav nav-pills">
+                    <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
+                        <a th:href="@{/search(page=${i},userName=${userName})}" th:text="${i}" class="nav-link"
+                           th:classappend="${currentPage}==${i}?'active':''"></a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div th:if="${!searchResults.isEmpty()}">
-        <ul class="nav nav-pills">
-            <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
-                <a th:href="@{/search(page=${i},userName=${userName})}" th:text="${i}" class="nav-link"
-                   th:classappend="${currentPage}==${i}?'active':''"></a>
-            </li>
-        </ul>
     </div>
 </div>
 </body>

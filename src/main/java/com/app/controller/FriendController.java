@@ -28,7 +28,6 @@ public class FriendController {
     @GetMapping("/addFriend")
     private String addFriend(@RequestParam Long userId, @AuthenticationPrincipal User loggedUser)
     {
-
         FriendRequest friendRequest = new FriendRequest();
         Optional<User> repoSearchResult = userRepository.findById(userId);
         User user = repoSearchResult.get();
@@ -45,7 +44,6 @@ public class FriendController {
         FriendRequest friendRequest = friendRequestRepository.findById(friendRequestId).get();
         friendRequest.setStatus(FriendRequest.Status.ACCEPTED);
         friendRequestRepository.save(friendRequest);
-
         return "redirect:/myFriends";
     }
 

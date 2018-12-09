@@ -21,15 +21,23 @@ html, body{
     height: 100%;
     max-height: 100%;
 
-    background-color: #160b2a;
+}
 
+a {
+color: #352d3a;
+}
+
+a:hover {
+color: #4c2e6d;
 }
 
 .panel-shadow {
-    box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+    box-shadow: rgba(44, 41, 45, 0.3) 4px 4px 4px;
 }
 .panel-white {
   border: 1px solid #dddddd;
+  background-color: #fff;
+  border-radius: 1%;
 }
 .panel-white  .panel-heading {
   color: #333;
@@ -47,10 +55,9 @@ html, body{
   padding: 20px 15px;
 }
 .post .post-heading .avatar {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   display: block;
-  margin-right: 15px;
 }
 .post .post-heading .meta .title {
   margin-bottom: 0;
@@ -63,18 +70,25 @@ html, body{
 }
 .post .post-heading .meta .time {
   margin-top: 8px;
-  color: #999;
+  margin-left: 10px;
+  color: #aaa;
 }
 .post .post-image .image {
   width: 100%;
   height: auto;
-
 }
+
+.image{
+    border-radius:50%;
+}
+
 .post .post-description {
   padding: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
 }
-.post .post-description p {
-  font-size: 14px;
+.post .post-description p{
+  font-size: 17px;
 }
 .post .post-description .stats {
   margin-top: 20px;
@@ -131,60 +145,29 @@ html, body{
   margin-left: 50px;
 }
 
-.btn-purple {
-	background-color: #442960;
-	border-color: #442960;
-}
-.btn-dark {
-	background-color: #160b2a;
-	border-color: #160b2a;
-}
-
 #postTextArea{
     width:100%;
 }
 
 .left {
-background-color: #160b2a;
+background-color: #ece9ee;
 }
 
 .right {
-background-color: #160b2a;
-}
-
-
-@font-face {
-  font-family: 'Acme';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Acme Regular'), local('Acme-Regular'), url(https://fonts.gstatic.com/s/acme/v7/RrQfboBx-C5_XxrBbg.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+background-color: #ece9ee;
 }
 
 #userName{
-    font-family: 'Acme', sans-serif;
     font-size: 28px;
-    color: #a6a2ad;
 }
 
 #mainContent{
      min-height: 100%;
-        height: 100%;
-        max-height: 100%;
+     height: 100%;
+     max-height: 100%;
 }
 
 #content {
-border-radius: 1%;
-background-color: #fff;
+background-color: #ece9ee;
 }
 
-#messageFrom{
-    color: red;
-    font-family: 'Acme', sans-serif;
-    font-size: 28px;
-}
-
-#notificetionMessage{
-    font-family: 'Acme', sans-serif;
-    font-size: 38px;
-}

@@ -6,73 +6,78 @@
 </head>
 <body>
 <div th:fragment="songRequests (received)" class="container bootstrap snippet">
-    <div class="container">
-        <div class="row" align="center">
-            <div class="col-md-12 col-md-offset-4">
-                <h1>Song Requests:</h1>
-            </div>
-        </div>
-        <div class="row border">
-            <div class="shadow w-100">
-                <div th:each="request: ${received}">
-                    <form action="#" th:action="@{/songRequestAction}" method="post" class="form-horizontal w-100">
-                        <div class="form-group ">
-                            <div class="row">
-                                <div class="col-lg-1">
-                                    <span class="font-weight-bold" th:text="${request.id}"/>
+    <div th:if="${not #lists.isEmpty(received)}">
+        <div class="panel panel-white post panel-shadow m-1 p-3">
+            <div class="container">
+                <div class="row" align="center">
+                    <div class="col-md-12 col-md-offset-4">
+                        <h4>Song Requests:</h4>
+                    </div>
+                </div>
+                <div class="row border">
+                    <div class="shadow w-100">
+                        <div th:each="request: ${received}">
+                            <form action="#" th:action="@{/songRequestAction}" method="post"
+                                  class="form-horizontal w-100">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div class="col-lg-1">
+                                            <span class="font-weight-bold" th:text="${request.id}"/>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <span th:text="${request.artist}"/>
+                                            <span> - </span>
+                                            <span th:text="${request.title}"/>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <span th:text="${request.artist}"/>
-                                    <span> - </span>
-                                    <span th:text="${request.title}"/>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <span class="font-weight-bold">album: </span>
+                                            <span th:text="${request.album}"/>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <span class="font-weight-bold">genre: </span>
+                                            <span th:text="${request.genre}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" th:value="${request.id}" th:name="songRequestId">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <span class="font-weight-bold">source: </span>
+                                            <a class="font-italic" th:href="${request.link}" th:text="${request.link}"
+                                               target="_blank"></a>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="submit" th:name="Accept" value="Accept"
+                                                   class="btn btn-primary w-100">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input type="submit" th:name="Delete" value="Delete"
+                                                   class="btn btn-primary w-100">
+                                        </div>
+                                    </div>
                                 </div>
 
-                            </div>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <span class="font-weight-bold">album: </span>
-                                    <span th:text="${request.album}"/>
-                                </div>
-                                <div class="col-lg-3">
-                                    <span class="font-weight-bold">genre: </span>
-                                    <span th:text="${request.genre}"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" th:value="${request.id}" th:name="songRequestId">
-                            <div class="row">
-                                <div class="col-lg-7">
-                                    <span class="font-weight-bold">source: </span>
-                                    <a class="font-italic" th:href="${request.link}" th:text="${request.link}"
-                                       target="_blank"></a>
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="submit" th:name="Accept" value="Accept"
-                                           class="btn btn-primary btn-purple w-100">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="submit" th:name="Delete" value="Delete"
-                                           class="btn btn-primary btn-purple w-100">
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
+            <div th:if="${!received.isEmpty()}">
+                <ul class="nav nav-pills">
+                    <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
+                        <a th:href="@{/requests(page=${i})}"
+                           th:text="${i}" class="nav-link"
+                           th:classappend="${currentPage}==${i}?'active':''"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div th:if="${!received.isEmpty()}">
-        <ul class="nav nav-pills">
-            <li class="nav-item" th:each="i : ${#numbers.sequence(0,totalPages-1)}">
-                <a th:href="@{/requests(page=${i})}"
-                   th:text="${i}" class="nav-link"
-                   th:classappend="${currentPage}==${i}?'active':''"></a>
-            </li>
-        </ul>
     </div>
 </div>
 </body>

@@ -6,28 +6,40 @@
 </head>
 <body>
 <div th:fragment="post (user)">
-    <form action="#" th:action="@{/addPost}" method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <textarea id="postTextArea" autocomplete="false" required="required" th:name="postContent" placeholder="What are you doing right now?"></textarea>
-                <button type="submit" class="btn btn-primary btn-purple">Add post</button>
+    <div>
+        <form action="#" th:action="@{/addPost}" method="post">
+            <div class="row pb-0">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <textarea class="form-control" rows="3" id="postTextArea" autocomplete="false" required="required"
+                              th:name="postContent" placeholder="What are you doing right now?"></textarea>
+                    </div>
+                    <div class="form-group row justify-content-end pr-3">
+                        <button type="submit" class="btn btn-primary">Add post</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
     <div th:each="post: ${user.posts}">
-        <div class="container bootstrap snippet">
+        <div class="container bootstrap snippet mt-2">
             <div class="col-md-12">
                 <div class="panel panel-white post panel-shadow">
                     <div class="post-heading">
-                        <div class="pull-left image">
-                            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"
-                                 class="img-circle avatar"
-                                 alt="user profile image">
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5">
-                                <b th:text="${user.firstName} + '  ' + ${user.lastName}"></b> made a post.
-                                <b th:text="${post.date}"></b>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="row justify-content-center">
+                                    <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.img)}}"
+                                         class="avatar image" alt="user profile image">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 align-self-center">
+                                <div class="row meta">
+                                    <h5 class="user"><b th:text="${user.firstName} + '  ' + ${user.lastName}"></b>
+                                        <small class="time"><b th:text="${post.date}"></b></small></h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,12 +53,13 @@
                                     <form method="post" action="#" th:action="@{/commentPost}">
                                         <div class="row">
                                             <div class="col-md-10">
-                                                <input class="form-control" required="required" placeholder="Add a comment" type="text"
+                                                <input class="form-control" required="required"
+                                                       placeholder="Add a comment" type="text"
                                                        name="commentContent" autocomplete="off">
                                                 <input type="hidden" th:value="${post.id}" th:name="postId">
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="submit" class="btn btn-primary btn-purple" value="Comment">
+                                                <input type="submit" class="btn btn-primary" value="Comment">
                                             </div>
                                         </div>
                                     </form>
@@ -55,11 +68,12 @@
                         </div>
                         <div class="row">
                             <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'"
-                                    class="btn btn-primary btn-purple w-100 m-3">Show comments(<b th:text="${post.commentAmount}"></b>)
+                                    class="btn btn-primary w-100 m-3">Show comments(<b
+                                    th:text="${post.commentAmount}"></b>)
                             </button>
                         </div>
                         <div th:id="${post.id}" style="display: none;">
-                            <div th:each="comment : ${post.comments}" >
+                            <div th:each="comment : ${post.comments}">
                                 <ul class="comments-list">
                                     <li class="comment">
                                         <div class="comment-body">
@@ -78,13 +92,7 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
     </div>
 </div>
-
-
-
 </body>
-
 </html>

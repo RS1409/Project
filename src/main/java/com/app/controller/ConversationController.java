@@ -72,7 +72,8 @@ public class ConversationController {
         User user = (conversation.getFirstUser().equals(loggedUser)) ? conversation.getSecondUser() : conversation.getFirstUser();
         System.out.println(user.getUsername());
 
-        ConversationNotification cn = new ConversationNotification(user, conversation, loggedUser.getUsername(), loggedUser.getId());
+        String fromUser = loggedUser.getFirstName() + " " + loggedUser.getLastName();
+        ConversationNotification cn = new ConversationNotification(user, conversation, fromUser, loggedUser.getId());
         if(!user.getNotifications().contains(cn)){
             user.addConversationNotification(cn);
             conversation.addConversationNotification(cn);
@@ -85,8 +86,8 @@ public class ConversationController {
 
         model.addAttribute("conversation",conversationRepository.findById(conversationId).get());
         model.addAttribute("user", new UserDTO(loggedUser));
+        model.addAttribute("user2", new UserDTO(user));
         model.addAttribute("content", "chat");
-        System.out.println("DO TEGO DZIALA");
         return "homepage";
     }
 }

@@ -7,24 +7,23 @@
 </head>
 
 <body>
-<nav th:fragment="navBar (loggedUser)" class="navbar navbar-light bg-light sticky-top p-0" id="top">
+<nav th:fragment="navBar (loggedUser)" class="navbar sticky-top p-0" id="top">
     <div class="container-fluid" id="navCont">
         <div class="row w-100 p-0">
             <div class="col col-md-1 pt-1" align="center">
                 <div class="navbar-header">
                     <label class="navbar-brand" id="brand">
-                        <img src="https://i.imgur.com/YC3M8I0.png" width="22" height="20"
-                             class="d-inline-block align-top" alt="">TUNAS</label>
+                        <a th:href="@{/}">
+                        <img src="https://i.imgur.com/c3HRsn1.png" width="40" height="35"
+                             class="d-inline-block align-top" alt=""></a>
+                    </label>
                 </div>
             </div>
             <div class="col col-md-3 py-1" align="center">
-                <div class="row d-flex justify-content-between ">
-                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/}"><label
-                            class="navButton">Homepage</label></a></div>
-                    <div class="col btn btn-primary btn-purple" align="center"><a th:href="@{/songs}"><label
-                            class="navButton">Music</label></a></div>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col btn btn-primary btn-purple" align="center"><a th:href="@{/requests}"><label
-                            class="navButton">Requests</label></a></div>
+                <div class="row d-flex justify-content-between mt-1">
+                    <div class="col" align="center"><a class="nav-link" th:href="@{/}"><label>Homepage</label></a></div>
+                    <div class="col" align="center"><a class="nav-link" th:href="@{/songs}"><label>Music</label></a></div>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col" align="center"><a class="nav-link" th:href="@{/requests}"><label>Requests</label></a></div>
                 </div>
             </div>
             <div class="col" align="center">
@@ -35,7 +34,7 @@
                                    th:name="userName">
                         </div>
                         <div class="col-sm-1 mt-2">
-                            <input id="navSearch" type="submit" value="Search" class="btn btn-default"/>
+                            <input id="navSearch" type="submit" value="Search" class="btn btn-primary"/>
                         </div>
                     </div>
                 </form>
@@ -45,7 +44,7 @@
             <div class="col col-md-1" align="center">
                 <form method="post" th:action="@{/logout}">
                     <div class="col pt-2">
-                        <input type="submit" class="btn btn-primary btn-purple navButton" value="Log out"/>
+                        <input type="submit" class="btn btn-primary navButton" value="Log out"/>
                     </div>
                 </form>
             </div>

@@ -7,7 +7,7 @@
 
 .chat li
 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding-bottom: 5px;
     border-bottom: 1px dotted #B3A9A9;
 }
@@ -22,27 +22,13 @@
     margin-right: 60px;
 }
 
-
-.chat li .chat-body p
-{
-    margin: 0;
-    color: #777777;
-}
-
-.panel .slidedown .glyphicon, .chat .glyphicon
-{
-    margin-right: 5px;
-}
-
 .panel-body
 {
     overflow-y: scroll;
     height: 500px;
 }
 
-#userMessageLeft{
-    background-color: white;
-}
-#userMessageRight{
-    background-color: white;
+.message {
+background-color: #bfa5d1;
+ box-shadow: rgba(163, 156, 168, 0.3) 2px 2px 2px;
 }
