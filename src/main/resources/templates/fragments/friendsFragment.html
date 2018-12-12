@@ -76,9 +76,10 @@
                 <div class="card-block col-md-12 px-0">
                     <table class="table table-hover m-0">
                         <tr th:each="friend: ${accepted}">
-                            <td>
-                                <div th:if="${user.id} == ${friend.to.id}">
-                                    <div class="row d-flex align-items-center">
+
+                            <div th:if="${user.id} == ${friend.to.id}">
+                                <td>
+                                    <div class="row d-flex align-items-between">
                                         <div class="col-md-2 pl-3"><a th:href="@{|users/${friend.from.id}|}">
                                             <img width="40" height="40" th:if="*{friend.from.img != null}"
                                                  class="avatar image"
@@ -93,14 +94,14 @@
                                                 <input type="submit" class="btn btn-primary" value="Send Message">
                                             </form>
                                         </div>
-
                                     </div>
+                                </td>
+                            </div>
 
-                                </div>
-                            </td>
-                            <td>
-                                <div th:if="${user.id} == ${friend.from.id}">
-                                    <div class="row d-flex  align-items-center">
+
+                            <div th:if="${user.id} == ${friend.from.id}">
+                                <td>
+                                    <div class="row d-flex  align-items-between">
                                         <div class="col-md-2 pl-3"><a th:href="@{|users/${friend.to.id}|}">
                                             <img width="40" height="40" th:if="*{friend.to.img != null}"
                                                  class="avatar image"
@@ -109,16 +110,16 @@
                                         <div class="col-md-6 p-0">
                                             <div th:text="${friend.to.username}"></div>
                                         </div>
-                                        <div class="col-md-2 offset-md-2 pr-3">
+                                        <div class="col-md-2 pr-3">
                                             <form th:action="@{/startConversation}" method="get">
                                                 <input type="hidden" th:value="${friend.to.id}" th:name="userId">
                                                 <input type="submit" class="btn btn-primary" value="Send Message">
                                             </form>
                                         </div>
                                     </div>
+                                </td>
+                            </div>
 
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>

@@ -2,10 +2,7 @@ package com.app.controller;
 
 import com.app.dto.UserDTO;
 import com.app.model.*;
-import com.app.repository.CommentRepository;
-import com.app.repository.FriendRequestRepository;
-import com.app.repository.PostRepository;
-import com.app.repository.UserRepository;
+import com.app.repository.*;
 import com.app.service.DateTimeService;
 import com.app.service.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,9 @@ public class HomeController {
     @Autowired
     private FriendRequestService friendRequestService;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
     @GetMapping("/")
     public String redirectHome()
     {
@@ -53,6 +53,10 @@ public class HomeController {
             loggedUser.setNewRequests(false);
             userRepository.save(loggedUser);
         }
+
+        Set<ConversationNotification> updatedNotifications = notificationRepository.findAllByUser(loggedUser);
+        loggedUser.setNotifications(updatedNotifications);
+        userRepository.save(loggedUser);
 
         User user = userRepository.findByUsername(loggedUser.getUsername());
         UserDTO userDTO = new UserDTO(user);

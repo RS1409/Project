@@ -74,11 +74,13 @@ public class ConversationController {
         System.out.println(user.getUsername());
 
         String fromUser = loggedUser.getFirstName() + " " + loggedUser.getLastName();
+
         ConversationNotification cn = new ConversationNotification(user, conversation, fromUser, loggedUser.getId());
         if(!user.getNotifications().contains(cn)){
             user.addConversationNotification(cn);
             conversation.addConversationNotification(cn);
         }
+
         notificationRepository.save(cn);
         userRepository.save(user);
         messageRepository.save(userMessage);
