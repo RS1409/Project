@@ -2,6 +2,7 @@ package com.app.controller;
 
 import com.app.dto.UserDTO;
 import com.app.model.Preference;
+import com.app.model.Roles;
 import com.app.model.Song;
 import com.app.model.User;
 import com.app.repository.PreferenceRepository;
@@ -60,7 +61,7 @@ public class SongController {
     }
 
     @PostMapping("/addSong")
-    public String addSong(@ModelAttribute Song song) {
+    public String addSong(@AuthenticationPrincipal User loggedUser, @ModelAttribute Song song) {
         if (song.getAlbum().isEmpty())
             song.setAlbum("single");
 
@@ -68,7 +69,11 @@ public class SongController {
             System.out.println("Song was already added before.");
             return "redirect:/songs";
         }
-        songRepository.save(song);
+
+        if (loggedUser.getRoles().contains(Roles.ROLE_ADMIN)){
+            song.setStatus(Song.Status.ACCEPTED);
+        }
+            songRepository.save(song);
         System.out.println("Song added successfully.");
         return "redirect:/songs";
     }

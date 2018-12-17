@@ -12,43 +12,43 @@
     <div class="panel panel-white post panel-shadow p-3 m-1">
         <form class="form-horizontal" action="#" th:action="@{/addSong}" th:object="${song}" method="post">
             <div class="row" align="center">
-                <div class="col-md-12 col-md-offset-4">
-                    <h4>Add a song</h4>
+                <div class="col-md-12 col-md-offset-4 my-2">
+                    <h4>Dodaj propozycję utworu</h4>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" id="title" placeholder="Title" required
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="title" placeholder="Tutuł" required
                                th:field="*{title}"/>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" id="artist" placeholder="Artist" required
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="artist" placeholder="Wykonawca" required
                                th:field="*{artist}"/>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <input type="text" class="form-control" id="album" placeholder="Album" th:field="*{album}"/>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-md-6">
                         <div class="row pl-2">
                             <div class="col-md-2 d-flex align-items-center">
-                                <label for="genre">Genre</label>
+                                <label for="genre">Gatunek</label>
                             </div>
                             <div class="col-md-10">
                                 <select class="form-control" id="genre" required th:field="*{genre}">
-                                    <option value="" disabled selected>Choose Genre</option>
+                                    <option value="" disabled selected>Wybierz Gatunek</option>
                                     <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
                                 </select>
                             </div>
@@ -58,11 +58,11 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <input type="url" class="form-control" id="link" placeholder="YT link" th:field="*{link}"/>
+                    <div class="col-md-6">
+                        <input type="url" class="form-control" id="link" placeholder="YouTube link" th:field="*{link}"/>
                     </div>
-                    <div class="col-lg-2">
-                        <input type="submit" value="Add" class="btn btn-primary"/>
+                    <div class="col-md-2">
+                        <input type="submit" value="Utwórz" class="btn btn-primary"/>
                     </div>
                 </div>
             </div>
@@ -78,42 +78,42 @@
         <form class="form-horizontal pt-2" action="#" th:action="@{/findSong}" method="get">
             <div class="form-group">
                 <div class="row" align="center">
-                    <div class="col-md-12 col-md-offset-4">
-                        <h4>Look for a song</h4>
+                    <div class="col-md-12 col-md-offset-4 my-2">
+                        <h4>Wyszukaj utwór</h4>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div>Search phrase:</div>
+                    <div class="col-md-4">
+                        <div>Wyszukiwana fraza:</div>
                     </div>
-                    <div class="col-lg-2">
-                        <div>In:</div>
+                    <div class="col-md-2">
+                        <div>Filtr:</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <input type="text" class="form-control" id="search_phrase" th:name="searchPhrase"
                                th:value="${searchPhrase}"
-                               placeholder="Search..."/>
+                               placeholder="Wyszukaj..."/>
                     </div>
-                    <div class="col-lg-2" id="looking_for">
+                    <div class="col-md-2" id="looking_for">
                         <select class="form-control" th:name="selectedOption" th:value="${selectedOption}">
-                            <option th:value="title">Title</option>
-                            <option th:value="artist">Artist</option>
+                            <option th:value="title">Tytuł</option>
+                            <option th:value="artist">Wykonawca</option>
                             <option th:value="album">Album</option>
-                            <option th:value="genre">Genre</option>
+                            <option th:value="genre">Gatunek</option>
                         </select>
                     </div>
-                    <div class="col-lg-2">
-                        <input type="submit" class="btn btn-primary" value="Search"/>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-primary" value="Szukaj"/>
                     </div>
-                </div>
-                <div>
-                    <a class="col-lg-2" href="#" th:href="@{/addForm}">Missing something? Add it now.</a>
                 </div>
             </div>
         </form>
+        <div>
+            <a class="row mt-2 ml-1" href="#" th:href="@{/addForm}">Zauważyłeś, że czegoś tu brakuje? Dodaj to sam!</a>
+        </div>
     </div>
 </div>
 
@@ -127,7 +127,7 @@
         <div class="panel panel-white post panel-shadow m-1 p-3">
             <table class="table table-hover m-0">
 
-                <tr><th>Title:</th><th>Artist:</th></tr>
+                <tr><th>Tytuł:</th><th>Wykonawca:</th></tr>
 
                 <tr th:each="song : ${songSearch}">
                     <div class="row">
@@ -137,12 +137,12 @@
                         <form class="form-horizontal" action="#" th:action="@{/songPlay}" method="get">
                             <input type="hidden" th:value="${song.link}" th:name="link"/>
 
-                            <td><input type="submit" class="btn btn-primary" value="Play"/></td>
+                            <td><input type="submit" class="btn btn-primary" value="Odtwórz"/></td>
 
                         </form>
                         <form class="form-horizontal" action="#" th:action="@{/songFavourite}" method="post">
                             <input type="hidden" th:value="${song.id}" th:name="songId"/>
-                            <td><input type="submit" class="btn btn-primary" value="Favourite"/></td>
+                            <td><input type="submit" class="btn btn-primary" value="Ulubiony"/></td>
 
                         </form>
                     </div>

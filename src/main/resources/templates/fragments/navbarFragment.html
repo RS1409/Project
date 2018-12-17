@@ -14,37 +14,41 @@
                 <div class="navbar-header">
                     <label class="navbar-brand" id="brand">
                         <a th:href="@{/}">
-                        <img src="https://i.imgur.com/c3HRsn1.png" width="40" height="35"
+                        <img src="https://i.imgur.com/zkfdYPg.png" width="100" height="35"
                              class="d-inline-block align-top" alt=""></a>
                     </label>
                 </div>
             </div>
             <div class="col col-md-3 py-1" align="center">
                 <div class="row d-flex justify-content-between mt-1">
-                    <div class="col" align="center"><a class="nav-link" th:href="@{/}"><label>Homepage</label></a></div>
-                    <div class="col" align="center"><a class="nav-link" th:href="@{/songs}"><label>Music</label></a></div>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col" align="center"><a class="nav-link" th:href="@{/requests}"><label>Requests</label></a></div>
+                    <div class="col" align="center"><a class="nav-link" th:href="@{/}"><label>Strona główna</label></a></div>
+                    <div class="col" align="center"><a class="nav-link" th:href="@{/songs}"><label>Muzyka</label></a></div>
                 </div>
             </div>
             <div class="col" align="center">
                 <form class="navbar-form" action="#" th:action="@{/search}" method="get">
                     <div class="row justify-content-center">
                         <div class="col-sm-8 mt-2" align="center">
-                            <input type="text" class="form-control" required="required" placeholder="Search User"
+                            <input type="text" class="form-control" required="required" placeholder="Znajdź użytkownika"
                                    th:name="userName">
                         </div>
                         <div class="col-sm-1 mt-2">
-                            <input id="navSearch" type="submit" value="Search" class="btn btn-primary"/>
+                            <input id="navSearch" type="submit" value="Szukaj" class="btn btn-primary"/>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col col-md-3"></div>
+
+            <div class="col col-md-3 py-1" align="center">
+                <div class="row d-flex justify-content-center mt-1">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col" align="center"><a class="nav-link" th:href="@{/requests}"><label>Propozycje użytkowników</label></a></div>
+                </div>
+            </div>
 
             <div class="col col-md-1" align="center">
                 <form method="post" th:action="@{/logout}">
                     <div class="col pt-2">
-                        <input type="submit" class="btn btn-primary navButton" value="Log out"/>
+                        <input type="submit" class="btn btn-primary navButton" value="Wyloguj"/>
                     </div>
                 </form>
             </div>

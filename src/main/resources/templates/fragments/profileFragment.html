@@ -9,7 +9,7 @@
     <div class="panel panel-white post panel-shadow m-1 p-3">
         <div class="row" align="center">
             <div class="col" th:if="${message}">
-                <h1 class="alert alert-danger" th:text="${message}"></h1>
+                <h1 class="alert alert-danger errotText" th:text="${message}"></h1>
             </div>
         </div>
 
@@ -17,9 +17,9 @@
             <div class="col-md-12">
 
                 <ul class="nav nav-tabs">
-                    <li class="active"><a class="btn btn-light mr-1" data-toggle="tab" href="#profile">Home&emsp;</a>
+                    <li class="active"><a class="btn btn-light mr-1" data-toggle="tab" href="#profile">Profil&emsp;</a>
                     </li>
-                    <li><a class="btn btn-light" data-toggle="tab" href="#preferences">Preferences</a></li>
+                    <li><a class="btn btn-light" data-toggle="tab" href="#preferences">Preferencje</a></li>
                 </ul>
 
                 <div class="tab-content mt-3">
@@ -33,13 +33,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="username"><h6>User name:</h6></label>
+                                                <label for="username"><h6>Nazwa użytkownika:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" th:name="username" id="username"
                                                        minlength="2" maxlength="30"
                                                        th:placeholder="${user.username}"
-                                                       title="enter your new user name.">
+                                                       title="Wprowadź nową nazwę użytkownika.">
                                             </div>
                                         </div>
                                     </div>
@@ -48,11 +48,11 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="email"><h6>Email:</h6></label>
+                                                <label for="email"><h6>E-mail:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="email" class="form-control" th:name="email" id="email"
-                                                       th:placeholder="${user.email}" title="enter your new email.">
+                                                       th:placeholder="${user.email}" title="Wprowadź nowy adres e-mail.">
                                             </div>
                                         </div>
                                     </div>
@@ -64,13 +64,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="firstname"><h6>First name:</h6></label>
+                                                <label for="firstname"><h6>Imię:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" th:name="firstname"
                                                        id="firstname"
                                                        th:placeholder="${user.firstName}"
-                                                       title="enter your new first name.">
+                                                       title="Zmień imię.">
                                             </div>
                                         </div>
                                     </div>
@@ -80,12 +80,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="lastname"><h6>Last name:</h6></label>
+                                                <label for="lastname"><h6>Nazwisko:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" th:name="lastname" id="lastname"
                                                        th:placeholder="${user.lastName}"
-                                                       title="enter your new last name.">
+                                                       title="Zmień nazwisko.">
                                             </div>
                                         </div>
                                     </div>
@@ -97,13 +97,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="password"><h6 id="passTitle">Password:</h6></label>
+                                                <label for="password"><h6 id="passTitle">Hasło:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="password" onchange='check_pass();' class="form-control"
                                                        th:name="password"
                                                        id="password"
-                                                       title="enter your password." minlength="5">
+                                                       title="Wprowadź nowe hasło" minlength="5">
                                             </div>
                                         </div>
                                     </div>
@@ -112,13 +112,13 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="password2"><h6 id="verifyPassTitle">Confirm:</h6></label>
+                                                <label for="password2"><h6 id="verifyPassTitle">Potwierdź hasło:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="password" onchange='check_pass();' class="form-control"
                                                        name="password2"
                                                        id="password2"
-                                                       title="enter your password2.">
+                                                       title="Wprowadź nowe hasło">
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h6 class="mt-1">Upload a different photo...</h6>
+                                        <h6 class="mt-1">Zmień zdjęcie profilowe.</h6>
                                         <input type="file" class="text-center center-block file-upload"
                                                onchange="readURL(this);" name="file">
                                     </div>
@@ -150,10 +150,10 @@
                                 <div class="col-md-12">
                                     <div class="row justify-content-end">
                                         <div>
-                                            <button class="btn btn-success mr-1" type="submit">Save</button>
+                                            <button class="btn btn-success mr-1" type="submit">Zapisz</button>
                                         </div>
                                         <div>
-                                            <button class="btn btn-danger" type="reset">Reset</button>
+                                            <button class="btn btn-danger" type="reset">Wyczyść</button>
                                         </div>
                                     </div>
                                 </div>
@@ -170,12 +170,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="song"><h6>Favourite Song:</h6></label>
+                                                <label for="song"><h6>Ulubiony utwór:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="song"
                                                        th:name="title"
-                                                       placeholder="Song title"
+                                                       placeholder="Tytuł"
                                                        th:value="${user.preference.favSong} ? ${user.preference.favSong.title} : ''">
                                             </div>
                                         </div>
@@ -185,12 +185,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="song_artist"><h6>By:</h6></label>
+                                                <label for="song_artist"><h6>W wykonaniu:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="song_artist"
                                                        th:name="songArtist"
-                                                       placeholder="Made by"
+                                                       placeholder="Wykonawca"
                                                        th:value="${user.preference.favSong} ? ${user.preference.favSong.artist} : ''">
                                             </div>
                                         </div>
@@ -203,12 +203,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="artist"><h6>Favourite Artist:</h6></label>
+                                                <label for="artist"><h6>Ulubiony wykonawca:</h6></label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" id="artist"
                                                        th:name="artist"
-                                                       th:placeholder="${user.preference.favArtist} ?: 'Artist name'">
+                                                       th:placeholder="${user.preference.favArtist} ?: 'Ulubiony Wykonawca'">
                                             </div>
                                         </div>
                                     </div>
@@ -217,11 +217,11 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="genre"><h6>Favourite Genre:</h6></label>
+                                                <label for="genre"><h6>Ulubiony gatunek:</h6></label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="form-control" id="genre" th:name="genre" th:value="${user.preference.favGenre} ?: 'Genre name'">
-                                                    <option value="" disabled selected>Choose Genre</option>
+                                                <select class="form-control" id="genre" th:name="genre" th:value="${user.preference.favGenre} ?: 'Gatunek'">
+                                                    <option value="" disabled selected>Wybierz Gatunek</option>
                                                     <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
                                                 </select>
                                             </div>
@@ -234,10 +234,10 @@
                                 <div class="col-md-12">
                                     <div class="row justify-content-end">
                                         <div>
-                                            <button class="btn btn-success mr-1" type="submit">Save</button>
+                                            <button class="btn btn-success mr-1" type="submit">Zapisz</button>
                                         </div>
                                         <div>
-                                            <button class="btn btn-danger" type="reset">Reset</button>
+                                            <button class="btn btn-danger" type="reset">Wyczyść</button>
                                         </div>
                                     </div>
                                 </div>

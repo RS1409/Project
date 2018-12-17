@@ -43,7 +43,7 @@
                             <div class="col-md-12" align="center">
                                 <form th:action="@{/profile}" method="get">
                                     <input type="submit" class="btn btn-primary col-sm-6"
-                                           value="Edit profile"/>
+                                           value="Edytuj profil"/>
                                 </form>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             <div class="col-md-12" align="center">
                                 <form th:action="@{/myPreferences}" method="get">
                                     <input type="submit" class="btn btn-primary col-sm-6"
-                                           value="My preferences"/>
+                                           value="Moje preferencje"/>
                                 </form>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <div class="col-md-12" align="center">
                                 <form action="#" th:action="myFriends" method="get">
                                     <input type="submit" class="btn btn-primary col-sm-6"
-                                           value="My friends"/>
+                                           value="Znajomi"/>
                                 </form>
                             </div>
                         </div>
@@ -121,14 +121,14 @@
                     <div th:if="${user.newRequests}">
                         <div class="panel panel-white post panel-shadow p-3 my-3 mx-2">
                             <div class="alert alert-success" role="alert">
-                                <p id="friendsMessage">You have new friend requests!</p>
+                                <p id="friendsMessage">Masz nowe zaproszenie do grona znajomych!</p>
                             </div>
 
                             <form th:action="@{/myFriends}" method="get">
                                 <div class="row m-1 d-flex justify-content-end">
                                     <input type="submit"
                                            class="btn btn-primary col-sm-4"
-                                           value="Check"/>
+                                           value="Sprawdź"/>
                                 </div>
                             </form>
                         </div>
@@ -136,7 +136,7 @@
                     <div th:if="${not #lists.isEmpty(user.notifications)}">
                         <div class="panel panel-white post panel-shadow p-3 my-3 mx-2">
                             <div class="alert alert-success" role="alert">
-                                <p id="notificetionMessage">You have new messages:</p>
+                                <p id="notificetionMessage">Masz nowe wiadomości:</p>
                             </div>
                             <div th:each="notification : ${user.notifications}">
                                 <form th:action="@{/startConversation}" method="get">
@@ -145,7 +145,7 @@
                                         <div th:text="${notification.fromUser}" id="messageFrom"></div>
                                         <input type="submit"
                                                class="btn btn-primary col-sm-4"
-                                               value="Reply"/>
+                                               value="Odpowiedz"/>
                                     </div>
                                 </form>
                             </div>
@@ -157,59 +157,7 @@
     </div>
 </div>
 
-
-<script>
-function hideComments(id) {
-    var x = document.getElementById(id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function check_pass() {
-    if (document.getElementById('password').value ==
-            document.getElementById('password2').value) {
-        document.getElementById('saveButton').disabled = false;
-        document.getElementById('passTitle').style.color = 'green';
-        document.getElementById('verifyPassTitle').style.color = 'green';
-    } else {
-        document.getElementById('saveButton').disabled = true;
-        document.getElementById('passTitle').style.color = 'red';
-        document.getElementById('verifyPassTitle').style.color = 'red';
-    }
-}
-
-function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#img')
-                    .attr('src', e.target.result)
-                    .width(300)
-                    .height(300);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-
-function scrollDown(){
-    var element = document.getElementById('chatScroll');
-    element.scrollTop = element.scrollHeight;
-}
-
-
-
-
-
-
-
-
-</script>
+<script src="/js/homepage.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

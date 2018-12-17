@@ -23,6 +23,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     List<Song> findAllByStatus(Song.Status status);
     List<Song> findByStatus(Song.Status status, Pageable pageable);
-
     Song findByArtistAndTitle(String artist, String title);
+    List<Song> findByArtist(String Artist);
 }

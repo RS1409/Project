@@ -13,7 +13,7 @@
                 <div class="top">
                     <div class="row" align="center">
                         <div class="col-md-12" align="center">
-                            <h4>You have new friend requests:</h4>
+                            <h4>Masz nowe zaproszenia do grona znajomych:</h4>
                         </div>
                     </div>
                 </div>
@@ -43,11 +43,11 @@
                                                     <div class="col-sm-12">
                                                         <div class="row">
                                                             <div class="col-sm-6">
-                                                                <input type="submit" th:name="Accept" value="Accept"
+                                                                <input type="submit" th:name="Accept" value="Akceptuj"
                                                                        class="btn btn-primary mt-2">
                                                             </div>
                                                             <div class="col-sm-6">
-                                                                <input type="submit" th:name="Decline" value="Decline"
+                                                                <input type="submit" th:name="Decline" value="Odrzuć"
                                                                        class="btn btn-primary mt-2">
                                                             </div>
                                                         </div>
@@ -69,7 +69,7 @@
         <div class="panel panel-white post panel-shadow m-1 p-3">
             <div class="top">
                 <div class="col-md-12" align="center">
-                    <h4>My Friends:</h4>
+                    <h4>Moi znajomi:</h4>
                 </div>
             </div>
             <div class="card">
@@ -91,7 +91,7 @@
                                         <div class="col-md-2 pr-3">
                                             <form th:action="@{/startConversation}" method="get">
                                                 <input type="hidden" th:value="${friend.from.id}" th:name="userId">
-                                                <input type="submit" class="btn btn-primary" value="Send Message">
+                                                <input type="submit" class="btn btn-primary" value="Wyślij wiadomość">
                                             </form>
                                         </div>
                                     </div>

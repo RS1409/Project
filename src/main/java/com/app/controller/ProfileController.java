@@ -97,23 +97,31 @@ public class ProfileController {
                                   @RequestParam(required = false) String artist,
                                   @RequestParam(required = false) String genre,
                                   @ModelAttribute Preference preference) {
-        if (artist.length() > 0)
-            preference.setFavArtist(artist);
-        if (genre.length() > 0)
-            preference.setFavGenre(genre);
 
-        if (title.length() > 0 && songArtist.length()>0) {
+        if (!artist.isEmpty()) {
+            if (songRepository.findByArtist(artist).isEmpty()) {
+                message = "Nie znaleziono wykonawcy w naszym katalogu. Pomóż nam go rozbudować!";
+            } else preference.setFavArtist(artist);
+        } else preference.setFavArtist(user.getPreference().getFavArtist());
+
+
+        if (genre != null)
+            preference.setFavGenre(genre);
+        else preference.setFavGenre(user.getPreference().getFavGenre());
+
+
+        if (title.length() > 0 && songArtist.length() > 0) {
             if (songRepository.findByArtistAndTitle(songArtist, title) == null) {
-                message = "There is no song with this artist name and title in our database. Feel free to add it!";
-                return "redirect:/profile";
+                message = "Nie znaleziono utworu w naszym katalogu. Pomóż nam go rozbudować!";
             } else
                 preference.setFavSong(songRepository.findByArtistAndTitle(songArtist, title));
-        }
+        } else preference.setFavSong(user.getPreference().getFavSong());
+
 
         preferenceRepository.save(preference);
         user.addPreference(preference);
         userRepository.save(user);
-        return "redirect:/mypage";
+        return "redirect:/profile";
     }
 
 }

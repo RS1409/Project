@@ -40,7 +40,7 @@
                                     <form th:action="@{/addFriend}" method="get">
                                         <input type="hidden" th:value="${user.id}" th:name="userId">
                                         <input type="submit" class="btn btn-primary col-sm-6"
-                                               value="Add to friends"/>
+                                               value="Zostań znajomym"/>
                                     </form>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="col-md-12" align="center">
                                 <form th:action="@{/startConversation}" method="get">
                                     <input type="hidden" th:value="${user.id}" th:name="userId">
-                                    <input type="submit" class="btn btn-primary col-sm-6" value="Send message"/>
+                                    <input type="submit" class="btn btn-primary col-sm-6" value="Wyślij wiadomość"/>
                                 </form>
                             </div>
                         </div>
@@ -75,101 +75,85 @@
 
                                             <div class="col-md-6 align-self-center">
                                                 <div class="row meta">
-                                                    <h5 class="user"><b th:text="${user.firstName} + '  ' + ${user.lastName}"></b>
-                                                        <small class="time"><b th:text="${post.date}"></b></small></h5>
+                                                    <h5 class="user"><b
+                                                            th:text="${user.firstName} + '  ' + ${user.lastName}"></b>
+                                                        <small class="time"><b th:text="${post.date}"></b></small>
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="post-description">
-                                            <p th:text="${post.content}"></p>
+                                    <div class="post-description">
+                                        <p th:text="${post.content}"></p>
+                                    </div>
+                                    <div class="post-footer">
+                                        <div class="input-group">
+                                            <div class="row w-100">
+                                                <div class="col-md-12">
+                                                    <form method="post" action="#"
+                                                          th:action="@{/users/commentPost}">
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <input class="form-control" required="required"
+                                                                       placeholder="Dodaj komentarz" type="text"
+                                                                       name="commentContent" autocomplete="off">
+                                                                <input type="hidden" th:value="${post.id}"
+                                                                       th:name="postId">
+                                                                <input type="hidden" th:value="${user.id}"
+                                                                       th:name="userId">
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <input type="submit" class="btn btn-primary"
+                                                                       value="Skomentuj">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="post-footer">
-                                            <div class="input-group">
-                                                <div class="row w-100">
-                                                    <div class="col-md-12">
-                                                        <form method="post" action="#"
-                                                              th:action="@{/users/commentPost}">
-                                                            <div class="row">
-                                                                <div class="col-md-10">
-                                                                    <input class="form-control" required="required"
-                                                                           placeholder="Add a comment" type="text"
-                                                                           name="commentContent" autocomplete="off">
-                                                                    <input type="hidden" th:value="${post.id}"
-                                                                           th:name="postId">
-                                                                    <input type="hidden" th:value="${user.id}"
-                                                                           th:name="userId">
-                                                                </div>
-                                                                <div class="col-md-2">
-                                                                    <input type="submit" class="btn btn-primary"
-                                                                           value="Comment">
-                                                                </div>
+                                        <div class="row">
+                                            <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'"
+                                                    class="btn btn-primary w-100 m-3">Pokaż komentarze(<b
+                                                    th:text="${post.commentAmount}"></b>)
+                                            </button>
+                                        </div>
+                                        <div th:id="${post.id}" style="display: none;">
+                                            <div th:each="comment : ${post.comments}">
+                                                <ul class="comments-list">
+                                                    <li class="comment">
+                                                        <div class="comment-body">
+                                                            <div class="comment-heading">
+                                                                <h4 class="user"><b
+                                                                        th:text="${comment.authorName}"></b>
+                                                                </h4>
+                                                                <h5 class="time"><b th:text="${comment.date}"></b>
+                                                                </h5>
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <button th:onclick="'javascript:hideComments(\'' + ${post.id} + '\');'"
-                                                        class="btn btn-primary w-100 m-3">Show comments(<b
-                                                        th:text="${post.commentAmount}"></b>)
-                                                </button>
-                                            </div>
-                                            <div th:id="${post.id}" style="display: none;">
-                                                <div th:each="comment : ${post.comments}">
-                                                    <ul class="comments-list">
-                                                        <li class="comment">
-                                                            <div class="comment-body">
-                                                                <div class="comment-heading">
-                                                                    <h4 class="user"><b
-                                                                            th:text="${comment.authorName}"></b>
-                                                                    </h4>
-                                                                    <h5 class="time"><b th:text="${comment.date}"></b>
-                                                                    </h5>
-                                                                </div>
-                                                                <p>
-                                                                <p th:text="${comment.content}"></p></p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                            <p>
+                                                            <p th:text="${comment.content}"></p></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <br>
                         </div>
+                        <br>
+                        <br>
                     </div>
-                    <div class="col-md-3 p-0 right">
+                </div>
+                <div class="col-md-3 p-0 right">
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-function hideComments(id) {
-    var x = document.getElementById(id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-
-
-
-
-
-
-
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/homepage.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

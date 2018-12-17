@@ -15,13 +15,13 @@
     <div class="container pt-5">
         <div class="row justify-content-md-center">
             <div>
-                <h1 class="font-weight-bold" id="welcome">Welcome to Tunas!</h1>
+                <h1 class="font-weight-bold" id="welcome">Witamy na Tunas!</h1>
             </div>
 
         </div>
         <div class="row justify-content-md-center">
             <div>
-                <h1 id="logreg">Log in or register</h1>
+                <h1 id="logreg">Zaloguj się lub zarejestruj</h1>
             </div>
         </div>
     </div>
@@ -30,23 +30,23 @@
             <div class="jumbotron mt-5 px-5 pt-5 pb-2">
                 <form th:action="@{/login}" method="post">
                     <div class="py-2" th:if="${param.error}">
-                        <div class="alert alert-danger">Incorrect login or password</div>
+                        <div class="alert alert-danger">Nieprawidłowy login lub hasło</div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">User name:</label>
+                        <label for="exampleInputEmail1">Nazwa użytkownika:</label>
                         <input type="test" name="username" class="form-control" id="exampleInputEmail1"
-                               aria-describedby="emailHelp" placeholder="User name">
+                               aria-describedby="emailHelp" placeholder="login">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password:</label>
+                        <label for="exampleInputPassword1">Hasło:</label>
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1"
-                               placeholder="Password">
+                               placeholder="hasło">
                     </div>
                     <button type="submit" class="btn btn-primary">Log in</button>
                 </form>
 
-                <div class="mt-4"><a th:href="@{/reg}"> Don't have an account yet? Register now!</a></div>
+                <div class="mt-4"><a th:href="@{/reg}"> Nie masz jeszcze konta? Zarejestruj się!</a></div>
 
 
             </div>

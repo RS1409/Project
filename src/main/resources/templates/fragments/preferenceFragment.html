@@ -9,7 +9,7 @@
     <div class="panel panel-white post panel-shadow p-3 my-3">
         <div class="row">
             <div class="col-md-12" align="center">
-                <h4>Preferences:</h4>
+                <h4>Preferencje:</h4>
             </div>
         </div>
 
@@ -18,11 +18,11 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-2">
-                            <label for="song"><h6>Favourite Song:</h6></label>
+                            <label for="song"><h6>Ulubiony utwór:</h6></label>
                         </div>
                         <div class="col-md-10">
                             <b id="song"
-                                  th:text="${user.preference.favSong} ? ${user.preference.favSong.title} + ' - ' +${user.preference.favSong.artist} : 'Empty'"></b>
+                                  th:text="${user.preference.favSong} ? ${user.preference.favSong.title} + ' - ' +${user.preference.favSong.artist} : 'Nie wybrano'"></b>
                         </div>
                     </div>
                 </div>
@@ -32,10 +32,10 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="artist"><h6>Favourite Artist:</h6></label>
+                            <label for="artist"><h6>Ulubiony wykonawca:</h6></label>
                         </div>
                         <div class="col-md-8">
-                            <b id="artist" th:text="${user.preference.favArtist} ?: 'Empty'"></b>
+                            <b id="artist" th:text="${user.preference.favArtist} ?: 'Nie wybrano'"></b>
                         </div>
                     </div>
                 </div>
@@ -43,10 +43,10 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="genre"><h6>Favourite Genre:</h6></label>
+                            <label for="genre"><h6>Ulubiony gatunek:</h6></label>
                         </div>
                         <div class="col-md-8">
-                            <b id="genre" th:text="${user.preference.favGenre} ?: 'Empty'"></b>
+                            <b id="genre" th:text="${user.preference.favGenre} ?: 'Nie wybrano'"></b>
                         </div>
                     </div>
                 </div>

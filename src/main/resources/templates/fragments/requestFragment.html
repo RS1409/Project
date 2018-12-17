@@ -11,35 +11,42 @@
             <div class="container">
                 <div class="row" align="center">
                     <div class="col-md-12 col-md-offset-4">
-                        <h4>Song Requests:</h4>
+                        <h4>Propozycje użytkowników:</h4>
                     </div>
                 </div>
-                <div class="row border">
-                    <div class="shadow w-100">
-                        <div th:each="request: ${received}">
+
+                <div th:each="request: ${received}">
+                    <div class="row border my-1">
+                        <div class="shadow w-100">
                             <form action="#" th:action="@{/songRequestAction}" method="post"
                                   class="form-horizontal w-100">
                                 <div class="form-group ">
                                     <div class="row">
-                                        <div class="col-lg-1">
+                                        <div class="col-md-1">
                                             <span class="font-weight-bold" th:text="${request.id}"/>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-md-6">
                                             <span th:text="${request.artist}"/>
                                             <span> - </span>
                                             <span th:text="${request.title}"/>
                                         </div>
-
+                                        <div class="col-md-2 offset-md-1">
+                                            <input type="submit" th:name="Accept" value="Akceptuj"
+                                                   class="btn btn-primary m-1"></div>
+                                        <div class="col-md-2">
+                                            <input type="submit" th:name="Delete" value="Odrzuć"
+                                                   class="btn btn-primary m-1"></div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-md-4">
                                             <span class="font-weight-bold">album: </span>
                                             <span th:text="${request.album}"/>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <span class="font-weight-bold">genre: </span>
+                                        <div class="col-md-4">
+                                            <span class="font-weight-bold">gatunek: </span>
                                             <span th:text="${request.genre}"/>
                                         </div>
                                     </div>
@@ -47,18 +54,10 @@
                                 <div class="form-group">
                                     <input type="hidden" th:value="${request.id}" th:name="songRequestId">
                                     <div class="row">
-                                        <div class="col-lg-7">
-                                            <span class="font-weight-bold">source: </span>
+                                        <div class="col-md-9">
+                                            <span class="font-weight-bold">źródło: </span>
                                             <a class="font-italic" th:href="${request.link}" th:text="${request.link}"
                                                target="_blank"></a>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <input type="submit" th:name="Accept" value="Accept"
-                                                   class="btn btn-primary w-100">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <input type="submit" th:name="Delete" value="Delete"
-                                                   class="btn btn-primary w-100">
                                         </div>
                                     </div>
                                 </div>

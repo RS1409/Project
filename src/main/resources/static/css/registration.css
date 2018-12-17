@@ -19,3 +19,7 @@ html, body{
      background-position: center center;
      overflow-y: scroll;
      }
+
+.labels {
+font-size: 16px
+}
