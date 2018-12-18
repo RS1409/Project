@@ -61,13 +61,13 @@ public class ProfileController {
                               @RequestParam("file") MultipartFile file,
                               Model model) {
         if (userRepository.findByUsername(username) != null) {
-            message = "User with this name already exists";
+            message = "Nazwa użytkownika jest zajęta.";
             System.out.println("User Exists");
             return "redirect:/profile";
         }
 
         if (userRepository.findByEmail(email) != null) {
-            message = "This email is already used";
+            message = "Istnieje konto używające tego adresu e-mail.";
             System.out.println("User Exists");
             return "redirect:/profile";
         }

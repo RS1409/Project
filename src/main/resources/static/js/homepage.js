@@ -27,8 +27,8 @@ function readURL(input) {
             reader.onload = function (e) {
                 $('#img')
                     .attr('src', e.target.result)
-                    .width(300)
-                    .height(300);
+                    .width(150)
+                    .height(150);
             };
 
             reader.readAsDataURL(input.files[0]);
